@@ -13,37 +13,43 @@ const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 const P = [];
 const add = s => P.push(s);
 
+// Realistic 3D rack/tower server (draw.io citrix-tower style): tall box with
+// stacked rack-unit bays across the face, 3D top + right side, status LED.
 function towerIcon(cx, cy, c) {
-  const w = 42, h = 64, d = 8;
+  const w = 46, h = 70, d = 9;
   const x = cx - w/2, y = cy - h/2;
   let g = `<g filter="url(#sh)">`;
-  g += `<polygon points="${x},${y} ${x+d},${y-d} ${x+w+d},${y-d} ${x+w},${y}" fill="${c.edge}"/>`;       // top
+  g += `<polygon points="${x},${y} ${x+d},${y-d} ${x+w+d},${y-d} ${x+w},${y}" fill="${c.edge}"/>`;        // top
   g += `<polygon points="${x+w},${y} ${x+w+d},${y-d} ${x+w+d},${y+h-d} ${x+w},${y+h}" fill="${c.dark}"/>`; // side
-  g += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${c.face}" stroke="${c.edge}" stroke-width="1.4"/>`;
-  for (let i=0;i<4;i++) g += `<rect x="${x+6}" y="${y+7+i*5}" width="24" height="2.6" rx="1.3" fill="${c.edge}" opacity="0.55"/>`;
-  g += `<circle cx="${x+34}" cy="${y+9}" r="2.8" fill="${c.led}"/>`;
-  g += `<rect x="${x+7}" y="${y+h-20}" width="28" height="6" rx="2" fill="#ffffff" opacity="0.6" stroke="${c.edge}" stroke-width="0.6"/>`;
-  g += `<rect x="${x+7}" y="${y+h-11}" width="28" height="6" rx="2" fill="#ffffff" opacity="0.6" stroke="${c.edge}" stroke-width="0.6"/>`;
+  g += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3.5" fill="${c.face}" stroke="${c.edge}" stroke-width="1.5"/>`;
+  // stacked rack-unit bays
+  for (let i=0;i<6;i++) {
+    const by = y + 7 + i*9.3;
+    g += `<rect x="${x+5}" y="${by}" width="${w-10}" height="6.4" rx="1.6" fill="#ffffff" opacity="0.62" stroke="${c.edge}" stroke-width="0.7"/>`;
+    g += `<circle cx="${x+w-9}" cy="${by+3.2}" r="1.5" fill="${c.edge}" opacity="0.8"/>`;
+  }
+  g += `<circle cx="${x+9}" cy="${y+h-6}" r="2.4" fill="${c.led}"/>`;
   g += `</g>`;
   add(g);
   return cy + h/2;
 }
+// Reverse-proxy / nginx node as a stacked-disk server (draw.io proxy_server style).
 function proxyIcon(cx, cy, c) {
-  const w = 70, h = 34, d = 6;
-  const x = cx - w/2, y = cy - h/2;
+  const rx = 26, ry = 8, gap = 12;
   let g = `<g filter="url(#sh)">`;
-  g += `<polygon points="${x},${y} ${x+d},${y-d} ${x+w+d},${y-d} ${x+w},${y}" fill="${c.edge}"/>`;
-  g += `<polygon points="${x+w},${y} ${x+w+d},${y-d} ${x+w+d},${y+h-d} ${x+w},${y+h}" fill="${c.dark}"/>`;
-  g += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${c.face}" stroke="${c.edge}" stroke-width="1.4"/>`;
-  // direction chevrons
-  g += `<path d="M${x+12} ${y+10} l8 7 l-8 7" fill="none" stroke="${c.dark}" stroke-width="2"/>`;
-  g += `<path d="M${x+26} ${y+10} l8 7 l-8 7" fill="none" stroke="${c.dark}" stroke-width="2" opacity="0.6"/>`;
-  // ports
-  for (let i=0;i<4;i++) g += `<rect x="${x+42+i*6}" y="${y+h-9}" width="4" height="5" rx="1" fill="${c.dark}"/>`;
-  g += `<circle cx="${x+w-9}" cy="${y+9}" r="2.6" fill="${c.led}"/>`;
+  // body sides between bottom and top disk
+  g += `<rect x="${cx-rx}" y="${cy-gap}" width="${rx*2}" height="${gap*2}" fill="${c.face}" stroke="${c.edge}" stroke-width="1.4"/>`;
+  g += `<line x1="${cx-rx}" y1="${cy-gap}" x2="${cx-rx}" y2="${cy+gap}" stroke="${c.edge}" stroke-width="1.4"/>`;
+  g += `<line x1="${cx+rx}" y1="${cy-gap}" x2="${cx+rx}" y2="${cy+gap}" stroke="${c.edge}" stroke-width="1.4"/>`;
+  // plates (bottom to top)
+  for (let i=2;i>=0;i--) {
+    const cyl = cy - gap + i*gap;
+    g += `<ellipse cx="${cx}" cy="${cyl}" rx="${rx}" ry="${ry}" fill="${c.face}" stroke="${c.edge}" stroke-width="1.4"/>`;
+  }
+  g += `<circle cx="${cx+rx-9}" cy="${cy-gap}" r="2.2" fill="${c.led}"/>`;
   g += `</g>`;
   add(g);
-  return cy + h/2;
+  return cy + gap + ry;
 }
 function pcIcon(cx, cy, c) {
   const w = 58, h = 38;
