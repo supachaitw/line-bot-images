@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="720" viewBox="0 0 1180 720" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- gradients -->
+    <linearGradient id="serverFront" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b6b7c"/>
+      <stop offset="1" stop-color="#3a4654"/>
+    </linearGradient>
+    <linearGradient id="serverTop" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#74859a"/>
+      <stop offset="1" stop-color="#5b6b7c"/>
+    </linearGradient>
+    <linearGradient id="appFront" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a8f5f"/>
+      <stop offset="1" stop-color="#256b43"/>
+    </linearGradient>
+    <linearGradient id="appTop" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#52a878"/>
+      <stop offset="1" stop-color="#3a8f5f"/>
+    </linearGradient>
+    <linearGradient id="repoFront" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a4a78"/>
+      <stop offset="1" stop-color="#3f3357"/>
+    </linearGradient>
+    <linearGradient id="repoTop" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7460a0"/>
+      <stop offset="1" stop-color="#5a4a78"/>
+    </linearGradient>
+    <linearGradient id="phoneScreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef3f8"/>
+      <stop offset="1" stop-color="#d4dee8"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="0.5" cy="0.1" r="1">
+      <stop offset="0" stop-color="#fbfcfe"/>
+      <stop offset="1" stop-color="#eef1f6"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#1c2530" flood-opacity="0.22"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5b6b7c"/>
+    </marker>
+    <marker id="arrowR" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#9aa6b2"/>
+    </marker>
+  </defs>
+
+  <rect width="1180" height="720" fill="url(#bg)"/>
+  <text x="40" y="50" font-size="26" font-weight="700" fill="#2a3340">LINE Bot — Product Image Service</text>
+  <text x="40" y="74" font-size="14" fill="#7a8794">Infrastructure &amp; Network Diagram</text>
+
+  <!-- ===================== USER ZONE ===================== -->
+  <g>
+    <rect x="40" y="120" width="220" height="470" rx="14" fill="#ffffff" stroke="#cdd6e0" stroke-dasharray="6 5"/>
+    <text x="150" y="148" font-size="13" font-weight="700" fill="#8a97a4" text-anchor="middle" letter-spacing="1">USER ZONE</text>
+
+    <!-- Phone with LINE app -->
+    <g filter="url(#shadow)" transform="translate(95,210)">
+      <rect x="0" y="0" width="110" height="200" rx="20" fill="#2a3340"/>
+      <rect x="9" y="22" width="92" height="156" rx="6" fill="url(#phoneScreen)"/>
+      <circle cx="55" cy="190" r="6" fill="#46525f"/>
+      <rect x="40" y="10" width="30" height="5" rx="2.5" fill="#46525f"/>
+      <!-- chat bubbles -->
+      <rect x="18" y="34" width="58" height="20" rx="8" fill="#06c755"/>
+      <rect x="34" y="60" width="58" height="20" rx="8" fill="#ffffff" stroke="#cdd6e0"/>
+      <rect x="18" y="86" width="74" height="46" rx="8" fill="#ffffff" stroke="#cdd6e0"/>
+      <rect x="24" y="92" width="62" height="34" rx="4" fill="#d4dee8"/>
+      <circle cx="40" cy="104" r="5" fill="#aebccb"/>
+      <path d="M30 120 L46 106 L58 116 L70 104 L80 120 Z" fill="#aebccb"/>
+    </g>
+    <text x="150" y="448" font-size="15" font-weight="700" fill="#2a3340" text-anchor="middle">Customer</text>
+    <text x="150" y="468" font-size="12" fill="#7a8794" text-anchor="middle">LINE Mobile App</text>
+  </g>
+
+  <!-- ===================== LINE PLATFORM (cloud) ===================== -->
+  <g>
+    <g filter="url(#shadow)" transform="translate(330,150)">
+      <path d="M60 70 a44 44 0 0 1 84 -16 a36 36 0 0 1 52 18 a40 40 0 0 1 4 80 H44 a40 40 0 0 1 -8 -79 a40 40 0 0 1 24 -3 Z"
+            fill="#06c755"/>
+    </g>
+    <text x="450" y="235" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">LINE Platform</text>
+    <text x="450" y="256" font-size="12" fill="#e7fbef" text-anchor="middle">Messaging API</text>
+    <text x="450" y="295" font-size="11" fill="#7a8794" text-anchor="middle">api.line.me · Webhook delivery</text>
+  </g>
+
+  <!-- ===================== CLOUD / BACKEND ZONE ===================== -->
+  <g>
+    <rect x="320" y="340" width="500" height="250" rx="14" fill="#ffffff" stroke="#cdd6e0" stroke-dasharray="6 5"/>
+    <text x="340" y="368" font-size="13" font-weight="700" fill="#8a97a4" letter-spacing="1">APPLICATION / HOSTING ZONE</text>
+
+    <!-- Bot application server (3D server) -->
+    <g filter="url(#shadow)" transform="translate(370,400)">
+      <!-- top -->
+      <polygon points="0,18 26,0 138,0 112,18" fill="url(#appTop)"/>
+      <!-- side -->
+      <polygon points="112,18 138,0 138,150 112,168" fill="#1f5a37"/>
+      <!-- front -->
+      <rect x="0" y="18" width="112" height="150" fill="url(#appFront)"/>
+      <!-- rack slots -->
+      <g fill="#ffffff" opacity="0.85">
+        <rect x="12" y="34" width="74" height="10" rx="2"/>
+        <rect x="12" y="54" width="74" height="10" rx="2"/>
+        <rect x="12" y="74" width="74" height="10" rx="2"/>
+        <rect x="12" y="120" width="74" height="10" rx="2"/>
+        <rect x="12" y="140" width="74" height="10" rx="2"/>
+      </g>
+      <circle cx="92" cy="39" r="3.5" fill="#9dffc6"/>
+      <circle cx="92" cy="59" r="3.5" fill="#9dffc6"/>
+    </g>
+    <text x="426" y="586" font-size="14" font-weight="700" fill="#2a3340" text-anchor="middle">Bot Server</text>
+    <text x="426" y="604" font-size="11" fill="#7a8794" text-anchor="middle">Webhook handler</text>
+
+    <!-- Image repository server (3D server, purple) -->
+    <g filter="url(#shadow)" transform="translate(640,400)">
+      <polygon points="0,18 26,0 138,0 112,18" fill="url(#repoTop)"/>
+      <polygon points="112,18 138,0 138,150 112,168" fill="#322748"/>
+      <rect x="0" y="18" width="112" height="150" fill="url(#repoFront)"/>
+      <g fill="#ffffff" opacity="0.85">
+        <rect x="12" y="34" width="74" height="10" rx="2"/>
+        <rect x="12" y="54" width="74" height="10" rx="2"/>
+        <rect x="12" y="74" width="74" height="10" rx="2"/>
+        <rect x="12" y="120" width="74" height="10" rx="2"/>
+        <rect x="12" y="140" width="74" height="10" rx="2"/>
+      </g>
+      <circle cx="92" cy="39" r="3.5" fill="#c7b3ff"/>
+      <circle cx="92" cy="59" r="3.5" fill="#c7b3ff"/>
+    </g>
+    <text x="696" y="586" font-size="14" font-weight="700" fill="#2a3340" text-anchor="middle">Image Host</text>
+    <text x="696" y="604" font-size="11" fill="#7a8794" text-anchor="middle">GitHub raw / CDN</text>
+  </g>
+
+  <!-- ===================== STORAGE ZONE ===================== -->
+  <g>
+    <rect x="900" y="340" width="240" height="250" rx="14" fill="#ffffff" stroke="#cdd6e0" stroke-dasharray="6 5"/>
+    <text x="1020" y="368" font-size="13" font-weight="700" fill="#8a97a4" text-anchor="middle" letter-spacing="1">STORAGE</text>
+
+    <!-- DB cylinder -->
+    <g filter="url(#shadow)" transform="translate(970,400)">
+      <path d="M0,16 v120 a50 16 0 0 0 100 0 v-120" fill="url(#serverFront)"/>
+      <ellipse cx="50" cy="16" rx="50" ry="16" fill="url(#serverTop)"/>
+      <ellipse cx="50" cy="16" rx="50" ry="16" fill="none" stroke="#2f3a47" opacity="0.3"/>
+      <path d="M0,56 a50 16 0 0 0 100 0" fill="none" stroke="#2f3a47" opacity="0.3"/>
+      <path d="M0,96 a50 16 0 0 0 100 0" fill="none" stroke="#2f3a47" opacity="0.3"/>
+    </g>
+    <text x="1020" y="586" font-size="14" font-weight="700" fill="#2a3340" text-anchor="middle">Image Assets</text>
+    <text x="1020" y="604" font-size="11" fill="#7a8794" text-anchor="middle">badges · uniforms · tags</text>
+  </g>
+
+  <!-- ===================== NETWORK LINKS ===================== -->
+  <!-- user <-> LINE platform -->
+  <path d="M210 300 C 270 280, 300 240, 332 220" fill="none" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M332 250 C 300 270, 270 300, 212 320" fill="none" stroke="#9aa6b2" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowR)"/>
+  <text x="250" y="252" font-size="11" fill="#4a5663" transform="rotate(-22 250 252)">message</text>
+  <text x="250" y="338" font-size="11" fill="#8a97a4" transform="rotate(22 250 338)">image reply</text>
+
+  <!-- LINE platform -> Bot server (webhook) -->
+  <path d="M444 296 L 444 398" fill="none" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="356" y="352" font-size="11" fill="#4a5663" text-anchor="end">HTTPS webhook</text>
+
+  <!-- Bot server -> Image host -->
+  <path d="M540 484 L 636 484" fill="none" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="548" y="476" font-size="11" fill="#4a5663">fetch URL</text>
+
+  <!-- Image host -> Storage -->
+  <path d="M810 484 L 966 484" fill="none" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="850" y="476" font-size="11" fill="#4a5663">read assets</text>
+
+  <!-- Bot server -> LINE platform (reply push) curved -->
+  <path d="M474 398 C 524 332, 524 302, 484 297" fill="none" stroke="#9aa6b2" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowR)"/>
+  <text x="532" y="352" font-size="11" fill="#8a97a4">reply API</text>
+
+  <!-- legend -->
+  <g transform="translate(40,640)">
+    <line x1="0" y1="0" x2="34" y2="0" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="42" y="4" font-size="12" fill="#4a5663">Request flow</text>
+    <line x1="160" y1="0" x2="194" y2="0" stroke="#9aa6b2" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowR)"/>
+    <text x="202" y="4" font-size="12" fill="#4a5663">Response flow</text>
+    <rect x="330" y="-9" width="16" height="16" rx="3" fill="url(#appFront)"/>
+    <text x="352" y="4" font-size="12" fill="#4a5663">App server</text>
+    <rect x="450" y="-9" width="16" height="16" rx="3" fill="url(#repoFront)"/>
+    <text x="472" y="4" font-size="12" fill="#4a5663">Image host</text>
+    <ellipse cx="575" cy="-1" rx="10" ry="6" fill="url(#serverTop)"/>
+    <text x="592" y="4" font-size="12" fill="#4a5663">Storage</text>
+  </g>
+</svg>
