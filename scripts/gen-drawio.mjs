@@ -9,24 +9,32 @@ const STATUS = {
   external: { fill:'#FFF2CC', stroke:'#D6B656' },
   gateway:  { fill:'#DAE8FC', stroke:'#6C8EBF' },
 };
-// icon kinds -> confirmed mxgraph.networks shapes
-const ICON = { pc:'pc', proxy:'proxy_server', server:'server_storage', fw:'firewall' };
+// icon kinds -> stencils. 'server' renders as a Citrix tower server so
+// machine nodes look like physical server towers; proxy/pc use the
+// isometric mxgraph.networks family.
+const NET = { pc:'pc', proxy:'proxy_server', fw:'firewall' };
+function shapeStyle(icon) {
+  if (icon === 'server') return 'shape=mxgraph.citrix.tower_server;aspect=fixed;';
+  return `shape=mxgraph.networks.${NET[icon]};`;
+}
 
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const cells = [];
 let uid = 10;
 const nid = () => 'n' + (uid++);
 
+// Build the node's HTML label, then escape the WHOLE thing for use inside
+// an XML value="" attribute (tags + inner quotes must become entities).
 function label(name, sub) {
-  let v = `<b>${esc(name)}</b>`;
-  if (sub) v += `<br><font style="font-size:9px">${esc(sub)}</font>`;
-  return v;
+  let v = `<b>${name}</b>`;
+  if (sub) v += `<br><font style="font-size:9px">${sub}</font>`;
+  return esc(v);
 }
 
 function node(icon, status, name, sub, x, y, w=72, h=58) {
   const id = nid();
   const s = STATUS[status];
-  const style = `shape=mxgraph.networks.${ICON[icon]};html=1;outlineConnect=0;align=center;`
+  const style = shapeStyle(icon) + `html=1;outlineConnect=0;align=center;`
     + `verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;`
     + `strokeWidth=2;gradientColor=none;fontColor=#1a2734;fontSize=11;`
     + `fillColor=${s.fill};strokeColor=${s.stroke};`;
