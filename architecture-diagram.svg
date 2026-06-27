@@ -1,184 +1,103 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="720" viewBox="0 0 1180 720" font-family="Segoe UI, Helvetica, Arial, sans-serif">
-  <defs>
-    <!-- gradients -->
-    <linearGradient id="serverFront" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#5b6b7c"/>
-      <stop offset="1" stop-color="#3a4654"/>
-    </linearGradient>
-    <linearGradient id="serverTop" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#74859a"/>
-      <stop offset="1" stop-color="#5b6b7c"/>
-    </linearGradient>
-    <linearGradient id="appFront" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#3a8f5f"/>
-      <stop offset="1" stop-color="#256b43"/>
-    </linearGradient>
-    <linearGradient id="appTop" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#52a878"/>
-      <stop offset="1" stop-color="#3a8f5f"/>
-    </linearGradient>
-    <linearGradient id="repoFront" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#5a4a78"/>
-      <stop offset="1" stop-color="#3f3357"/>
-    </linearGradient>
-    <linearGradient id="repoTop" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#7460a0"/>
-      <stop offset="1" stop-color="#5a4a78"/>
-    </linearGradient>
-    <linearGradient id="phoneScreen" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#eef3f8"/>
-      <stop offset="1" stop-color="#d4dee8"/>
-    </linearGradient>
-    <radialGradient id="bg" cx="0.5" cy="0.1" r="1">
-      <stop offset="0" stop-color="#fbfcfe"/>
-      <stop offset="1" stop-color="#eef1f6"/>
-    </radialGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#1c2530" flood-opacity="0.22"/>
-    </filter>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L8,3 L0,6 Z" fill="#5b6b7c"/>
-    </marker>
-    <marker id="arrowR" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L8,3 L0,6 Z" fill="#9aa6b2"/>
-    </marker>
-  </defs>
-
-  <rect width="1180" height="720" fill="url(#bg)"/>
-  <text x="40" y="50" font-size="26" font-weight="700" fill="#2a3340">LINE Bot — Product Image Service</text>
-  <text x="40" y="74" font-size="14" fill="#7a8794">Infrastructure &amp; Network Diagram</text>
-
-  <!-- ===================== USER ZONE ===================== -->
-  <g>
-    <rect x="40" y="120" width="220" height="470" rx="14" fill="#ffffff" stroke="#cdd6e0" stroke-dasharray="6 5"/>
-    <text x="150" y="148" font-size="13" font-weight="700" fill="#8a97a4" text-anchor="middle" letter-spacing="1">USER ZONE</text>
-
-    <!-- Phone with LINE app -->
-    <g filter="url(#shadow)" transform="translate(95,210)">
-      <rect x="0" y="0" width="110" height="200" rx="20" fill="#2a3340"/>
-      <rect x="9" y="22" width="92" height="156" rx="6" fill="url(#phoneScreen)"/>
-      <circle cx="55" cy="190" r="6" fill="#46525f"/>
-      <rect x="40" y="10" width="30" height="5" rx="2.5" fill="#46525f"/>
-      <!-- chat bubbles -->
-      <rect x="18" y="34" width="58" height="20" rx="8" fill="#06c755"/>
-      <rect x="34" y="60" width="58" height="20" rx="8" fill="#ffffff" stroke="#cdd6e0"/>
-      <rect x="18" y="86" width="74" height="46" rx="8" fill="#ffffff" stroke="#cdd6e0"/>
-      <rect x="24" y="92" width="62" height="34" rx="4" fill="#d4dee8"/>
-      <circle cx="40" cy="104" r="5" fill="#aebccb"/>
-      <path d="M30 120 L46 106 L58 116 L70 104 L80 120 Z" fill="#aebccb"/>
-    </g>
-    <text x="150" y="448" font-size="15" font-weight="700" fill="#2a3340" text-anchor="middle">Customer</text>
-    <text x="150" y="468" font-size="12" fill="#7a8794" text-anchor="middle">LINE Mobile App</text>
-  </g>
-
-  <!-- ===================== LINE PLATFORM (cloud) ===================== -->
-  <g>
-    <g filter="url(#shadow)" transform="translate(330,150)">
-      <path d="M60 70 a44 44 0 0 1 84 -16 a36 36 0 0 1 52 18 a40 40 0 0 1 4 80 H44 a40 40 0 0 1 -8 -79 a40 40 0 0 1 24 -3 Z"
-            fill="#06c755"/>
-    </g>
-    <text x="450" y="235" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">LINE Platform</text>
-    <text x="450" y="256" font-size="12" fill="#e7fbef" text-anchor="middle">Messaging API</text>
-    <text x="450" y="295" font-size="11" fill="#7a8794" text-anchor="middle">api.line.me · Webhook delivery</text>
-  </g>
-
-  <!-- ===================== CLOUD / BACKEND ZONE ===================== -->
-  <g>
-    <rect x="320" y="340" width="500" height="250" rx="14" fill="#ffffff" stroke="#cdd6e0" stroke-dasharray="6 5"/>
-    <text x="340" y="368" font-size="13" font-weight="700" fill="#8a97a4" letter-spacing="1">APPLICATION / HOSTING ZONE</text>
-
-    <!-- Bot application server (3D server) -->
-    <g filter="url(#shadow)" transform="translate(370,400)">
-      <!-- top -->
-      <polygon points="0,18 26,0 138,0 112,18" fill="url(#appTop)"/>
-      <!-- side -->
-      <polygon points="112,18 138,0 138,150 112,168" fill="#1f5a37"/>
-      <!-- front -->
-      <rect x="0" y="18" width="112" height="150" fill="url(#appFront)"/>
-      <!-- rack slots -->
-      <g fill="#ffffff" opacity="0.85">
-        <rect x="12" y="34" width="74" height="10" rx="2"/>
-        <rect x="12" y="54" width="74" height="10" rx="2"/>
-        <rect x="12" y="74" width="74" height="10" rx="2"/>
-        <rect x="12" y="120" width="74" height="10" rx="2"/>
-        <rect x="12" y="140" width="74" height="10" rx="2"/>
-      </g>
-      <circle cx="92" cy="39" r="3.5" fill="#9dffc6"/>
-      <circle cx="92" cy="59" r="3.5" fill="#9dffc6"/>
-    </g>
-    <text x="426" y="586" font-size="14" font-weight="700" fill="#2a3340" text-anchor="middle">Bot Server</text>
-    <text x="426" y="604" font-size="11" fill="#7a8794" text-anchor="middle">Webhook handler</text>
-
-    <!-- Image repository server (3D server, purple) -->
-    <g filter="url(#shadow)" transform="translate(640,400)">
-      <polygon points="0,18 26,0 138,0 112,18" fill="url(#repoTop)"/>
-      <polygon points="112,18 138,0 138,150 112,168" fill="#322748"/>
-      <rect x="0" y="18" width="112" height="150" fill="url(#repoFront)"/>
-      <g fill="#ffffff" opacity="0.85">
-        <rect x="12" y="34" width="74" height="10" rx="2"/>
-        <rect x="12" y="54" width="74" height="10" rx="2"/>
-        <rect x="12" y="74" width="74" height="10" rx="2"/>
-        <rect x="12" y="120" width="74" height="10" rx="2"/>
-        <rect x="12" y="140" width="74" height="10" rx="2"/>
-      </g>
-      <circle cx="92" cy="39" r="3.5" fill="#c7b3ff"/>
-      <circle cx="92" cy="59" r="3.5" fill="#c7b3ff"/>
-    </g>
-    <text x="696" y="586" font-size="14" font-weight="700" fill="#2a3340" text-anchor="middle">Image Host</text>
-    <text x="696" y="604" font-size="11" fill="#7a8794" text-anchor="middle">GitHub raw / CDN</text>
-  </g>
-
-  <!-- ===================== STORAGE ZONE ===================== -->
-  <g>
-    <rect x="900" y="340" width="240" height="250" rx="14" fill="#ffffff" stroke="#cdd6e0" stroke-dasharray="6 5"/>
-    <text x="1020" y="368" font-size="13" font-weight="700" fill="#8a97a4" text-anchor="middle" letter-spacing="1">STORAGE</text>
-
-    <!-- DB cylinder -->
-    <g filter="url(#shadow)" transform="translate(970,400)">
-      <path d="M0,16 v120 a50 16 0 0 0 100 0 v-120" fill="url(#serverFront)"/>
-      <ellipse cx="50" cy="16" rx="50" ry="16" fill="url(#serverTop)"/>
-      <ellipse cx="50" cy="16" rx="50" ry="16" fill="none" stroke="#2f3a47" opacity="0.3"/>
-      <path d="M0,56 a50 16 0 0 0 100 0" fill="none" stroke="#2f3a47" opacity="0.3"/>
-      <path d="M0,96 a50 16 0 0 0 100 0" fill="none" stroke="#2f3a47" opacity="0.3"/>
-    </g>
-    <text x="1020" y="586" font-size="14" font-weight="700" fill="#2a3340" text-anchor="middle">Image Assets</text>
-    <text x="1020" y="604" font-size="11" fill="#7a8794" text-anchor="middle">badges · uniforms · tags</text>
-  </g>
-
-  <!-- ===================== NETWORK LINKS ===================== -->
-  <!-- user <-> LINE platform -->
-  <path d="M210 300 C 270 280, 300 240, 332 220" fill="none" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
-  <path d="M332 250 C 300 270, 270 300, 212 320" fill="none" stroke="#9aa6b2" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowR)"/>
-  <text x="250" y="252" font-size="11" fill="#4a5663" transform="rotate(-22 250 252)">message</text>
-  <text x="250" y="338" font-size="11" fill="#8a97a4" transform="rotate(22 250 338)">image reply</text>
-
-  <!-- LINE platform -> Bot server (webhook) -->
-  <path d="M444 296 L 444 398" fill="none" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
-  <text x="356" y="352" font-size="11" fill="#4a5663" text-anchor="end">HTTPS webhook</text>
-
-  <!-- Bot server -> Image host -->
-  <path d="M540 484 L 636 484" fill="none" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
-  <text x="548" y="476" font-size="11" fill="#4a5663">fetch URL</text>
-
-  <!-- Image host -> Storage -->
-  <path d="M810 484 L 966 484" fill="none" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
-  <text x="850" y="476" font-size="11" fill="#4a5663">read assets</text>
-
-  <!-- Bot server -> LINE platform (reply push) curved -->
-  <path d="M474 398 C 524 332, 524 302, 484 297" fill="none" stroke="#9aa6b2" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowR)"/>
-  <text x="532" y="352" font-size="11" fill="#8a97a4">reply API</text>
-
-  <!-- legend -->
-  <g transform="translate(40,640)">
-    <line x1="0" y1="0" x2="34" y2="0" stroke="#5b6b7c" stroke-width="2.5" marker-end="url(#arrow)"/>
-    <text x="42" y="4" font-size="12" fill="#4a5663">Request flow</text>
-    <line x1="160" y1="0" x2="194" y2="0" stroke="#9aa6b2" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowR)"/>
-    <text x="202" y="4" font-size="12" fill="#4a5663">Response flow</text>
-    <rect x="330" y="-9" width="16" height="16" rx="3" fill="url(#appFront)"/>
-    <text x="352" y="4" font-size="12" fill="#4a5663">App server</text>
-    <rect x="450" y="-9" width="16" height="16" rx="3" fill="url(#repoFront)"/>
-    <text x="472" y="4" font-size="12" fill="#4a5663">Image host</text>
-    <ellipse cx="575" cy="-1" rx="10" ry="6" fill="url(#serverTop)"/>
-    <text x="592" y="4" font-size="12" fill="#4a5663">Storage</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1080" viewBox="0 0 1500 1080" font-family="'Loma','Noto Sans Thai','Segoe UI',Helvetica,Arial,sans-serif">
+<defs>
+  <radialGradient id="bg" cx="0.5" cy="0.05" r="1"><stop offset="0" stop-color="#fcfdff"/><stop offset="1" stop-color="#eef1f6"/></radialGradient>
+  <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#1c2530" flood-opacity="0.18"/></filter>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 Z" fill="#6b7888"/></marker>
+</defs>
+<rect width="1500" height="1080" fill="url(#bg)"/>
+<text x="750" y="40" font-size="23" font-weight="800" fill="#222b36" text-anchor="middle">GSB Local Dev — Server Topology (WSL2 Ubuntu / Docker engine เดียว)</text>
+<text x="750" y="62" font-size="12.5" fill="#7a8794" text-anchor="middle">เขียว = UP · แดง = DOWN (ตั้งไว้ ไม่ได้รัน) · เหลือง = นอกเครื่อง/VPN · ทุก domain ลงท้าย .gsb.or.th</text>
+<g filter="url(#sh)"><polygon points="630,78 639,69 879,69 870,78" fill="#f0e0ab" stroke="#d8b24e" stroke-width="1"/><polygon points="870,78 879,69 879,119 870,128" fill="#c79a2e" stroke="#d8b24e" stroke-width="1"/><rect x="630" y="78" width="240" height="50" rx="3" fill="#f7ecc8" stroke="#d8b24e" stroke-width="1.3"/><rect x="630" y="78" width="15" height="50" rx="3" fill="#c79a2e" opacity="0.92"/><circle cx="637.5" cy="85" r="2.4" fill="#e0a92a"/><circle cx="637.5" cy="93" r="2.4" fill="#e0a92a" opacity="0.7"/><rect x="634" y="121" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="634" y="116" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="634" y="111" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="757.5" y="100" font-size="12.5" font-weight="700" fill="#735713" text-anchor="middle">Windows Browser</text><text x="757.5" y="116" font-size="10.5" fill="#735713" opacity="0.85" text-anchor="middle">hosts: *.gsb.or.th -&gt; 127.0.0.1</text></g>
+<g filter="url(#sh)"><polygon points="600,162 609,153 909,153 900,162" fill="#bcd4ee" stroke="#6f9cd0" stroke-width="1"/><polygon points="900,162 909,153 909,209 900,218" fill="#4a7fc0" stroke="#6f9cd0" stroke-width="1"/><rect x="600" y="162" width="300" height="56" rx="3" fill="#cfe0f3" stroke="#6f9cd0" stroke-width="1.3"/><rect x="600" y="162" width="15" height="56" rx="3" fill="#4a7fc0" opacity="0.92"/><circle cx="607.5" cy="169" r="2.4" fill="#3a8fd6"/><circle cx="607.5" cy="177" r="2.4" fill="#3a8fd6" opacity="0.7"/><rect x="604" y="211" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="604" y="206" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="604" y="201" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="757.5" y="187" font-size="12.5" font-weight="700" fill="#234d80" text-anchor="middle">gsb-gateway (nginx) UP</text><text x="757.5" y="203" font-size="10.5" fill="#234d80" opacity="0.85" text-anchor="middle">ครอง host :80 + :443 — route ตาม Host header</text></g>
+<text x="750" y="232" font-size="10.5" fill="#9aa6b2" text-anchor="middle">project: gateway</text>
+<path d="M750,128 C 750,145 750,145 750,162" fill="none" stroke="#6b7888" stroke-width="2"  marker-end="url(#arr)"/>
+<rect x="734.6" y="136" width="30.8" height="16" rx="3" fill="#ffffff" opacity="0.9"/>
+<text x="750" y="148" font-size="10" fill="#4a5663" text-anchor="middle">:443</text>
+<rect x="30" y="250" width="300" height="310" rx="12" fill="#ffffff" stroke="#c7d0db" stroke-dasharray="6 5"/>
+<text x="44" y="270" font-size="11.5" font-weight="700" font-style="italic" fill="#7c8a98">WebCSR family — cbswebdev / cbswebuat</text>
+<g filter="url(#sh)"><polygon points="50,295 59,286 309,286 300,295" fill="#bfe5cb" stroke="#4a9d68" stroke-width="1"/><polygon points="300,295 309,286 309,336 300,345" fill="#3f8a5b" stroke="#4a9d68" stroke-width="1"/><rect x="50" y="295" width="250" height="50" rx="3" fill="#d6efdd" stroke="#4a9d68" stroke-width="1.3"/><rect x="50" y="295" width="15" height="50" rx="3" fill="#3a8f5f" opacity="0.92"/><circle cx="57.5" cy="302" r="2.4" fill="#2fbf5a"/><circle cx="57.5" cy="310" r="2.4" fill="#2fbf5a" opacity="0.7"/><rect x="54" y="338" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="54" y="333" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="54" y="328" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="182.5" y="317" font-size="12.5" font-weight="700" fill="#1f5236" text-anchor="middle">gsb-proxy (nginx) UP</text><text x="182.5" y="333" font-size="10.5" fill="#1f5236" opacity="0.85" text-anchor="middle">:443 internal — path router</text></g>
+<g filter="url(#sh)"><polygon points="50,400 59,391 177,391 168,400" fill="#bfe5cb" stroke="#4a9d68" stroke-width="1"/><polygon points="168,400 177,391 177,455 168,464" fill="#3f8a5b" stroke="#4a9d68" stroke-width="1"/><rect x="50" y="400" width="118" height="64" rx="3" fill="#d6efdd" stroke="#4a9d68" stroke-width="1.3"/><rect x="50" y="400" width="15" height="64" rx="3" fill="#3a8f5f" opacity="0.92"/><circle cx="57.5" cy="407" r="2.4" fill="#2fbf5a"/><circle cx="57.5" cy="415" r="2.4" fill="#2fbf5a" opacity="0.7"/><rect x="54" y="457" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="54" y="452" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="54" y="447" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="116.5" y="429" font-size="12.5" font-weight="700" fill="#1f5236" text-anchor="middle">webcsr UP</text><text x="116.5" y="445" font-size="10.5" fill="#1f5236" opacity="0.85" text-anchor="middle">Tomcat 8.5 · :8080</text></g>
+<g filter="url(#sh)"><polygon points="182,400 191,391 309,391 300,400" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="300,400 309,391 309,455 300,464" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="182" y="400" width="118" height="64" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="182" y="400" width="15" height="64" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="189.5" cy="407" r="2.4" fill="#9aa1a8"/><circle cx="189.5" cy="415" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="186" y="457" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="186" y="452" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="186" y="447" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="248.5" y="429" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">webadmin DOWN</text><text x="248.5" y="445" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">Tomcat · :8082</text></g>
+<text x="180" y="520" font-size="10.5" fill="#9aa6b2" text-anchor="middle">project: webcsr_dev_v111800</text>
+<path d="M175,345 C 175,372.5 109,372.5 109,400" fill="none" stroke="#6b7888" stroke-width="2"  marker-end="url(#arr)"/>
+<rect x="115.2" y="363.5" width="53.6" height="16" rx="3" fill="#ffffff" opacity="0.9"/>
+<text x="142" y="375.5" font-size="10" fill="#4a5663" text-anchor="middle">/WebCSR/</text>
+<path d="M215,345 C 215,372.5 241,372.5 241,400" fill="none" stroke="#6b7888" stroke-width="2"  marker-end="url(#arr)"/>
+<rect x="195.5" y="363.5" width="65" height="16" rx="3" fill="#ffffff" opacity="0.9"/>
+<text x="228" y="375.5" font-size="10" fill="#4a5663" text-anchor="middle">/WebAdmin/</text>
+<rect x="350" y="250" width="215" height="310" rx="12" fill="#ffffff" stroke="#c7d0db" stroke-dasharray="6 5"/>
+<text x="364" y="270" font-size="11.5" font-weight="700" font-style="italic" fill="#7c8a98">CBS Banking — gsbschoolbank-dev</text>
+<g filter="url(#sh)"><polygon points="372,300 381,291 551,291 542,300" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="542,300 551,291 551,337 542,346" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="372" y="300" width="170" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="372" y="300" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="379.5" cy="307" r="2.4" fill="#9aa1a8"/><circle cx="379.5" cy="315" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="376" y="339" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="376" y="334" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="376" y="329" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="464.5" y="320" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsb-school-nginx</text><text x="464.5" y="336" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:443</text></g>
+<g filter="url(#sh)"><polygon points="372,378 381,369 551,369 542,378" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="542,378 551,369 551,415 542,424" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="372" y="378" width="170" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="372" y="378" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="379.5" cy="385" r="2.4" fill="#9aa1a8"/><circle cx="379.5" cy="393" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="376" y="417" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="376" y="412" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="376" y="407" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="464.5" y="398" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsb-school-web</text><text x="464.5" y="414" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:3000</text></g>
+<g filter="url(#sh)"><polygon points="372,456 381,447 551,447 542,456" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="542,456 551,447 551,493 542,502" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="372" y="456" width="170" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="372" y="456" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="379.5" cy="463" r="2.4" fill="#9aa1a8"/><circle cx="379.5" cy="471" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="376" y="495" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="376" y="490" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="376" y="485" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="464.5" y="476" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsb-school-db</text><text x="464.5" y="492" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">(pg) :5433</text></g>
+<text x="457" y="530" font-size="10.5" fill="#9aa6b2" text-anchor="middle">project: server · ทั้งหมด DOWN</text>
+<path d="M457,346 C 457,362 457,362 457,378" fill="none" stroke="#6b7888" stroke-width="2"  marker-end="url(#arr)"/>
+<path d="M457,424 C 457,440 457,440 457,456" fill="none" stroke="#6b7888" stroke-width="2"  marker-end="url(#arr)"/>
+<rect x="585" y="250" width="305" height="310" rx="12" fill="#ffffff" stroke="#c7d0db" stroke-dasharray="6 5"/>
+<text x="599" y="270" font-size="11.5" font-weight="700" font-style="italic" fill="#7c8a98">Linkage Center — linkage-dev / linkage-uat</text>
+<g filter="url(#sh)"><polygon points="602,300 611,291 743,291 734,300" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="734,300 743,291 743,337 734,346" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="602" y="300" width="132" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="602" y="300" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="609.5" cy="307" r="2.4" fill="#9aa1a8"/><circle cx="609.5" cy="315" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="606" y="339" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="606" y="334" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="606" y="329" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="675.5" y="320" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsb-machine-webapp</text><text x="675.5" y="336" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:3000</text></g>
+<g filter="url(#sh)"><polygon points="748,300 757,291 889,291 880,300" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="880,300 889,291 889,337 880,346" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="748" y="300" width="132" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="748" y="300" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="755.5" cy="307" r="2.4" fill="#9aa1a8"/><circle cx="755.5" cy="315" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="752" y="339" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="752" y="334" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="752" y="329" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="821.5" y="320" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsb-machine-thaid</text><text x="821.5" y="336" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:3000 /thaid/</text></g>
+<g filter="url(#sh)"><polygon points="602,362 611,353 743,353 734,362" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="734,362 743,353 743,399 734,408" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="602" y="362" width="132" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="602" y="362" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="609.5" cy="369" r="2.4" fill="#9aa1a8"/><circle cx="609.5" cy="377" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="606" y="401" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="606" y="396" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="606" y="391" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="675.5" y="389" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsb-machine-api</text></g>
+<g filter="url(#sh)"><polygon points="748,362 757,353 889,353 880,362" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="880,362 889,353 889,399 880,408" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="748" y="362" width="132" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="748" y="362" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="755.5" cy="369" r="2.4" fill="#9aa1a8"/><circle cx="755.5" cy="377" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="752" y="401" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="752" y="396" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="752" y="391" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="821.5" y="389" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsb-machine-redis</text></g>
+<g filter="url(#sh)"><polygon points="602,424 611,415 743,415 734,424" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="734,424 743,415 743,461 734,470" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="602" y="424" width="132" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="602" y="424" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="609.5" cy="431" r="2.4" fill="#9aa1a8"/><circle cx="609.5" cy="439" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="606" y="463" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="606" y="458" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="606" y="453" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="675.5" y="444" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsblk-mysql</text><text x="675.5" y="460" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:3307</text></g>
+<g filter="url(#sh)"><polygon points="748,424 757,415 889,415 880,424" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="880,424 889,415 889,461 880,470" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="748" y="424" width="132" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="748" y="424" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="755.5" cy="431" r="2.4" fill="#9aa1a8"/><circle cx="755.5" cy="439" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="752" y="463" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="752" y="458" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="752" y="453" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="821.5" y="444" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsblk-fwd</text><text x="821.5" y="460" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:3001</text></g>
+<text x="737" y="530" font-size="10.5" fill="#9aa6b2" text-anchor="middle">projects: server / gsblk · DOWN</text>
+<rect x="910" y="250" width="320" height="310" rx="12" fill="#ffffff" stroke="#c7d0db" stroke-dasharray="6 5"/>
+<text x="924" y="270" font-size="11.5" font-weight="700" font-style="italic" fill="#7c8a98">TANACHOK — tanachok-dev / tanachok-sit</text>
+<g filter="url(#sh)"><polygon points="926,300 935,291 1079,291 1070,300" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="1070,300 1079,291 1079,337 1070,346" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="926" y="300" width="144" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="926" y="300" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="933.5" cy="307" r="2.4" fill="#9aa1a8"/><circle cx="933.5" cy="315" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="930" y="339" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="930" y="334" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="930" y="329" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="1005.5" y="320" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">tanachok-gateway</text><text x="1005.5" y="336" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8800 -&gt; :80</text></g>
+<g filter="url(#sh)"><polygon points="1072,300 1081,291 1225,291 1216,300" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="1216,300 1225,291 1225,337 1216,346" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="1072" y="300" width="144" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="1072" y="300" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="1079.5" cy="307" r="2.4" fill="#9aa1a8"/><circle cx="1079.5" cy="315" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="1076" y="339" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1076" y="334" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1076" y="329" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="1151.5" y="320" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">tanachok-web</text><text x="1151.5" y="336" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:5173</text></g>
+<g filter="url(#sh)"><polygon points="926,362 935,353 1079,353 1070,362" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="1070,362 1079,353 1079,399 1070,408" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="926" y="362" width="144" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="926" y="362" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="933.5" cy="369" r="2.4" fill="#9aa1a8"/><circle cx="933.5" cy="377" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="930" y="401" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="930" y="396" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="930" y="391" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="1005.5" y="382" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">tanachok-api</text><text x="1005.5" y="398" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8085</text></g>
+<g filter="url(#sh)"><polygon points="1072,362 1081,353 1225,353 1216,362" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="1216,362 1225,353 1225,399 1216,408" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="1072" y="362" width="144" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="1072" y="362" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="1079.5" cy="369" r="2.4" fill="#9aa1a8"/><circle cx="1079.5" cy="377" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="1076" y="401" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1076" y="396" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1076" y="391" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="1151.5" y="382" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">tanachok-pdf</text><text x="1151.5" y="398" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:7000</text></g>
+<g filter="url(#sh)"><polygon points="926,424 935,415 1079,415 1070,424" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="1070,424 1079,415 1079,461 1070,470" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="926" y="424" width="144" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="926" y="424" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="933.5" cy="431" r="2.4" fill="#9aa1a8"/><circle cx="933.5" cy="439" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="930" y="463" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="930" y="458" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="930" y="453" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="1005.5" y="444" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">tanachok-postgres</text><text x="1005.5" y="460" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:5432</text></g>
+<g filter="url(#sh)"><polygon points="1072,424 1081,415 1225,415 1216,424" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="1216,424 1225,415 1225,461 1216,470" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="1072" y="424" width="144" height="46" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="1072" y="424" width="15" height="46" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="1079.5" cy="431" r="2.4" fill="#9aa1a8"/><circle cx="1079.5" cy="439" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="1076" y="463" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1076" y="458" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1076" y="453" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="1151.5" y="444" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">tanachok-adminer</text><text x="1151.5" y="460" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8081</text></g>
+<text x="1070" y="530" font-size="10.5" fill="#9aa6b2" text-anchor="middle">project: tanachok-next · DOWN</text>
+<path d="M660,218 C 660,256.5 175,256.5 175,295" fill="none" stroke="#6b7888" stroke-width="2"  marker-end="url(#arr)"/>
+<rect x="345.1" y="247.5" width="144.8" height="16" rx="3" fill="#ffffff" opacity="0.9"/>
+<text x="417.5" y="259.5" font-size="10" fill="#4a5663" text-anchor="middle">cbsweb* -&gt; gsb-proxy:443</text>
+<path d="M720,218 C 720,259 457,259 457,300" fill="none" stroke="#6b7888" stroke-width="2"  marker-end="url(#arr)"/>
+<rect x="556" y="250" width="65" height="16" rx="3" fill="#ffffff" opacity="0.9"/>
+<text x="588.5" y="262" font-size="10" fill="#4a5663" text-anchor="middle">gsbschool*</text>
+<path d="M780,218 C 780,259 668,259 668,300" fill="none" stroke="#6b7888" stroke-width="2"  marker-end="url(#arr)"/>
+<rect x="697.2" y="250" width="53.6" height="16" rx="3" fill="#ffffff" opacity="0.9"/>
+<text x="724" y="262" font-size="10" fill="#4a5663" text-anchor="middle">linkage*</text>
+<path d="M840,218 C 840,259 998,259 998,300" fill="none" stroke="#6b7888" stroke-width="2"  marker-end="url(#arr)"/>
+<rect x="863.7" y="250" width="110.60000000000001" height="16" rx="3" fill="#ffffff" opacity="0.9"/>
+<text x="919" y="262" font-size="10" fill="#4a5663" text-anchor="middle">tanachok* -&gt; :8800</text>
+<rect x="30" y="600" width="290" height="175" rx="12" fill="#ffffff" stroke="#c7d0db" stroke-dasharray="6 5"/>
+<text x="44" y="620" font-size="11.5" font-weight="700" font-style="italic" fill="#7c8a98">PDTeller (แยกวง — ไม่ผ่าน gateway)</text>
+<g filter="url(#sh)"><polygon points="55,648 64,639 304,639 295,648" fill="#bfe5cb" stroke="#4a9d68" stroke-width="1"/><polygon points="295,648 304,639 304,699 295,708" fill="#3f8a5b" stroke="#4a9d68" stroke-width="1"/><rect x="55" y="648" width="240" height="60" rx="3" fill="#d6efdd" stroke="#4a9d68" stroke-width="1.3"/><rect x="55" y="648" width="15" height="60" rx="3" fill="#3a8f5f" opacity="0.92"/><circle cx="62.5" cy="655" r="2.4" fill="#2fbf5a"/><circle cx="62.5" cy="663" r="2.4" fill="#2fbf5a" opacity="0.7"/><rect x="59" y="701" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="59" y="696" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="59" y="691" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="182.5" y="675" font-size="12.5" font-weight="700" fill="#1f5236" text-anchor="middle">pdteller-tomcat UP</text><text x="182.5" y="691" font-size="10.5" fill="#1f5236" opacity="0.85" text-anchor="middle">:18080 — Web Start (.jnlp)</text></g>
+<text x="175" y="745" font-size="10.5" fill="#9aa6b2" text-anchor="middle">project: lab</text>
+<rect x="340" y="600" width="365" height="175" rx="12" fill="#ffffff" stroke="#c7d0db" stroke-dasharray="6 5"/>
+<text x="354" y="620" font-size="11.5" font-weight="700" font-style="italic" fill="#7c8a98">CI/CD Lab (DOWN ทั้งหมดตอนนี้) — project: ci-lab</text>
+<g filter="url(#sh)"><polygon points="356,650 365,641 475,641 466,650" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="466,650 475,641 475,711 466,720" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="356" y="650" width="110" height="70" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="356" y="650" width="15" height="70" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="363.5" cy="657" r="2.4" fill="#9aa1a8"/><circle cx="363.5" cy="665" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="360" y="713" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="360" y="708" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="360" y="703" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="418.5" y="682" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">ci-gitlab</text><text x="418.5" y="698" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8929 (+2224 ssh)</text></g>
+<g filter="url(#sh)"><polygon points="478,650 487,641 597,641 588,650" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="588,650 597,641 597,711 588,720" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="478" y="650" width="110" height="70" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="478" y="650" width="15" height="70" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="485.5" cy="657" r="2.4" fill="#9aa1a8"/><circle cx="485.5" cy="665" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="482" y="713" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="482" y="708" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="482" y="703" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="540.5" y="682" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">ci-jenkins</text><text x="540.5" y="698" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8090 (+50000)</text></g>
+<g filter="url(#sh)"><polygon points="600,650 609,641 709,641 700,650" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="700,650 709,641 709,711 700,720" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="600" y="650" width="100" height="70" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="600" y="650" width="15" height="70" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="607.5" cy="657" r="2.4" fill="#9aa1a8"/><circle cx="607.5" cy="665" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="604" y="713" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="604" y="708" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="604" y="703" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="657.5" y="682" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">ci-nexus</text><text x="657.5" y="698" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8091 reg:8092</text></g>
+<text x="522" y="750" font-size="10.5" fill="#9aa6b2" text-anchor="middle">source + webhook · Multibranch · docker registry</text>
+<rect x="725" y="600" width="235" height="175" rx="12" fill="#ffffff" stroke="#c7d0db" stroke-dasharray="6 5"/>
+<text x="739" y="620" font-size="11.5" font-weight="700" font-style="italic" fill="#7c8a98">TellerPortal (DOWN)</text>
+<g filter="url(#sh)"><polygon points="745,650 754,641 854,641 845,650" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="845,650 854,641 854,697 845,706" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="745" y="650" width="100" height="56" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="745" y="650" width="15" height="56" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="752.5" cy="657" r="2.4" fill="#9aa1a8"/><circle cx="752.5" cy="665" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="749" y="699" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="749" y="694" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="749" y="689" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="802.5" y="675" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">teller-portal</text><text x="802.5" y="691" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8088</text></g>
+<g filter="url(#sh)"><polygon points="855,650 864,641 959,641 950,650" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="950,650 959,641 959,697 950,706" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="855" y="650" width="95" height="56" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="855" y="650" width="15" height="56" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="862.5" cy="657" r="2.4" fill="#9aa1a8"/><circle cx="862.5" cy="665" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="859" y="699" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="859" y="694" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="859" y="689" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="910" y="675" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">teller-tis</text><text x="910" y="691" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8443</text></g>
+<rect x="980" y="600" width="250" height="175" rx="12" fill="#ffffff" stroke="#c7d0db" stroke-dasharray="6 5"/>
+<text x="994" y="620" font-size="11.5" font-weight="700" font-style="italic" fill="#7c8a98">BAHTNET mock (DOWN) — project: local-dev</text>
+<g filter="url(#sh)"><polygon points="996,650 1005,641 1115,641 1106,650" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="1106,650 1115,641 1115,697 1106,706" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="996" y="650" width="110" height="56" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="996" y="650" width="15" height="56" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="1003.5" cy="657" r="2.4" fill="#9aa1a8"/><circle cx="1003.5" cy="665" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="1000" y="699" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1000" y="694" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1000" y="689" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="1058.5" y="675" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">gsb-bahtnet-service</text><text x="1058.5" y="691" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8083</text></g>
+<g filter="url(#sh)"><polygon points="1116,650 1125,641 1233,641 1224,650" fill="#ecc6c8" stroke="#cf8c90" stroke-width="1"/><polygon points="1224,650 1233,641 1233,697 1224,706" fill="#b9595f" stroke="#cf8c90" stroke-width="1"/><rect x="1116" y="650" width="108" height="56" rx="3" fill="#f4dadb" stroke="#cf8c90" stroke-width="1.3"/><rect x="1116" y="650" width="15" height="56" rx="3" fill="#b9595f" opacity="0.92"/><circle cx="1123.5" cy="657" r="2.4" fill="#9aa1a8"/><circle cx="1123.5" cy="665" r="2.4" fill="#9aa1a8" opacity="0.7"/><rect x="1120" y="699" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1120" y="694" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="1120" y="689" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="1177.5" y="675" font-size="12.5" font-weight="700" fill="#7d2e33" text-anchor="middle">bahtnet-core-mock</text><text x="1177.5" y="691" font-size="10.5" fill="#7d2e33" opacity="0.85" text-anchor="middle">:8089</text></g>
+<g filter="url(#sh)"><polygon points="30,838 39,829 419,829 410,838" fill="#f0e0ab" stroke="#d8b24e" stroke-width="1"/><polygon points="410,838 419,829 419,899 410,908" fill="#c79a2e" stroke="#d8b24e" stroke-width="1"/><rect x="30" y="838" width="380" height="70" rx="3" fill="#f7ecc8" stroke="#d8b24e" stroke-width="1.3"/><rect x="30" y="838" width="15" height="70" rx="3" fill="#c79a2e" opacity="0.92"/><circle cx="37.5" cy="845" r="2.4" fill="#e0a92a"/><circle cx="37.5" cy="853" r="2.4" fill="#e0a92a" opacity="0.7"/><rect x="34" y="901" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="34" y="896" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><rect x="34" y="891" width="7" height="2" rx="1" fill="#ffffff" opacity="0.75"/><text x="227.5" y="870" font-size="12.5" font-weight="700" fill="#735713" text-anchor="middle">CBS (Sanchez core banking) — นอกเครื่อง</text><text x="227.5" y="886" font-size="10.5" fill="#735713" opacity="0.85" text-anchor="middle">cbsdevdb / cbssitdb / cbsuatdb · .gsb = 10.82.77.x</text></g>
+<text x="220" y="928" font-size="10" fill="#8a6f24" text-anchor="middle">ผ่าน GSB VPN + extra_hosts · webcsr ต่อด้วย Sanchez JDBC (ScDriver) / MRPC</text>
+<path d="M109,464 C 109,651 190,651 190,838" fill="none" stroke="#c79a2e" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+<rect x="119.85" y="642" width="59.300000000000004" height="16" rx="3" fill="#ffffff" opacity="0.9"/>
+<text x="149.5" y="654" font-size="10" fill="#4a5663" text-anchor="middle">JDBC/MRPC</text>
+<rect x="440" y="838" width="540" height="78" rx="10" fill="#ffffff" stroke="#c7d0db"/>
+<text x="456" y="858" font-size="11.5" font-weight="700" fill="#3a4654">Host ports ที่ publish (เข้าจาก Windows ได้):</text>
+<text x="456" y="878" font-size="10.5" fill="#4a5663">80/443 gateway · 8080 webcsr · 8082 webadmin · 18080 pdteller · 8443 teller-tis</text>
+<text x="456" y="894" font-size="10.5" fill="#4a5663">8929 gitlab · 8090 jenkins · 8091/8092 nexus · 8800 tanachok · 5173 tanachok-web</text>
+<text x="456" y="910" font-size="10.5" fill="#4a5663">3307 gsblk-mysql · 3001 gsblk-fwd · 5433 school-db · 8083/8089 bahtnet</text>
+<text x="34" y="98" font-size="11" font-weight="700" fill="#7a8794">สถานะ:</text>
+<rect x="86" y="88" width="14" height="14" rx="3" fill="#d6efdd" stroke="#4a9d68"/>
+<text x="105" y="99" font-size="10.5" fill="#4a5663">UP</text>
+<rect x="136.4" y="88" width="14" height="14" rx="3" fill="#f4dadb" stroke="#cf8c90"/>
+<text x="155.4" y="99" font-size="10.5" fill="#4a5663">DOWN (ตั้งไว้)</text>
+<rect x="261.2" y="88" width="14" height="14" rx="3" fill="#f7ecc8" stroke="#d8b24e"/>
+<text x="280.2" y="99" font-size="10.5" fill="#4a5663">นอกเครื่อง/VPN</text>
+<rect x="386" y="88" width="14" height="14" rx="3" fill="#cfe0f3" stroke="#6f9cd0"/>
+<text x="405" y="99" font-size="10.5" fill="#4a5663">gateway</text>
 </svg>
