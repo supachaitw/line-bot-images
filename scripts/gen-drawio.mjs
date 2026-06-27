@@ -38,8 +38,11 @@ function node(icon, status, name, sub, x, y, w=72, h=58) {
     + `verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;`
     + `strokeWidth=2;gradientColor=none;fontColor=#1a2734;fontSize=11;`
     + `fillColor=${s.fill};strokeColor=${s.stroke};`;
-  cells.push(`<mxCell id="${id}" value="${label(name,sub)}" style="${style}" vertex="1" parent="1"><mxGeometry x="${x}" y="${y}" width="${w}" height="${h}" as="geometry"/></mxCell>`);
-  return { id, x, y, w, h };
+  // Tower servers render with proper tall proportions, centred on the slot.
+  let gx = x, gy = y, gw = w, gh = h;
+  if (icon === 'server') { gw = 64; gh = 74; gx = x + Math.round((w - gw) / 2); gy = y - 8; }
+  cells.push(`<mxCell id="${id}" value="${label(name,sub)}" style="${style}" vertex="1" parent="1"><mxGeometry x="${gx}" y="${gy}" width="${gw}" height="${gh}" as="geometry"/></mxCell>`);
+  return { id, x: gx, y: gy, w: gw, h: gh };
 }
 
 function box(x, y, w, h, title) {
@@ -70,38 +73,38 @@ const gateway = node('proxy','gateway','gsb-gateway (nginx)',':80 + :443 · by H
 text(640, 236, 130, 'project: gateway', {size:10, color:'#9aa6b2'});
 
 // WebCSR family
-box(40, 300, 300, 330, 'WebCSR family — cbswebdev / cbswebuat');
+box(40, 300, 300, 352, 'WebCSR family — cbswebdev / cbswebuat');
 const proxy = node('proxy','up','gsb-proxy (nginx)',':443 path router', 150, 340, 96, 64);
 const webcsr = node('server','up','webcsr UP','Tomcat :8080', 70, 470);
 const webadmin = node('server','down','webadmin DOWN','Tomcat :8082', 240, 470);
-text(60, 590, 260, 'project: webcsr_dev_v111800', {size:10, color:'#9aa6b2'});
+text(60, 614, 260, 'project: webcsr_dev_v111800', {size:10, color:'#9aa6b2'});
 
 // School
-box(370, 300, 210, 330, 'CBS Banking — gsbschoolbank-dev');
+box(370, 300, 210, 352, 'CBS Banking — gsbschoolbank-dev');
 const schNginx = node('proxy','down','gsb-school-nginx',':443', 438, 332);
 const schWeb = node('server','down','gsb-school-web',':3000', 438, 432);
 const schDb = node('server','down','gsb-school-db','(pg) :5433', 438, 532);
-text(380, 600, 190, 'project: server · ALL DOWN', {size:10, color:'#9aa6b2'});
+text(380, 632, 190, 'project: server · ALL DOWN', {size:10, color:'#9aa6b2'});
 
 // Linkage
-box(610, 300, 330, 330, 'Linkage Center — linkage-dev / linkage-uat');
+box(610, 300, 330, 352, 'Linkage Center — linkage-dev / linkage-uat');
 const lkApp = node('server','down','gsb-machine-webapp',':3000', 640, 336);
 node('server','down','gsb-machine-thaid',':3000 /thaid/', 800, 336);
 node('server','down','gsb-machine-api','', 640, 436);
 node('server','down','gsb-machine-redis','', 800, 436);
 node('server','down','gsblk-mysql',':3307', 640, 536);
 node('server','down','gsblk-fwd',':3001', 800, 536);
-text(620, 600, 310, 'projects: server / gsblk · DOWN', {size:10, color:'#9aa6b2'});
+text(620, 632, 310, 'projects: server / gsblk · DOWN', {size:10, color:'#9aa6b2'});
 
 // Tanachok
-box(970, 300, 360, 330, 'TANACHOK — tanachok-dev / tanachok-sit');
+box(970, 300, 360, 352, 'TANACHOK — tanachok-dev / tanachok-sit');
 const tnGw = node('proxy','down','tanachok-gateway',':8800 → :80', 1000, 336);
 node('server','down','tanachok-web',':5173', 1180, 336);
 node('server','down','tanachok-api',':8085', 1000, 436);
 node('server','down','tanachok-pdf',':7000', 1180, 436);
 node('server','down','tanachok-postgres',':5432', 1000, 536);
 node('server','down','tanachok-adminer',':8081', 1180, 536);
-text(980, 600, 340, 'project: tanachok-next · DOWN', {size:10, color:'#9aa6b2'});
+text(980, 632, 340, 'project: tanachok-next · DOWN', {size:10, color:'#9aa6b2'});
 
 // PDTeller
 box(40, 690, 260, 210, 'PDTeller (separate — not via gateway)');
