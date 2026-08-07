@@ -8,6 +8,7 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".claude", "skills", "gsb-slides"))
 from gsb_slides import Deck, PINK, PINKD, BLUE, AMBER, UP, DOWN, DARK, GREY, WHITE, LIGHT, DOWNBG, UPBG
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.util import Inches
 
 TITLE = "TANACHOK — ระบบงานสลากธนโชค"
 META = "ระบบงานสลากธนโชค · หารือกับเจ้าของระบบ · ฉบับร่างเพื่อหารือ"
@@ -136,8 +137,29 @@ d.phases("แผนงานที่เสนอ", [
 ], kicker="แผนงาน",
    intro="เรียงตามความเร่งด่วน เริ่มจากงานที่ใช้เวลาน้อยแต่ลดความเสี่ยงได้มากที่สุด")
 
-# 10 ตัวอย่างหน้าจอ
-d.cards("ตัวอย่างหน้าจอที่เสนอ", [
+# 10 ตัวอย่างหน้าจอ — ภาพจริงจาก mockup
+MOCKUPS = [
+    ("docs/mockups/screen1-dashboard.png", "หน้าจอ 1 · ภาพรวมระบบ",
+     "ผู้ดูแลเห็นตัวเลขสำคัญ สถานะงานส่งข้อมูล และรายการล่าสุดในหน้าเดียว"),
+    ("docs/mockups/screen2-search.png", "หน้าจอ 2 · ค้นหาผู้ถือสลาก",
+     "ค้นด้วยเลขที่สลาก เลขบัตร หรือชื่อ แล้วเห็นรายละเอียดและประวัติธุรกรรมครบในหน้าเดียว"),
+    ("docs/mockups/screen3-feed.png", "หน้าจอ 3 · การส่งข้อมูลออก (SFTP Feed)",
+     "เห็นผลการส่งทุกรอบ รู้ทันทีเมื่อไม่สำเร็จ ส่งซ้ำได้เอง และตั้งการแจ้งเตือนได้"),
+]
+for path, head, sub in MOCKUPS:
+    if not os.path.exists(path):
+        continue
+    s = d._slide(); d._n += 1
+    d._header(s, "ตัวอย่างหน้าจอที่เสนอ", head)
+    d._text(s, 0.6, 1.32, 12.13, 0.36, [(sub, 12.5, GREY, False)])
+    # ภาพกว้าง 12.13" คงสัดส่วน 1440x900
+    iw = 12.13; ih = iw * 900.0 / 1440.0
+    s.shapes.add_picture(path, Inches(0.6), Inches(1.78), width=Inches(iw), height=Inches(ih))
+    d._text(s, 0.6, 6.95, 12.13, 0.3,
+            [("ภาพร่างเพื่อใช้หารือ · ข้อมูลบนหน้าจอเป็นตัวอย่างสมมติ ไม่ใช่ข้อมูลจริงของลูกค้า", 10, GREY, False)])
+    d._footer(s)
+
+d.cards("สรุปหน้าจอที่เสนอทั้งหมด", [
     ("หน้าภาพรวม", "Dashboard", "สรุปยอดสลาก ธุรกรรมวันนี้ สถานะงาน Feed"),
     ("ค้นหาผู้ถือสลาก", "ค้นหา/ตรวจสอบ", "ค้นด้วยเลขที่สลาก เลขบัตร หรือชื่อลูกค้า"),
     ("รายละเอียดสลาก", "ทะเบียนสลาก", "ข้อมูลสลาก ประวัติธุรกรรม และผลการตรวจรางวัล"),
