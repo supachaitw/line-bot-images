@@ -1,0 +1,352 @@
+<title>TANACHOK — รีวิวความพร้อมขึ้น Production</title>
+<style>
+:root{
+  --brand:#EC008C; --brand-deep:#B3006A; --brand-wash:#FDF2F8;
+  --ink:#1C2029; --ink-2:#4A5260; --ink-3:#78808F;
+  --ground:#FBF9FB; --panel:#FFFFFF; --rule:#E6E0E6; --rule-soft:#F1ECF1;
+  --ok:#2E7D46; --ok-bg:#E4F2E9; --warn:#B98612; --warn-bg:#FBF1D8;
+  --bad:#B13A3F; --bad-bg:#FAE6E7; --info:#234D80; --info-bg:#E3ECF7;
+  --shadow:0 1px 2px rgba(28,32,41,.05), 0 8px 28px -14px rgba(28,32,41,.16);
+  --thai:"Noto Sans Thai","IBM Plex Sans Thai","Leelawadee UI",Tahoma,"Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --brand:#FF3DA6; --brand-deep:#FF7BC4; --brand-wash:#2A1220;
+  --ink:#ECEAEE; --ink-2:#B3AEB8; --ink-3:#857F8C;
+  --ground:#16141A; --panel:#1E1B22; --rule:#332E38; --rule-soft:#272229;
+  --ok:#6FCB92; --ok-bg:#17301F; --warn:#E4B44A; --warn-bg:#332913;
+  --bad:#F0868B; --bad-bg:#331A1C; --info:#8FB6E8; --info-bg:#16243A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -14px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --brand:#FF3DA6; --brand-deep:#FF7BC4; --brand-wash:#2A1220;
+  --ink:#ECEAEE; --ink-2:#B3AEB8; --ink-3:#857F8C;
+  --ground:#16141A; --panel:#1E1B22; --rule:#332E38; --rule-soft:#272229;
+  --ok:#6FCB92; --ok-bg:#17301F; --warn:#E4B44A; --warn-bg:#332913;
+  --bad:#F0868B; --bad-bg:#331A1C; --info:#8FB6E8; --info-bg:#16243A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -14px rgba(0,0,0,.7);
+}
+:root[data-theme="light"]{
+  --brand:#EC008C; --brand-deep:#B3006A; --brand-wash:#FDF2F8;
+  --ink:#1C2029; --ink-2:#4A5260; --ink-3:#78808F;
+  --ground:#FBF9FB; --panel:#FFFFFF; --rule:#E6E0E6; --rule-soft:#F1ECF1;
+  --ok:#2E7D46; --ok-bg:#E4F2E9; --warn:#B98612; --warn-bg:#FBF1D8;
+  --bad:#B13A3F; --bad-bg:#FAE6E7; --info:#234D80; --info-bg:#E3ECF7;
+  --shadow:0 1px 2px rgba(28,32,41,.05), 0 8px 28px -14px rgba(28,32,41,.16);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--thai);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.narrow{max-width:74ch}
+
+.mast{background:var(--panel);border-bottom:1px solid var(--rule)}
+.mast .wrap{padding:44px 28px 34px}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--brand-deep);margin-bottom:16px}
+.eyebrow::before{content:"";width:22px;height:3px;background:var(--brand);border-radius:2px}
+h1{font-size:clamp(28px,4.2vw,44px);line-height:1.15;margin:0 0 12px;font-weight:700;
+  letter-spacing:-.015em;text-wrap:balance}
+.lede{font-size:clamp(15px,1.6vw,18px);color:var(--ink-2);margin:0;max-width:64ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:24px}
+.meta span{font-size:12.5px;color:var(--ink-2);background:var(--ground);
+  border:1px solid var(--rule);border-radius:999px;padding:5px 12px}
+
+h2{font-size:clamp(20px,2.5vw,27px);font-weight:700;letter-spacing:-.01em;margin:0 0 6px;text-wrap:balance}
+h3{font-size:16px;font-weight:700;margin:0 0 6px}
+section{margin:52px 0 0;padding-top:34px;border-top:1px solid var(--rule)}
+section:first-of-type{border-top:0}
+.sec-label{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:12px}
+p{margin:0 0 14px}
+.dim{color:var(--ink-2);font-size:15px}
+
+/* correction callout */
+.correct{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--brand);
+  border-radius:12px;padding:22px 26px;box-shadow:var(--shadow);margin-top:34px}
+.correct h3{color:var(--brand-deep)}
+
+/* tables */
+.tscroll{overflow-x:auto;border:1px solid var(--rule);border-radius:12px;background:var(--panel);
+  box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+th{text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3);padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink);font-weight:600}
+td.num{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:400;width:1%}
+.was{color:var(--bad)} .now{color:var(--ok);font-weight:600}
+
+.pill{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:3px 11px;white-space:nowrap}
+.pill.ok{color:var(--ok);background:var(--ok-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.pill.warn{color:var(--warn);background:var(--warn-bg);box-shadow:inset 0 0 0 1px var(--warn)}
+.pill.bad{color:var(--bad);background:var(--bad-bg);box-shadow:inset 0 0 0 1px var(--bad)}
+
+/* score summary */
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:20px 0 26px}
+.sc{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+.sc .n{font-size:38px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.sc .l{font-size:13px;color:var(--ink-2);margin-top:8px}
+.verdict{background:var(--bad-bg);border:1px solid var(--bad);border-radius:12px;padding:16px 20px;
+  font-size:14.5px;color:var(--ink)}
+.verdict b{color:var(--bad)}
+
+/* risks */
+.risk{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;
+  margin-bottom:14px;display:flex;gap:16px;box-shadow:var(--shadow)}
+.risk .stripe{width:4px;border-radius:2px;flex:0 0 auto;align-self:stretch}
+.risk.r1 .stripe{background:var(--bad)} .risk.r2 .stripe{background:var(--warn)}
+.risk .rid{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink-3);margin-bottom:5px}
+.risk h3{margin-bottom:8px}
+.risk p{font-size:14px;color:var(--ink-2);margin:0 0 8px}
+.risk .fix{font-size:13.5px;background:var(--ground);border-radius:8px;padding:10px 14px;margin-top:10px;color:var(--ink-2)}
+.risk .fix b{color:var(--ink)}
+
+/* phases */
+.phase{display:grid;grid-template-columns:130px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--rule-soft)}
+.phase:last-child{border-bottom:0}
+.phase .tag{font-size:13px;font-weight:700;color:#fff;background:var(--brand);border-radius:8px;
+  padding:6px 12px;text-align:center;align-self:start}
+.phase.p2 .tag{background:var(--info)} .phase.p3 .tag{background:var(--warn)} .phase.p4 .tag{background:var(--ok)}
+.phase .when{font-size:11.5px;color:var(--ink-3);text-align:center;margin-top:6px}
+.phase ul{margin:8px 0 0;padding-left:20px;font-size:14px;color:var(--ink-2)}
+.phase li{margin-bottom:5px}
+
+.foot{margin:60px 0 0;background:var(--panel);border-top:1px solid var(--rule)}
+.foot .wrap{padding:32px 28px 46px}
+.fine{font-size:12.5px;color:var(--ink-3)}
+@media (max-width:640px){ .wrap{padding:0 18px} .phase{grid-template-columns:1fr;gap:10px}
+  .phase .tag{justify-self:start;padding:6px 16px} .phase .when{text-align:left} }
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="eyebrow">ธนาคารออมสิน · ระบบงานสลากธนโชค</div>
+    <h1>รีวิวความพร้อมขึ้น Production</h1>
+    <p class="lede">ประเมินว่าระบบธนโชคพร้อมใช้งานบน Production จริงหรือยัง ขาดอะไร และต้องทำอะไรก่อน — เพื่อใช้หารือกับเจ้าของระบบ</p>
+    <div class="meta">
+      <span>ฉบับร่างเพื่อหารือ</span>
+      <span>ประเมิน 16 ด้าน</span>
+      <span>อ้างอิงเอกสารโครงการจริง</span>
+      <span>ตัวเลขระยะเวลารอการยืนยัน</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="correct">
+    <h3>ข้อแก้ไขสำคัญจากฉบับก่อน</h3>
+    <p class="dim">ฉบับก่อนหน้าเขียนขึ้นจาก stack นักพัฒนาในเครื่อง (<code>tanachok-next</code> — Docker) เท่านั้น
+    <b>ยังไม่ได้สะท้อนระบบ Production จริง</b> ฉบับนี้แก้ให้ตรงข้อเท็จจริงแล้ว</p>
+    <div class="tscroll" style="box-shadow:none;margin-top:16px">
+      <table>
+        <tr><th>หัวข้อ</th><th>ฉบับก่อน (คลาดเคลื่อน)</th><th>ข้อเท็จจริง</th></tr>
+        <tr><td>แพลตฟอร์ม</td><td class="was">Linux + Docker</td><td class="now">Windows Server 2019 (2 เครื่อง)</td></tr>
+        <tr><td>ตัวรันโปรแกรม</td><td class="was">ไม่ระบุ</td><td class="now">Java 1.6</td></tr>
+        <tr><td>ตัวให้บริการเว็บ</td><td class="was">nginx + Node</td><td class="now">GlassFish (Java EE 6)</td></tr>
+        <tr><td>ฐานข้อมูล</td><td class="was">PostgreSQL</td><td class="now">MS SQL Server 2019</td></tr>
+        <tr><td>เหตุผลที่ต้องย้าย</td><td class="was">ยังไม่ระบุ</td><td class="now">OS และฐานข้อมูลเดิมหมดระยะสนับสนุน</td></tr>
+      </table>
+    </div>
+    <p class="dim" style="margin:16px 0 0"><code>tanachok-next</code> ควรถือเป็นงานพัฒนาต่อยอดในอนาคต
+    <b>คนละเรื่อง</b>กับการทำให้ระบบ Production ปัจจุบันมั่นคง — ต้องแยกให้ชัดเมื่อคุยกับเจ้าของระบบ</p>
+  </div>
+
+  <section>
+    <div class="sec-label">ระบบคืออะไร</div>
+    <h2>ธนโชค — ระบบงานสลากออมสิน</h2>
+    <p class="dim narrow">รองรับข้อมูลผู้ถือสลาก ทะเบียนสลาก รายการธุรกรรม การออกและจ่ายรางวัล
+    งานบริหารสาขา (เช่น ปิดสาขาและย้ายข้อมูลไปสาขาปลายทาง) และการส่งข้อมูลออกผ่าน SFTP ไปยังระบบปลายทาง</p>
+    <p class="dim narrow"><b>ลักษณะงานสำคัญ:</b> เป็นระบบที่เกี่ยวกับเงินและสิทธิ์ของลูกค้าโดยตรง —
+    ยอดสลาก การถูกรางวัล การจ่ายเงิน ดังนั้นความถูกต้องของข้อมูลและร่องรอยการตรวจสอบสำคัญกว่าความเร็ว</p>
+    <div class="tscroll" style="margin-top:20px">
+      <table>
+        <tr><th>ชั้น</th><th>รายละเอียด</th></tr>
+        <tr><td>เครื่องให้บริการหน้าจอ</td><td>Windows Server 2019 · Java 1.6 · GlassFish (Java EE 6)</td></tr>
+        <tr><td>เครื่องฐานข้อมูล</td><td>Windows Server 2019 · MS SQL Server 2019 · ตรรกะหลักอยู่ใน Stored Procedure</td></tr>
+        <tr><td>การส่งข้อมูลออก</td><td>งาน batch ส่งผ่าน SFTP ด้วยการยืนยันตัวตนแบบกุญแจ พร้อมสคริปต์ติดตั้งที่ทำซ้ำได้</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">ผลการประเมิน</div>
+    <h2>Production Readiness Scorecard</h2>
+    <div class="score">
+      <div class="sc"><div class="n" style="color:var(--ok)">3</div><div class="l">ด้านที่ <b>พร้อม</b></div></div>
+      <div class="sc"><div class="n" style="color:var(--warn)">7</div><div class="l">ด้านที่ <b>พร้อมบางส่วน</b></div></div>
+      <div class="sc"><div class="n" style="color:var(--bad)">6</div><div class="l">ด้านที่ <b>ยังไม่มี</b></div></div>
+    </div>
+    <div class="verdict"><b>สรุป:</b> ยังไม่ควรถือว่าพร้อม Production เต็มรูปแบบ —
+    โครงสร้างพื้นฐานย้ายขึ้นเครื่องใหม่ได้แล้ว แต่ยังขาดด้านความปลอดภัย ความต่อเนื่อง และการเฝ้าระวัง</div>
+    <div class="tscroll" style="margin-top:20px">
+      <table>
+        <tr><th></th><th>ด้าน</th><th>ระดับ</th><th>สาระสำคัญ / สิ่งที่ต้องทำ</th></tr>
+        <tr><td class="num">1</td><td>เซิร์ฟเวอร์ &amp; OS</td><td><span class="pill ok">พร้อม</span></td><td>ย้ายขึ้น Windows Server 2019 แล้วทั้งสองเครื่อง</td></tr>
+        <tr><td class="num">2</td><td>ฐานข้อมูล</td><td><span class="pill ok">พร้อม</span></td><td>MS SQL Server 2019 ติดตั้งแล้ว + ทดสอบกู้คืนสำเร็จ</td></tr>
+        <tr><td class="num">3</td><td>ตัวรันโปรแกรม</td><td><span class="pill bad">ยังไม่มี</span></td><td>หมดระยะสนับสนุนตั้งแต่ปี 2556 ไม่มีแพตช์ความปลอดภัย</td></tr>
+        <tr><td class="num">4</td><td>ตัวให้บริการเว็บ</td><td><span class="pill bad">ยังไม่มี</span></td><td>หมดการสนับสนุน ไม่มีผู้ผลิตดูแล</td></tr>
+        <tr><td class="num">5</td><td>การจัดการรหัสผ่าน</td><td><span class="pill bad">ยังไม่มี</span></td><td>ใช้รหัสผ่านเริ่มต้นชุดเดียวกันทุกเครื่อง + เก็บเป็นข้อความธรรมดาในเอกสาร</td></tr>
+        <tr><td class="num">6</td><td>สิทธิ์การเข้าถึง</td><td><span class="pill warn">บางส่วน</span></td><td>ยังใช้บัญชีร่วมกัน ไม่มีบัญชีรายบุคคล/แยกบทบาท</td></tr>
+        <tr><td class="num">7</td><td>การสำรองข้อมูล</td><td><span class="pill warn">บางส่วน</span></td><td>เคยทดสอบครั้งเดียวตอนย้ายระบบ ยังไม่มีตารางสำรอง + ซ้อมกู้คืนประจำ</td></tr>
+        <tr><td class="num">8</td><td>ความต่อเนื่อง / DR</td><td><span class="pill bad">ยังไม่มี</span></td><td>ไม่มีเครื่องสำรอง ไม่มี RTO/RPO ที่ตกลงกันไว้</td></tr>
+        <tr><td class="num">9</td><td>การเฝ้าระวังและแจ้งเตือน</td><td><span class="pill bad">ยังไม่มี</span></td><td>ไม่มีการเฝ้าระวังบริการ/ดิสก์/งาน batch และไม่มีการแจ้งเตือน</td></tr>
+        <tr><td class="num">10</td><td>ร่องรอยการตรวจสอบ</td><td><span class="pill warn">บางส่วน</span></td><td>ยังไม่ชัดว่าเก็บบันทึกใครทำอะไร นานเท่าใด ตามเกณฑ์ตรวจสอบหรือยัง</td></tr>
+        <tr><td class="num">11</td><td>การนำระบบขึ้นใช้งาน</td><td><span class="pill warn">บางส่วน</span></td><td>มีคู่มือแต่ทำมือ ไม่มีการเก็บชุดติดตั้งเพื่อย้อนกลับ</td></tr>
+        <tr><td class="num">12</td><td>การคุมเวอร์ชันฐานข้อมูล</td><td><span class="pill bad">ยังไม่มี</span></td><td>Stored Procedure แก้ที่เครื่องโดยตรง ไม่มีการคุมเวอร์ชัน</td></tr>
+        <tr><td class="num">13</td><td>งานส่งข้อมูลออก</td><td><span class="pill ok">พร้อม</span></td><td>มีสคริปต์ติดตั้งอัตโนมัติ ทำซ้ำได้ + ชุดทดสอบครบ</td></tr>
+        <tr><td class="num">14</td><td>ตารางงานอัตโนมัติ</td><td><span class="pill warn">บางส่วน</span></td><td>ยังต้องสร้างงานตามเวลาเอง และไม่มีการเฝ้าระวังว่ารันสำเร็จ</td></tr>
+        <tr><td class="num">15</td><td>เอกสารระบบ</td><td><span class="pill warn">บางส่วน</span></td><td>มีคู่มือเฉพาะงาน แต่ยังไม่มีเอกสารสถาปัตยกรรม/ปฏิบัติการรวม</td></tr>
+        <tr><td class="num">16</td><td>งานย้ายระบบที่ค้าง</td><td><span class="pill warn">บางส่วน</span></td><td>ยังมีงานค้างบางรายการที่ยังไม่เริ่ม</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">ความเสี่ยง</div>
+    <h2>3 เรื่องที่ต้องรีบปิดก่อน</h2>
+    <p class="dim narrow" style="margin-bottom:22px">เรียงตามความรุนแรง — ข้อแรกใช้เวลาน้อยที่สุดแต่ลดความเสี่ยงได้มากที่สุด</p>
+
+    <div class="risk r1"><div class="stripe"></div><div>
+      <div class="rid">ความเสี่ยง 01 · สูงมาก</div>
+      <h3>รหัสผ่านเริ่มต้นถูกใช้ซ้ำทุกเครื่องและเก็บไว้ในเอกสาร</h3>
+      <p>บัญชีผู้ดูแลของทั้งเครื่องให้บริการหน้าจอและเครื่องฐานข้อมูล รวมถึงหน้าจอผู้ดูแลของตัวให้บริการเว็บ
+      ใช้รหัสผ่านเริ่มต้นชุดเดียวกัน และถูกบันทึกไว้ในเอกสารที่เปิดอ่านได้</p>
+      <p><b>ผลกระทบ:</b> ผู้ที่เข้าถึงเอกสารได้ = เข้าถึงฐานข้อมูลลูกค้าและรายการจ่ายรางวัลได้ทันที
+      เป็นประเด็นที่ผู้ตรวจสอบถือเป็นข้อบกพร่องร้ายแรง</p>
+      <div class="fix"><b>ต้องทำ:</b> เปลี่ยนรหัสผ่านทุกบัญชีทันที · แยกบัญชีรายบุคคล · เลิกใช้บัญชีร่วม ·
+      ย้ายความลับไปเก็บในตู้เก็บรหัสผ่านที่ควบคุมสิทธิ์ · ลบรหัสผ่านออกจากเอกสารทั้งหมด</div>
+    </div></div>
+
+    <div class="risk r1"><div class="stripe"></div><div>
+      <div class="rid">ความเสี่ยง 02 · สูงมาก</div>
+      <h3>ตัวรันโปรแกรมและตัวให้บริการเว็บหมดการสนับสนุน</h3>
+      <p>Java 1.6 สิ้นสุดการสนับสนุนสาธารณะตั้งแต่ปี 2556 · GlassFish รุ่น Java EE 6 ก็ไม่มีผู้ผลิตดูแลแล้ว</p>
+      <p><b>ผลกระทบ:</b> ช่องโหว่ที่ค้นพบหลังจากนั้นจะไม่มีแพตช์แก้ตลอดไป และระบบจะไม่ผ่านการสแกนช่องโหว่
+      ตามมาตรฐานธนาคาร</p>
+      <div class="fix"><b>ต้องทำ:</b> วางแผนยกระดับเป็นรุ่นที่ยังได้รับแพตช์ · ระหว่างที่ยังยกไม่ได้
+      ให้จำกัดการเข้าถึงเครือข่ายอย่างเข้มงวดเป็นมาตรการชดเชย</div>
+    </div></div>
+
+    <div class="risk r1"><div class="stripe"></div><div>
+      <div class="rid">ความเสี่ยง 03 · สูงมาก</div>
+      <h3>ไม่มีเครื่องสำรองและยังไม่ได้ตกลงเวลากู้คืน</h3>
+      <p>มีเครื่องให้บริการหน้าจอและเครื่องฐานข้อมูลอย่างละเครื่องเดียว หากเครื่องเสียหาย
+      ระบบจะหยุดจนกว่าจะกู้คืนเสร็จ โดยยังไม่มีข้อตกลงว่าต้องเสร็จภายในกี่ชั่วโมง</p>
+      <p><b>ผลกระทบ:</b> หากล่มช่วงออกรางวัลหรือจ่ายรางวัล จะกระทบลูกค้าและชื่อเสียงโดยตรง</p>
+      <div class="fix"><b>ต้องทำ:</b> ตกลงกับเจ้าของระบบว่ายอมให้ระบบหยุดได้นานเท่าใด (RTO)
+      และยอมให้ข้อมูลหายได้ถึงจุดใด (RPO) แล้วออกแบบการสำรอง/เครื่องสำรองให้ได้ตามนั้น</div>
+    </div></div>
+
+    <div class="risk r2"><div class="stripe"></div><div>
+      <div class="rid">ความเสี่ยงรองลงมา</div>
+      <h3>อีก 7 เรื่องที่ต้องตามแก้</h3>
+      <p class="dim">การสำรองข้อมูลยังไม่เป็นระบบ · ไม่มีการเฝ้าระวังและแจ้งเตือน ·
+      ตรรกะสำคัญอยู่ใน Stored Procedure โดยไม่มีการคุมเวอร์ชัน · การนำระบบขึ้นใช้งานทำด้วยมือ ·
+      งานตามเวลาของการส่งข้อมูลต้องสร้างเองและไม่มีการเฝ้าระวังผล ·
+      เอกสารยังไม่รวมศูนย์ทำให้พึ่งพาความรู้ในตัวบุคคล · งานย้ายระบบยังค้างบางรายการ</p>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="sec-label">เป้าหมาย</div>
+    <h2>จากปัจจุบัน สู่เป้าหมาย</h2>
+    <div class="tscroll" style="margin-top:18px">
+      <table>
+        <tr><th>ด้าน</th><th>ปัจจุบัน</th><th>เป้าหมาย</th></tr>
+        <tr><td>ความปลอดภัยบัญชี</td><td class="was">รหัสผ่านชุดเดียวกัน เก็บในเอกสาร</td><td class="now">บัญชีรายบุคคล + เก็บรหัสในระบบที่ควบคุมสิทธิ์</td></tr>
+        <tr><td>โปรแกรมพื้นฐาน</td><td class="was">หมดระยะการสนับสนุน</td><td class="now">รุ่นที่ยังได้รับแพตช์ความปลอดภัย</td></tr>
+        <tr><td>ความต่อเนื่อง</td><td class="was">เครื่องเดียว ไม่มีสำรอง</td><td class="now">มีเครื่องสำรอง ตามเวลากู้คืนที่ตกลง</td></tr>
+        <tr><td>การสำรองข้อมูล</td><td class="was">ทดสอบครั้งเดียวตอนย้ายระบบ</td><td class="now">สำรองตามตาราง + ซ้อมกู้คืนประจำ มีบันทึกผล</td></tr>
+        <tr><td>การเฝ้าระวัง</td><td class="was">ไม่มี รู้เมื่อผู้ใช้แจ้ง</td><td class="now">เฝ้าระวังอัตโนมัติ + แจ้งเตือนผู้รับผิดชอบ</td></tr>
+        <tr><td>การแก้ไขระบบ</td><td class="was">แก้ที่เครื่อง ไม่มีประวัติ</td><td class="now">เก็บประวัติทุกการแก้ไข ย้อนกลับได้</td></tr>
+        <tr><td>การส่งข้อมูลออก</td><td class="was">ตั้งเวลาทำมือ ไม่รู้ผลรัน</td><td class="now">ตั้งเวลาอัตโนมัติ + แจ้งเตือนเมื่อไม่สำเร็จ</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">แผนงาน</div>
+    <h2>แผน 4 เฟส</h2>
+    <p class="dim narrow" style="margin-bottom:8px">ระยะเวลาเป็นประมาณการเพื่อใช้หารือ ต้องยืนยันกับเจ้าของระบบและหน่วยงานที่เกี่ยวข้อง</p>
+
+    <div class="phase p1"><div><div class="tag">Phase 1</div><div class="when">สัปดาห์ 1–2</div></div><div>
+      <h3>ปิดความเสี่ยงเร่งด่วน</h3>
+      <ul><li>เปลี่ยนรหัสผ่านทุกบัญชีบนทั้งสองเครื่องและหน้าจอผู้ดูแล</li>
+      <li>เลิกใช้บัญชีร่วม — ออกบัญชีรายบุคคลตามบทบาท</li>
+      <li>ลบรหัสผ่านออกจากเอกสารทุกฉบับ ย้ายไปตู้เก็บรหัสที่ควบคุมสิทธิ์</li>
+      <li>จำกัดการเข้าถึงเครือข่ายให้เหลือเท่าที่จำเป็น</li>
+      <li>ทบทวนว่าใครมีสิทธิ์เข้าถึงระบบอยู่บ้างในปัจจุบัน</li></ul>
+    </div></div>
+
+    <div class="phase p2"><div><div class="tag">Phase 2</div><div class="when">สัปดาห์ 3–6</div></div><div>
+      <h3>ทำให้ดูแลได้จริง</h3>
+      <ul><li>ตั้งตารางสำรองข้อมูล + ตรวจสอบไฟล์สำรองอัตโนมัติ</li>
+      <li>ซ้อมกู้คืนจริง 1 ครั้ง จับเวลาเทียบกับเวลากู้คืนที่ตกลง</li>
+      <li>ติดตั้งการเฝ้าระวังและแจ้งเตือน (บริการ ดิสก์ ฐานข้อมูล ผลรันงานส่งข้อมูล)</li>
+      <li>ตั้งงานตามเวลาของการส่งข้อมูลให้เป็นมาตรฐาน + แจ้งเตือนเมื่อไม่สำเร็จ</li>
+      <li>กำหนดนโยบายการเก็บร่องรอยการตรวจสอบ · ปิดงานย้ายระบบที่ค้าง</li></ul>
+    </div></div>
+
+    <div class="phase p3"><div><div class="tag">Phase 3</div><div class="when">สัปดาห์ 7–12</div></div><div>
+      <h3>คุมการเปลี่ยนแปลง</h3>
+      <ul><li>นำโค้ดและ Stored Procedure เข้าระบบควบคุมเวอร์ชัน</li>
+      <li>ใช้การแก้ฐานข้อมูลแบบมีเวอร์ชัน แทนการแก้ที่เครื่องโดยตรง</li>
+      <li>จัดทำขั้นตอนนำระบบขึ้นใช้งานมาตรฐาน + เก็บชุดติดตั้งเพื่อย้อนกลับ</li>
+      <li>จัดทำเอกสารสถาปัตยกรรม + คู่มือปฏิบัติการรวมศูนย์</li>
+      <li>กำหนดขั้นตอนการขอเปลี่ยนแปลงและผู้อนุมัติ</li></ul>
+    </div></div>
+
+    <div class="phase p4"><div><div class="tag">Phase 4</div><div class="when">ประเมินหลัง Phase 3</div></div><div>
+      <h3>ยกระดับโปรแกรมพื้นฐาน</h3>
+      <ul><li>ประเมินทางเลือก: ยกระดับระบบเดิม หรือ พัฒนาใหม่</li>
+      <li>วิเคราะห์ผลกระทบ ค่าใช้จ่าย และระยะเวลาของแต่ละทาง</li>
+      <li>เสนอเจ้าของระบบตัดสินใจเลือกแนวทาง</li></ul>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="sec-label">สิ่งที่ต้องได้คำตอบ</div>
+    <h2>ประเด็นที่ต้องให้เจ้าของระบบตัดสินใจ</h2>
+    <div class="tscroll" style="margin-top:18px">
+      <table>
+        <tr><th></th><th>ประเด็น</th><th>ทำไมต้องรู้</th></tr>
+        <tr><td class="num">1</td><td>ระบบใช้งานช่วงเวลาใด และช่วงไหนห้ามหยุด</td><td>กำหนดช่วงเวลาเปลี่ยนแปลงและแผนกู้คืน</td></tr>
+        <tr><td class="num">2</td><td>ยอมให้ระบบหยุดได้นานเท่าใด (RTO)</td><td>ออกแบบเครื่องสำรองและขั้นตอนกู้คืน — <b>บล็อก Phase 2</b></td></tr>
+        <tr><td class="num">3</td><td>ยอมให้ข้อมูลหายได้ถึงจุดใด (RPO)</td><td>กำหนดความถี่การสำรองข้อมูล — <b>บล็อก Phase 2</b></td></tr>
+        <tr><td class="num">4</td><td>ต้องเก็บข้อมูลและบันทึกย้อนหลังกี่ปี</td><td>กำหนดพื้นที่จัดเก็บและนโยบาย</td></tr>
+        <tr><td class="num">5</td><td>ผู้ใช้งานกี่คน สาขาหรือส่วนกลาง</td><td>ประเมินขนาดเครื่องและสิทธิ์การเข้าถึง</td></tr>
+        <tr><td class="num">6</td><td>ระบบปลายทางของการส่งข้อมูลคือระบบใด ใครดูแล</td><td>กำหนดผู้ประสานงานและระดับบริการที่ตกลง</td></tr>
+        <tr><td class="num">7</td><td>ใครคือผู้อนุมัติการเปลี่ยนแปลงระบบ</td><td>ตั้งขั้นตอนการขอเปลี่ยนแปลง</td></tr>
+        <tr><td class="num">8</td><td>ใครดูแลระบบหลังใช้งานจริง และช่วงเวลาใด</td><td>กำหนดรูปแบบการสนับสนุน</td></tr>
+        <tr><td class="num">9</td><td>งบประมาณและกรอบเวลาสำหรับ Phase 4</td><td>เลือกระหว่างยกระดับกับพัฒนาใหม่ — <b>บล็อก Phase 4</b></td></tr>
+        <tr><td class="num">10</td><td>มีข้อกำหนดจากผู้กำกับหรือผู้ตรวจสอบเพิ่มหรือไม่</td><td>ปรับแผนให้สอดคล้อง</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">ข้อเสนอแนะ</div>
+    <h2>สรุป 5 ข้อ</h2>
+    <div class="tscroll" style="margin-top:18px">
+      <table>
+        <tr><th></th><th>ข้อเสนอแนะ</th></tr>
+        <tr><td class="num">1</td><td><b>แยกสองเรื่องออกจากกันให้ชัด</b> — ทำให้ระบบ Production ปัจจุบันมั่นคง (เร่งด่วน) กับ การพัฒนาระบบใหม่ในอนาคต อย่ารวมเป็นแผนเดียวเพราะความเร่งด่วนต่างกัน</td></tr>
+        <tr><td class="num">2</td><td><b>เริ่มจากความปลอดภัยของบัญชีและรหัสผ่านทันที</b> — ใช้เวลาน้อย ต้นทุนต่ำ แต่ลดความเสี่ยงได้มากที่สุด</td></tr>
+        <tr><td class="num">3</td><td><b>ต้องได้ตัวเลข RTO/RPO จากเจ้าของระบบก่อน</b> จึงจะออกแบบการสำรองและเครื่องสำรองได้อย่างมีเหตุผล</td></tr>
+        <tr><td class="num">4</td><td><b>ยอมรับตามตรงว่าโปรแกรมพื้นฐานหมดการสนับสนุน</b> และเสนอเป็นแผนระยะกลาง ไม่ควรปล่อยไว้เฉย ๆ</td></tr>
+        <tr><td class="num">5</td><td><b>ต่อยอดของดีที่มีอยู่</b> — งานส่งข้อมูลออกทำมาตรฐานได้ดีแล้ว (สคริปต์ทำซ้ำได้ + ชุดทดสอบครบ) ใช้เป็นต้นแบบกับงานอื่น</td></tr>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="fine">เอกสารฉบับร่างเพื่อใช้หารือกับเจ้าของระบบ · ตัวเลขระยะเวลาและข้อสรุปทุกข้อรอการยืนยันจากผู้เกี่ยวข้อง ·
+    รายละเอียดทางเทคนิคเพิ่มเติมอยู่ในเอกสารโครงการ · เอกสารนี้ไม่มีรหัสผ่านหรือความลับของระบบโดยเจตนา</p>
+  </div>
+</footer>
