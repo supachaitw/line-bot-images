@@ -1,0 +1,494 @@
+<title>TANACHOK — ตัวอย่างหน้าจอระบบงานสลากธนโชค</title>
+<style>
+:root{
+  /* page palette — neutrals biased slightly toward the GSB magenta */
+  --brand:#EC008C; --brand-deep:#B3006A; --brand-wash:#FDF2F8;
+  --ink:#1C2029; --ink-2:#4A5260; --ink-3:#78808F;
+  --ground:#FBF9FB; --panel:#FFFFFF; --rule:#E6E0E6;
+  --ok:#2E7D46; --ok-bg:#E4F2E9; --warn:#B98612; --warn-bg:#FBF1D8;
+  --bad:#B13A3F; --bad-bg:#FAE6E7; --info:#234D80; --info-bg:#E3ECF7;
+  --shadow:0 1px 2px rgba(28,32,41,.05), 0 8px 28px -12px rgba(28,32,41,.18);
+  --thai:"Noto Sans Thai","IBM Plex Sans Thai","Leelawadee UI",Tahoma,"Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --brand:#FF3DA6; --brand-deep:#FF7BC4; --brand-wash:#2A1220;
+    --ink:#ECEAEE; --ink-2:#B3AEB8; --ink-3:#857F8C;
+    --ground:#16141A; --panel:#1E1B22; --rule:#332E38;
+    --ok:#6FCB92; --ok-bg:#17301F; --warn:#E4B44A; --warn-bg:#332913;
+    --bad:#F0868B; --bad-bg:#331A1C; --info:#8FB6E8; --info-bg:#16243A;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --brand:#FF3DA6; --brand-deep:#FF7BC4; --brand-wash:#2A1220;
+  --ink:#ECEAEE; --ink-2:#B3AEB8; --ink-3:#857F8C;
+  --ground:#16141A; --panel:#1E1B22; --rule:#332E38;
+  --ok:#6FCB92; --ok-bg:#17301F; --warn:#E4B44A; --warn-bg:#332913;
+  --bad:#F0868B; --bad-bg:#331A1C; --info:#8FB6E8; --info-bg:#16243A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -12px rgba(0,0,0,.7);
+}
+:root[data-theme="light"]{
+  --brand:#EC008C; --brand-deep:#B3006A; --brand-wash:#FDF2F8;
+  --ink:#1C2029; --ink-2:#4A5260; --ink-3:#78808F;
+  --ground:#FBF9FB; --panel:#FFFFFF; --rule:#E6E0E6;
+  --ok:#2E7D46; --ok-bg:#E4F2E9; --warn:#B98612; --warn-bg:#FBF1D8;
+  --bad:#B13A3F; --bad-bg:#FAE6E7; --info:#234D80; --info-bg:#E3ECF7;
+  --shadow:0 1px 2px rgba(28,32,41,.05), 0 8px 28px -12px rgba(28,32,41,.18);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--thai);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--rule);background:var(--panel)}
+.mast .wrap{padding-top:44px;padding-bottom:34px}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--brand-deep);margin-bottom:16px}
+.eyebrow::before{content:"";width:22px;height:3px;background:var(--brand);border-radius:2px}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.18;margin:0 0 10px;font-weight:700;
+  letter-spacing:-.01em;text-wrap:balance}
+.lede{font-size:clamp(15px,1.6vw,18px);color:var(--ink-2);margin:0;max-width:64ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:24px}
+.meta span{font-size:12.5px;color:var(--ink-2);background:var(--ground);
+  border:1px solid var(--rule);border-radius:999px;padding:5px 12px}
+
+/* ---------- notice ---------- */
+.notice{margin:32px 0 0;border:1px solid var(--rule);border-left:3px solid var(--brand);
+  background:var(--panel);border-radius:10px;padding:18px 22px}
+.notice b{color:var(--brand-deep)}
+.notice p{margin:0;font-size:14.5px;color:var(--ink-2)}
+
+/* ---------- gaps addressed ---------- */
+.gaps{margin:40px 0 8px}
+.sec-label{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:14px}
+.gap-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.gap{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;
+  display:flex;gap:13px;align-items:flex-start}
+.gap .stripe{width:3px;align-self:stretch;border-radius:2px;flex:0 0 auto}
+.gap.bad .stripe{background:var(--bad)} .gap.warn .stripe{background:var(--warn)}
+.gap.info .stripe{background:var(--info)}
+.gap h3{margin:0 0 4px;font-size:14px;font-weight:700}
+.gap p{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+
+/* ---------- screen sections ---------- */
+.screen-sec{margin:56px 0 0;padding-top:36px;border-top:1px solid var(--rule)}
+.screen-head{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}
+.snum{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--brand-deep);
+  background:var(--brand-wash);border-radius:6px;padding:3px 9px;letter-spacing:.06em}
+.screen-head h2{margin:0;font-size:clamp(20px,2.4vw,26px);font-weight:700;letter-spacing:-.01em}
+.screen-sec > p.purpose{margin:0 0 22px;font-size:14.5px;color:var(--ink-2);max-width:66ch}
+
+.stage{background:var(--panel);border:1px solid var(--rule);border-radius:14px;
+  padding:14px;box-shadow:var(--shadow);overflow-x:auto}
+.canvas{position:relative;width:100%}
+.app{width:1440px;height:900px;transform-origin:top left;
+  font-family:var(--thai);background:#F0F2F5;border-radius:8px;overflow:hidden;
+  display:flex;color:#222B36;line-height:1.45}
+
+/* mockup chrome keeps its own fixed light palette — it depicts a screenshot */
+.app{--a-pink:#EC008C;--a-pinkd:#B3006A;--a-dark:#222B36;--a-grey:#5A6672;
+  --a-line:#E2E5EA;--a-zebra:#FAF9FB;--a-soft:#F9F8FA;--a-white:#fff;
+  --a-ok:#2E7D46;--a-okbg:#DDEFE2;--a-bad:#B13A3F;--a-badbg:#F6E0E1;
+  --a-warn:#B98612;--a-warnbg:#F7ECC8;--a-blue:#234D80}
+.side{width:248px;flex:0 0 248px;background:#1B222B;padding:24px 12px}
+.brandrow{display:flex;gap:10px;padding:0 12px 0 12px;margin-bottom:26px}
+.brandrow .bar{width:4px;height:38px;background:var(--a-pink);border-radius:2px;margin-top:2px}
+.brandrow .bt{color:#fff;font-size:19px;font-weight:700;line-height:1.15}
+.brandrow .bs{color:#98A2AE;font-size:11px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;
+  color:#C6CBD2;font-size:13.5px;text-decoration:none}
+.nav a .dot{width:7px;height:7px;border-radius:50%;background:#7C8592;flex:0 0 auto}
+.nav a.on{background:var(--a-pink);color:#fff;font-weight:600}
+.nav a.on .dot{background:#fff}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{height:68px;background:#fff;border-bottom:1px solid var(--a-line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 28px;flex:0 0 68px}
+.topbar h4{margin:0;font-size:20px;font-weight:600}
+.topbar .sub{font-size:11.5px;color:var(--a-grey);margin-top:2px}
+.userchip{display:flex;align-items:center;gap:9px;background:#F4F1F6;border-radius:20px;padding:7px 14px 7px 10px;font-size:11.5px;font-weight:500}
+.userchip i{width:24px;height:24px;border-radius:50%;background:var(--a-pinkd);display:block}
+.btn{background:var(--a-pink);color:#fff;font-size:12px;font-weight:600;border-radius:8px;padding:10px 15px}
+.body{padding:24px 28px;display:flex;flex-direction:column;gap:16px;flex:1;min-height:0}
+.card{background:#fff;border:1px solid var(--a-line);border-radius:12px}
+.kpirow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi{padding:18px 20px}
+.kpi .tick{width:40px;height:3px;border-radius:2px;margin-bottom:11px}
+.kpi .lb{font-size:11.5px;color:var(--a-grey);font-weight:500}
+.kpi .big{font-size:26px;font-weight:700;line-height:1.25;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .un{font-size:11px;color:var(--a-grey)}
+.cols{display:grid;gap:16px}
+.p-head{padding:18px 22px 0}
+.p-head h5{margin:0;font-size:14.5px;font-weight:600}
+.p-head .ps{font-size:11px;color:var(--a-grey);margin-top:3px}
+table.t{width:100%;border-collapse:collapse;font-size:11.5px}
+table.t th{text-align:left;font-size:10.5px;color:var(--a-grey);font-weight:600;
+  background:var(--a-zebra);padding:9px 12px}
+table.t th:first-child{border-radius:6px 0 0 6px} table.t th:last-child{border-radius:0 6px 6px 0}
+table.t td{padding:9px 12px;border-bottom:1px solid #F1EFF3;font-variant-numeric:tabular-nums}
+table.t tr:last-child td{border-bottom:0}
+table.t tr.zebra td{background:var(--a-zebra)}
+table.t tr.err td{background:var(--a-badbg)}
+table.t tr.hit td{background:#FEF0F8;box-shadow:inset 0 0 0 1px var(--a-pink)}
+.pill{display:inline-block;font-size:9.5px;font-weight:600;border-radius:10px;padding:3px 9px;white-space:nowrap}
+.pill.ok{color:var(--a-ok);background:var(--a-okbg);box-shadow:inset 0 0 0 1px var(--a-ok)}
+.pill.bad{color:var(--a-bad);background:var(--a-badbg);box-shadow:inset 0 0 0 1px var(--a-bad)}
+.pill.warn{color:var(--a-warn);background:var(--a-warnbg);box-shadow:inset 0 0 0 1px var(--a-warn)}
+.tw{padding:12px 22px 18px}
+.quick{display:flex;flex-direction:column;gap:8px;padding:14px 22px 18px}
+.qa{background:var(--a-soft);border-radius:9px;padding:9px 14px;border-left:3px solid var(--a-pink)}
+.qa b{display:block;font-size:12.5px;font-weight:600}
+.qa span{font-size:10.5px;color:var(--a-grey)}
+.fields{display:grid;grid-template-columns:1fr 1fr 1fr .6fr auto;gap:14px;padding:14px 22px 20px;align-items:end}
+.fl{font-size:10.5px;color:var(--a-grey);font-weight:500;margin-bottom:6px;display:block}
+.fi{background:var(--a-soft);border:1px solid var(--a-line);border-radius:8px;padding:11px 13px;font-size:12px;color:var(--a-grey)}
+.fi.on{border:1.6px solid var(--a-pink);color:var(--a-dark);font-weight:500}
+.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:4px 22px 18px}
+.dg{background:var(--a-soft);border-radius:8px;padding:10px 13px}
+.dg .k{font-size:10px;color:var(--a-grey);font-weight:500}
+.dg .v{font-size:13px;font-weight:600;margin-top:3px}
+.callout{margin:4px 22px 18px;background:var(--a-badbg);border:1px solid var(--a-bad);
+  border-radius:9px;padding:13px 16px}
+.callout b{font-size:12px;color:var(--a-bad)}
+.callout p{margin:5px 0 0;font-size:11px}
+.callout .did{font-size:10.5px;color:var(--a-grey);margin-top:5px}
+.alerts{display:flex;flex-direction:column;gap:9px;padding:14px 22px 8px}
+.al{background:var(--a-soft);border-radius:9px;padding:11px 14px;border-left:3px solid;
+  display:flex;justify-content:space-between;align-items:center;gap:10px}
+.al b{display:block;font-size:12px;font-weight:600} .al span{font-size:10.5px;color:var(--a-grey)}
+.tg{width:34px;height:19px;border-radius:10px;background:var(--a-ok);position:relative;flex:0 0 auto}
+.tg::after{content:"";position:absolute;right:2px;top:2px;width:15px;height:15px;border-radius:50%;background:#fff}
+.recips{padding:6px 22px 18px;display:flex;flex-direction:column;gap:8px}
+.rc{display:flex;align-items:center;gap:10px;border:1px solid var(--a-line);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:500}
+.rc i{width:20px;height:20px;border-radius:50%;background:var(--a-pinkd);display:block;flex:0 0 auto}
+
+/* annotations */
+.notes{margin-top:20px;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.note{display:flex;gap:12px;background:var(--panel);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px}
+.note .idx{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--brand-deep);flex:0 0 auto;padding-top:2px}
+.note p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.55}
+.note p b{color:var(--ink);font-weight:600}
+
+/* footer */
+.foot{margin:60px 0 0;border-top:1px solid var(--rule);background:var(--panel)}
+.foot .wrap{padding:34px 28px 46px}
+.foot h3{margin:0 0 14px;font-size:17px;font-weight:700}
+.foot ol{margin:0;padding-left:20px;color:var(--ink-2);font-size:14px}
+.foot li{margin-bottom:7px}
+.foot .fine{margin-top:24px;font-size:12.5px;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:16px}
+@media (max-width:700px){ .wrap{padding:0 18px} }
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="eyebrow">ธนาคารออมสิน · ระบบงานสลากธนโชค</div>
+    <h1>ตัวอย่างหน้าจอที่เสนอ</h1>
+    <p class="lede">ภาพร่างหน้าจอเพื่อใช้หารือกับเจ้าของระบบ ประกอบการพิจารณาแผนทำให้ระบบธนโชคพร้อมใช้งานบน Production</p>
+    <div class="meta">
+      <span>ฉบับร่างเพื่อหารือ</span>
+      <span>3 หน้าจอตัวอย่าง</span>
+      <span>อ้างอิงจากรีวิวความพร้อม Production</span>
+      <span>ยังไม่ใช่ข้อสรุปการออกแบบ</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="notice">
+    <p><b>อ่านก่อน — </b>หน้าจอเหล่านี้เป็นภาพร่างเพื่อให้เห็นภาพร่วมกันเท่านั้น ข้อมูลที่แสดงเป็นตัวอย่างสมมติทั้งหมด
+    ไม่ใช่ข้อมูลจริงของลูกค้า ทุกส่วนปรับเปลี่ยนได้ตามความเห็นของเจ้าของระบบ</p>
+  </div>
+
+  <section class="gaps">
+    <div class="sec-label">หน้าจอเหล่านี้ตอบช่องว่างอะไร</div>
+    <div class="gap-grid">
+      <div class="gap bad"><div class="stripe"></div><div>
+        <h3>ไม่มีการเฝ้าระวังและแจ้งเตือน</h3>
+        <p>ปัจจุบันหากงานส่งข้อมูลล้มเหลว จะทราบก็ต่อเมื่อผู้ใช้แจ้ง — หน้าจอที่ 3 ทำให้เห็นผลทุกรอบและแจ้งเตือนอัตโนมัติ</p>
+      </div></div>
+      <div class="gap warn"><div class="stripe"></div><div>
+        <h3>ตรวจสอบย้อนหลังได้ยาก</h3>
+        <p>ยังไม่มีมุมมองรวมว่าใครทำรายการอะไรเมื่อใด — หน้าจอที่ 2 แสดงประวัติธุรกรรมรายผู้ถือสลากพร้อมผู้ทำรายการ</p>
+      </div></div>
+      <div class="gap info"><div class="stripe"></div><div>
+        <h3>ไม่มีภาพรวมสถานะระบบ</h3>
+        <p>ผู้ดูแลไม่มีจุดเดียวที่เห็นสถานะงานประจำวัน — หน้าจอที่ 1 รวมตัวเลขสำคัญและสถานะงานไว้หน้าเดียว</p>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 1 ============ -->
+  <section class="screen-sec">
+    <div class="screen-head"><span class="snum">หน้าจอ 01</span><h2>ภาพรวมระบบ</h2></div>
+    <p class="purpose">หน้าแรกหลังเข้าสู่ระบบ — ผู้ดูแลเห็นตัวเลขสำคัญ สถานะงานส่งข้อมูล และรายการล่าสุดได้ในหน้าเดียว โดยไม่ต้องเปิดหลายเมนู</p>
+    <div class="stage"><div class="canvas" data-canvas>
+      <div class="app" data-app>
+        <aside class="side">
+          <div class="brandrow"><div class="bar"></div><div>
+            <div class="bt">ธนโชค</div><div class="bs">ระบบงานสลากออมสิน</div></div></div>
+          <nav class="nav">
+            <a class="on"><span class="dot"></span>ภาพรวม</a>
+            <a><span class="dot"></span>ค้นหาผู้ถือสลาก</a>
+            <a><span class="dot"></span>ทะเบียนสลาก</a>
+            <a><span class="dot"></span>รายการธุรกรรม</a>
+            <a><span class="dot"></span>ตรวจและจ่ายรางวัล</a>
+            <a><span class="dot"></span>งานปิด/ย้ายสาขา</a>
+            <a><span class="dot"></span>การส่งข้อมูลออก (Feed)</a>
+            <a><span class="dot"></span>รายงาน</a>
+          </nav>
+        </aside>
+        <div class="main">
+          <div class="topbar">
+            <div><h4>ภาพรวมระบบ</h4><div class="sub">ข้อมูล ณ วันที่ 6 ส.ค. 2569 · เวลา 09:15 น.</div></div>
+            <div class="userchip"><i></i>สาขาปากคลองตลาด · ผู้ใช้งาน</div>
+          </div>
+          <div class="body">
+            <div class="kpirow">
+              <div class="card kpi"><div class="tick" style="background:#EC008C"></div>
+                <div class="lb">ยอดสลากคงเหลือ</div><div class="big" style="color:#EC008C">12,480,530</div><div class="un">ฉบับ</div></div>
+              <div class="card kpi"><div class="tick" style="background:#234D80"></div>
+                <div class="lb">ธุรกรรมวันนี้</div><div class="big" style="color:#234D80">3,271</div><div class="un">รายการ</div></div>
+              <div class="card kpi"><div class="tick" style="background:#B98612"></div>
+                <div class="lb">รอตรวจจ่ายรางวัล</div><div class="big" style="color:#B98612">148</div><div class="un">รายการ</div></div>
+              <div class="card kpi"><div class="tick" style="background:#2E7D46"></div>
+                <div class="lb">งาน Feed รอบล่าสุด</div><div class="big" style="color:#2E7D46">สำเร็จ</div><div class="un">06:00 น.</div></div>
+            </div>
+            <div class="cols" style="grid-template-columns:1.75fr 1fr">
+              <div class="card">
+                <div class="p-head"><h5>สถานะการส่งข้อมูลออก (SFTP Feed)</h5>
+                  <div class="ps">ตรวจสอบผลการส่งแต่ละรอบ และส่งซ้ำได้ทันทีเมื่อไม่สำเร็จ</div></div>
+                <div class="tw"><table class="t">
+                  <tr><th>รอบวันที่</th><th>งาน</th><th style="text-align:right">สถานะ</th></tr>
+                  <tr><td>6 ส.ค. 2569 06:00</td><td>PDTRN_DAILY</td><td style="text-align:right"><span class="pill ok">สำเร็จ</span></td></tr>
+                  <tr class="zebra"><td>5 ส.ค. 2569 06:00</td><td>PDTRN_DAILY</td><td style="text-align:right"><span class="pill ok">สำเร็จ</span></td></tr>
+                  <tr class="err"><td>4 ส.ค. 2569 06:00</td><td>PDTRN_DAILY</td><td style="text-align:right"><span class="pill bad">ไม่สำเร็จ — เชื่อมต่อไม่ได้</span></td></tr>
+                  <tr><td>3 ส.ค. 2569 06:00</td><td>PDTRN_DAILY</td><td style="text-align:right"><span class="pill ok">สำเร็จ</span></td></tr>
+                </table></div>
+              </div>
+              <div class="card">
+                <div class="p-head"><h5>งานที่ใช้บ่อย</h5></div>
+                <div class="quick">
+                  <div class="qa"><b>ค้นหาผู้ถือสลาก</b><span>ค้นด้วยเลขที่สลาก / เลขบัตร</span></div>
+                  <div class="qa"><b>ตรวจรางวัลตามงวด</b><span>เลือกงวดแล้วตรวจอัตโนมัติ</span></div>
+                  <div class="qa"><b>ปิด/ย้ายสาขา</b><span>ย้ายข้อมูลไปสาขาปลายทาง</span></div>
+                  <div class="qa"><b>ส่งข้อมูลรอบใหม่</b><span>สั่งรัน Feed นอกรอบ</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="p-head"><h5>รายการธุรกรรมล่าสุด</h5></div>
+              <div class="tw"><table class="t">
+                <tr><th>เวลา</th><th>เลขที่สลาก</th><th>ชื่อผู้ถือสลาก</th><th>ประเภทรายการ</th><th>สาขา</th><th style="text-align:right">สถานะ</th></tr>
+                <tr><td>09:12</td><td>ก 4821735</td><td>นางสาว ศิริพร ใจดี</td><td>ฝากสลาก</td><td>ปากคลองตลาด</td><td style="text-align:right"><span class="pill ok">สำเร็จ</span></td></tr>
+                <tr class="zebra"><td>09:07</td><td>ข 7710462</td><td>นาย ธนกฤต วงศ์ทอง</td><td>ถอนสลาก</td><td>แยกพิชัย</td><td style="text-align:right"><span class="pill ok">สำเร็จ</span></td></tr>
+                <tr><td>08:58</td><td>ก 5093118</td><td>นาง มาลี พงษ์ศรี</td><td>จ่ายรางวัล</td><td>ปากคลองตลาด</td><td style="text-align:right"><span class="pill warn">รอตรวจสอบ</span></td></tr>
+                <tr class="zebra"><td>08:44</td><td>ค 2286907</td><td>นาย สมชาย รักไทย</td><td>โอนสลาก</td><td>สะพานแดง</td><td style="text-align:right"><span class="pill ok">สำเร็จ</span></td></tr>
+              </table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <div class="notes">
+      <div class="note"><span class="idx">A</span><p><b>ตัวเลขสำคัญอยู่บนสุด</b> — สี่ค่าที่ผู้ดูแลต้องรู้ทุกเช้า อ่านได้ใน 3 วินาทีโดยไม่ต้องคลิก</p></div>
+      <div class="note"><span class="idx">B</span><p><b>รอบที่ล้มเหลวเน้นด้วยสีและข้อความ</b> — ไม่ต้องอ่านทีละบรรทัดก็เห็นว่ามีปัญหาและเป็นเพราะอะไร</p></div>
+      <div class="note"><span class="idx">C</span><p><b>งานที่ใช้บ่อยเข้าถึงได้ทันที</b> — ลดจำนวนคลิกสำหรับงานประจำวันที่ทำซ้ำ ๆ</p></div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 2 ============ -->
+  <section class="screen-sec">
+    <div class="screen-head"><span class="snum">หน้าจอ 02</span><h2>ค้นหาผู้ถือสลาก</h2></div>
+    <p class="purpose">งานที่พนักงานสาขาใช้บ่อยที่สุด — ค้นด้วยเลขที่สลาก เลขบัตรประชาชน หรือชื่อ แล้วเห็นรายละเอียดและประวัติธุรกรรมครบในหน้าเดียว</p>
+    <div class="stage"><div class="canvas" data-canvas>
+      <div class="app" data-app>
+        <aside class="side">
+          <div class="brandrow"><div class="bar"></div><div>
+            <div class="bt">ธนโชค</div><div class="bs">ระบบงานสลากออมสิน</div></div></div>
+          <nav class="nav">
+            <a><span class="dot"></span>ภาพรวม</a>
+            <a class="on"><span class="dot"></span>ค้นหาผู้ถือสลาก</a>
+            <a><span class="dot"></span>ทะเบียนสลาก</a>
+            <a><span class="dot"></span>รายการธุรกรรม</a>
+            <a><span class="dot"></span>ตรวจและจ่ายรางวัล</a>
+            <a><span class="dot"></span>งานปิด/ย้ายสาขา</a>
+            <a><span class="dot"></span>การส่งข้อมูลออก (Feed)</a>
+            <a><span class="dot"></span>รายงาน</a>
+          </nav>
+        </aside>
+        <div class="main">
+          <div class="topbar">
+            <div><h4>ค้นหาผู้ถือสลาก</h4><div class="sub">ค้นด้วยเลขที่สลาก เลขบัตรประชาชน หรือชื่อ-นามสกุล</div></div>
+            <div class="userchip"><i></i>สาขาปากคลองตลาด · ผู้ใช้งาน</div>
+          </div>
+          <div class="body">
+            <div class="card">
+              <div class="p-head"><h5>เงื่อนไขการค้นหา</h5></div>
+              <div class="fields">
+                <div><span class="fl">เลขที่สลาก</span><div class="fi on">ก 4821735</div></div>
+                <div><span class="fl">เลขบัตรประชาชน</span><div class="fi">ระบุ 13 หลัก</div></div>
+                <div><span class="fl">ชื่อ-นามสกุล</span><div class="fi">ระบุบางส่วนได้</div></div>
+                <div><span class="fl">สาขา</span><div class="fi">ทุกสาขา</div></div>
+                <div class="btn">ค้นหา</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="p-head"><h5>ผลการค้นหา <span style="font-weight:400;color:var(--a-grey);font-size:11.5px">พบ 1 รายการ</span></h5></div>
+              <div class="tw" style="padding-bottom:8px"><table class="t">
+                <tr><th>เลขที่สลาก</th><th>ชื่อผู้ถือสลาก</th><th>เลขบัตรประชาชน</th><th>สาขาที่ถือ</th><th>งวดที่ซื้อ</th><th style="text-align:right">สถานะ</th></tr>
+                <tr class="hit"><td>ก 4821735</td><td>นางสาว ศิริพร ใจดี</td><td>1-2345-67890-12-3</td><td>ปากคลองตลาด</td><td>8/2569</td><td style="text-align:right"><span class="pill ok">ใช้งานอยู่</span></td></tr>
+              </table></div>
+              <div class="p-head" style="padding-top:12px"><h5>รายละเอียดผู้ถือสลากที่เลือก</h5></div>
+              <div class="dgrid" style="padding-top:12px">
+                <div class="dg"><div class="k">เลขที่สลาก</div><div class="v">ก 4821735</div></div>
+                <div class="dg"><div class="k">ชื่อ-นามสกุล</div><div class="v">นางสาว ศิริพร ใจดี</div></div>
+                <div class="dg"><div class="k">เลขบัตรประชาชน</div><div class="v">1-2345-67890-12-3</div></div>
+                <div class="dg"><div class="k">วันที่ซื้อ</div><div class="v">15 มี.ค. 2569</div></div>
+                <div class="dg"><div class="k">สาขาที่ถือ</div><div class="v">ปากคลองตลาด</div></div>
+                <div class="dg"><div class="k">จำนวนที่ถือ</div><div class="v">25 ฉบับ</div></div>
+                <div class="dg"><div class="k">มูลค่ารวม</div><div class="v">2,500.00 บาท</div></div>
+                <div class="dg"><div class="k">ถูกรางวัลสะสม</div><div class="v">3 ครั้ง</div></div>
+              </div>
+              <div class="p-head" style="padding-top:2px"><h5>ประวัติธุรกรรม</h5></div>
+              <div class="tw"><table class="t">
+                <tr><th>วันที่</th><th>รายการ</th><th>จำนวน</th><th>สาขา</th><th>ผู้ทำรายการ</th><th style="text-align:right">สถานะ</th></tr>
+                <tr><td>6 ส.ค. 2569</td><td>ฝากสลากเพิ่ม</td><td>5 ฉบับ</td><td>ปากคลองตลาด</td><td>พนักงาน 10254</td><td style="text-align:right"><span class="pill ok">สำเร็จ</span></td></tr>
+                <tr class="zebra"><td>16 ก.ค. 2569</td><td>รับเงินรางวัล</td><td>2,000.00 บาท</td><td>ปากคลองตลาด</td><td>พนักงาน 10254</td><td style="text-align:right"><span class="pill ok">สำเร็จ</span></td></tr>
+                <tr><td>16 มิ.ย. 2569</td><td>ตรวจรางวัลงวด 6/2569</td><td>—</td><td>ระบบอัตโนมัติ</td><td>ระบบ</td><td style="text-align:right"><span class="pill warn">ไม่ถูกรางวัล</span></td></tr>
+                <tr class="zebra"><td>15 มี.ค. 2569</td><td>ซื้อสลากครั้งแรก</td><td>20 ฉบับ</td><td>ปากคลองตลาด</td><td>พนักงาน 10871</td><td style="text-align:right"><span class="pill ok">สำเร็จ</span></td></tr>
+              </table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <div class="notes">
+      <div class="note"><span class="idx">A</span><p><b>ค้นได้หลายทาง</b> — เลขที่สลาก เลขบัตร ชื่อ หรือกรองตามสาขา รองรับกรณีลูกค้าจำเลขที่สลากไม่ได้</p></div>
+      <div class="note"><span class="idx">B</span><p><b>ไม่ต้องเปิดหน้าใหม่</b> — เลือกผลลัพธ์แล้วรายละเอียดและประวัติแสดงต่อในหน้าเดียวกัน</p></div>
+      <div class="note"><span class="idx">C</span><p><b>ประวัติระบุผู้ทำรายการ</b> — รองรับการตรวจสอบย้อนหลังว่าใครทำอะไรเมื่อใด ตามที่ผู้ตรวจสอบต้องการ</p></div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN 3 ============ -->
+  <section class="screen-sec">
+    <div class="screen-head"><span class="snum">หน้าจอ 03</span><h2>การส่งข้อมูลออก (SFTP Feed)</h2></div>
+    <p class="purpose">ตอบช่องว่างเรื่องการเฝ้าระวังโดยตรง — เห็นผลการส่งทุกรอบ รู้ทันทีเมื่อไม่สำเร็จ ส่งซ้ำได้เอง และตั้งได้ว่าจะแจ้งเตือนใครเมื่อเกิดอะไร</p>
+    <div class="stage"><div class="canvas" data-canvas>
+      <div class="app" data-app>
+        <aside class="side">
+          <div class="brandrow"><div class="bar"></div><div>
+            <div class="bt">ธนโชค</div><div class="bs">ระบบงานสลากออมสิน</div></div></div>
+          <nav class="nav">
+            <a><span class="dot"></span>ภาพรวม</a>
+            <a><span class="dot"></span>ค้นหาผู้ถือสลาก</a>
+            <a><span class="dot"></span>ทะเบียนสลาก</a>
+            <a><span class="dot"></span>รายการธุรกรรม</a>
+            <a><span class="dot"></span>ตรวจและจ่ายรางวัล</a>
+            <a><span class="dot"></span>งานปิด/ย้ายสาขา</a>
+            <a class="on"><span class="dot"></span>การส่งข้อมูลออก (Feed)</a>
+            <a><span class="dot"></span>รายงาน</a>
+          </nav>
+        </aside>
+        <div class="main">
+          <div class="topbar">
+            <div><h4>การส่งข้อมูลออก (SFTP Feed)</h4><div class="sub">ติดตามผลการส่งแต่ละรอบ ตั้งการแจ้งเตือน และส่งซ้ำเมื่อไม่สำเร็จ</div></div>
+            <div class="btn">ส่งข้อมูลรอบใหม่</div>
+          </div>
+          <div class="body">
+            <div class="kpirow">
+              <div class="card kpi"><div class="tick" style="background:#2E7D46"></div>
+                <div class="lb">อัตราสำเร็จ 30 วัน</div><div class="big" style="color:#2E7D46">96.7%</div><div class="un">29 จาก 30 รอบ</div></div>
+              <div class="card kpi"><div class="tick" style="background:#2E7D46"></div>
+                <div class="lb">รอบล่าสุด</div><div class="big" style="color:#2E7D46">สำเร็จ</div><div class="un">6 ส.ค. 2569 06:00 น.</div></div>
+              <div class="card kpi"><div class="tick" style="background:#B98612"></div>
+                <div class="lb">ไม่สำเร็จสะสม</div><div class="big" style="color:#B98612">1 รอบ</div><div class="un">4 ส.ค. 2569 — แก้ไขแล้ว</div></div>
+              <div class="card kpi"><div class="tick" style="background:#234D80"></div>
+                <div class="lb">รอบถัดไป</div><div class="big" style="color:#234D80">พรุ่งนี้ 06:00</div><div class="un">ตั้งเวลาอัตโนมัติ</div></div>
+            </div>
+            <div class="cols" style="grid-template-columns:1.9fr 1fr">
+              <div class="card">
+                <div class="p-head"><h5>ประวัติการส่งข้อมูล</h5>
+                  <div class="ps">เก็บผลรันทุกรอบ พร้อมเวลาที่ใช้และจำนวนรายการ</div></div>
+                <div class="tw" style="padding-bottom:6px"><table class="t">
+                  <tr><th>รอบวันที่</th><th>งาน</th><th>จำนวนรายการ</th><th>เวลาที่ใช้</th><th>สถานะ</th><th style="text-align:right">การจัดการ</th></tr>
+                  <tr><td>6 ส.ค. 2569 06:00</td><td>PDTRN_DAILY</td><td>3,271</td><td>42 วิ</td><td><span class="pill ok">สำเร็จ</span></td><td style="text-align:right;color:#5A6672">ดูบันทึก</td></tr>
+                  <tr class="zebra"><td>5 ส.ค. 2569 06:00</td><td>PDTRN_DAILY</td><td>3,118</td><td>39 วิ</td><td><span class="pill ok">สำเร็จ</span></td><td style="text-align:right;color:#5A6672">ดูบันทึก</td></tr>
+                  <tr class="err"><td>4 ส.ค. 2569 06:00</td><td>PDTRN_DAILY</td><td>—</td><td>—</td><td><span class="pill bad">ไม่สำเร็จ</span></td><td style="text-align:right;color:#B3006A;font-weight:600">ส่งซ้ำ</td></tr>
+                  <tr><td>3 ส.ค. 2569 06:00</td><td>PDTRN_DAILY</td><td>2,984</td><td>41 วิ</td><td><span class="pill ok">สำเร็จ</span></td><td style="text-align:right;color:#5A6672">ดูบันทึก</td></tr>
+                  <tr class="zebra"><td>2 ส.ค. 2569 06:00</td><td>PDTRN_DAILY</td><td>3,402</td><td>45 วิ</td><td><span class="pill ok">สำเร็จ</span></td><td style="text-align:right;color:#5A6672">ดูบันทึก</td></tr>
+                </table></div>
+                <div class="callout">
+                  <b>รายละเอียดรอบที่ไม่สำเร็จ · 4 ส.ค. 2569</b>
+                  <p>เชื่อมต่อเซิร์ฟเวอร์ปลายทางไม่ได้ (หมดเวลาเชื่อมต่อ) — ระบบแจ้งเตือนผู้ดูแลอัตโนมัติ</p>
+                  <div class="did">ดำเนินการแล้ว: ส่งซ้ำสำเร็จเมื่อ 4 ส.ค. 2569 09:20 น.</div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="p-head"><h5>การแจ้งเตือน</h5><div class="ps">กำหนดว่าให้แจ้งใครเมื่อเกิดอะไร</div></div>
+                <div class="alerts">
+                  <div class="al" style="border-left-color:#B13A3F"><div><b>ส่งข้อมูลไม่สำเร็จ</b><span>แจ้งทันที · อีเมล + SMS</span></div><div class="tg"></div></div>
+                  <div class="al" style="border-left-color:#B98612"><div><b>ไม่มีการส่งตามรอบ</b><span>แจ้งเมื่อเลยเวลา 30 นาที</span></div><div class="tg"></div></div>
+                  <div class="al" style="border-left-color:#B98612"><div><b>ใช้เวลานานผิดปกติ</b><span>แจ้งเมื่อเกิน 5 นาที</span></div><div class="tg"></div></div>
+                  <div class="al" style="border-left-color:#2E7D46"><div><b>ส่งสำเร็จตามปกติ</b><span>สรุปรายวัน · อีเมล</span></div><div class="tg"></div></div>
+                </div>
+                <div class="p-head" style="padding-top:10px"><h5 style="font-size:12.5px">ผู้รับการแจ้งเตือน</h5></div>
+                <div class="recips">
+                  <div class="rc"><i></i>ผู้ดูแลระบบธนโชค</div>
+                  <div class="rc"><i></i>หัวหน้าส่วนปฏิบัติการ</div>
+                  <div class="rc"><i></i>ทีมเฝ้าระวังระบบ (24 ชม.)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <div class="notes">
+      <div class="note"><span class="idx">A</span><p><b>อัตราสำเร็จเป็นตัวเลขเดียว</b> — ใช้รายงานความน่าเชื่อถือของงานนี้ต่อผู้บริหารได้ทันที</p></div>
+      <div class="note"><span class="idx">B</span><p><b>ล้มเหลวแล้วบอกสาเหตุและสิ่งที่ทำไปแล้ว</b> — ไม่ใช่แค่ขึ้นว่า error ผู้ดูแลรู้ว่าต้องทำอะไรต่อ</p></div>
+      <div class="note"><span class="idx">C</span><p><b>ตั้งได้ว่าจะแจ้งใครเมื่อไหร่</b> — เจ้าของระบบกำหนดผู้รับผิดชอบได้เอง ไม่ต้องพึ่งทีมพัฒนา</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <h3>สิ่งที่อยากได้ความเห็นจากเจ้าของระบบ</h3>
+    <ol>
+      <li>หน้าจอเหล่านี้ครอบคลุมงานที่ใช้จริงหรือยัง — ขาดงานสำคัญอะไรไปบ้าง</li>
+      <li>ตัวเลขสี่ค่าบนหน้าภาพรวม ตรงกับสิ่งที่ต้องดูทุกวันหรือไม่ ถ้าไม่ ควรเป็นค่าใด</li>
+      <li>การแจ้งเตือนควรส่งถึงใคร และช่วงเวลาใดที่ต้องแจ้งทันที</li>
+      <li>ข้อมูลใดบ้างที่ห้ามแสดงบนหน้าจอ หรือต้องจำกัดตามสิทธิ์ผู้ใช้</li>
+      <li>ลำดับความสำคัญ — ถ้าทำได้ทีละหน้าจอ ควรเริ่มจากหน้าใดก่อน</li>
+    </ol>
+    <p class="fine">เอกสารฉบับร่างเพื่อใช้หารือ · ข้อมูลบนหน้าจอทั้งหมดเป็นตัวอย่างสมมติ ไม่ใช่ข้อมูลจริงของลูกค้า ·
+    ต้นฉบับหน้าจออยู่ในไฟล์ Figma ของโครงการ</p>
+  </div>
+</footer>
+
+<script>
+// scale each 1440x900 mockup to the width of its container, keeping the frame proportional
+(function () {
+  var W = 1440, H = 900;
+  function fit() {
+    document.querySelectorAll('[data-canvas]').forEach(function (canvas) {
+      var app = canvas.querySelector('[data-app]');
+      if (!app) return;
+      var s = canvas.clientWidth / W;
+      app.style.transform = 'scale(' + s + ')';
+      canvas.style.height = (H * s) + 'px';
+    });
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
