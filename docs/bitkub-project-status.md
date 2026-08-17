@@ -17,6 +17,8 @@
 | USDT Buyback Watch | ทุกชั่วโมง | 12 ส.ค. 19:59 น. | 🟢 |
 | Swing Dashboard (web) | — | — | ⚪ ตรวจไม่ได้จาก session นี้ (network policy บล็อก VPS) |
 
+**ช่องทางแจ้งเตือน** — ทุก workflow ส่งเข้า LINE OA **"MyTrade"** (เปลี่ยนชื่อจาก AvA เมื่อ 17 ส.ค. 2569 เพื่อแยกโปรเจกต์ Trade ออกจาก Expense — channel/token/userId เดิมทุกอย่าง ไม่ต้องแก้ workflow)
+
 **สัญญาณล่าสุด (ปิดวัน 11 ส.ค.)** — XRP ขึ้น `Buy` ตัวเดียว (RSI 35.9, Z −2.02, Swing Rank 1)
 ที่เหลือ Hold ทั้งหมด · BTC/ETH/SOL/DOGE อยู่ใน Death Cross · ADA/BNB Golden Cross
 
@@ -98,4 +100,4 @@ Dashboard เป็น web app เต็มตัว (Express + indicator + back
 
 ---
 
-_อัปเดตล่าสุด: 2026-08-12_
+_อัปเดตล่าสุด: 2026-08-17_
