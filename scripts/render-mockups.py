@@ -13,7 +13,7 @@ SRC = ROOT / "docs" / "tanachok-mockups.html"
 OUT = ROOT / "docs" / "mockups"
 OUT.mkdir(parents=True, exist_ok=True)
 
-NAMES = ["screen1-dashboard", "screen2-search", "screen3-feed"]
+NAMES = ["screen1-payout-overview", "screen2-search-payout", "screen3-progress-report"]
 
 # ใช้ Chromium ที่ติดตั้งไว้แล้วในเครื่อง (อย่ารัน `playwright install`)
 CHROME = os.environ.get("CHROMIUM_PATH", "/opt/pw-browsers/chromium-1194/chrome-linux/chrome")
