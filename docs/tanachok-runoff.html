@@ -1,0 +1,275 @@
+<title>TANACHOK — ฟังก์ชันที่ต้องคงไว้และตัดออก</title>
+<style>
+:root{
+  --brand:#EC008C; --brand-deep:#B3006A; --brand-wash:#FDF2F8;
+  --ink:#1C2029; --ink-2:#4A5260; --ink-3:#78808F;
+  --ground:#FBF9FB; --panel:#FFFFFF; --rule:#E6E0E6; --rule-soft:#F1ECF1;
+  --keep:#2E7D46; --keep-bg:#E4F2E9; --decide:#B98612; --decide-bg:#FBF1D8;
+  --cut:#B13A3F; --cut-bg:#FAE6E7; --info:#234D80; --info-bg:#E3ECF7;
+  --shadow:0 1px 2px rgba(28,32,41,.05), 0 8px 28px -14px rgba(28,32,41,.16);
+  --thai:"Noto Sans Thai","IBM Plex Sans Thai","Leelawadee UI",Tahoma,"Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --brand:#FF3DA6; --brand-deep:#FF7BC4; --brand-wash:#2A1220;
+  --ink:#ECEAEE; --ink-2:#B3AEB8; --ink-3:#857F8C;
+  --ground:#16141A; --panel:#1E1B22; --rule:#332E38; --rule-soft:#272229;
+  --keep:#6FCB92; --keep-bg:#17301F; --decide:#E4B44A; --decide-bg:#332913;
+  --cut:#F0868B; --cut-bg:#331A1C; --info:#8FB6E8; --info-bg:#16243A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -14px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --brand:#FF3DA6; --brand-deep:#FF7BC4; --brand-wash:#2A1220;
+  --ink:#ECEAEE; --ink-2:#B3AEB8; --ink-3:#857F8C;
+  --ground:#16141A; --panel:#1E1B22; --rule:#332E38; --rule-soft:#272229;
+  --keep:#6FCB92; --keep-bg:#17301F; --decide:#E4B44A; --decide-bg:#332913;
+  --cut:#F0868B; --cut-bg:#331A1C; --info:#8FB6E8; --info-bg:#16243A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--thai);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.narrow{max-width:72ch}
+.mast{background:var(--panel);border-bottom:1px solid var(--rule)}
+.mast .wrap{padding:44px 28px 34px}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--brand-deep);margin-bottom:16px}
+.eyebrow::before{content:"";width:22px;height:3px;background:var(--brand);border-radius:2px}
+h1{font-size:clamp(28px,4.2vw,44px);line-height:1.15;margin:0 0 12px;font-weight:700;
+  letter-spacing:-.015em;text-wrap:balance}
+.lede{font-size:clamp(15px,1.6vw,18px);color:var(--ink-2);margin:0;max-width:64ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:24px}
+.meta span{font-size:12.5px;color:var(--ink-2);background:var(--ground);
+  border:1px solid var(--rule);border-radius:999px;padding:5px 12px}
+h2{font-size:clamp(20px,2.5vw,27px);font-weight:700;letter-spacing:-.01em;margin:0 0 6px;text-wrap:balance}
+h3{font-size:16px;font-weight:700;margin:0 0 6px}
+section{margin:52px 0 0;padding-top:34px;border-top:1px solid var(--rule)}
+.sec-label{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:12px}
+p{margin:0 0 14px} .dim{color:var(--ink-2);font-size:15px}
+.shift{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--brand);
+  border-radius:12px;padding:22px 26px;box-shadow:var(--shadow);margin-top:34px}
+.shift h3{color:var(--brand-deep)}
+.tscroll{overflow-x:auto;border:1px solid var(--rule);border-radius:12px;background:var(--panel);
+  box-shadow:var(--shadow);margin-top:18px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+th{text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3);padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink);font-weight:600}
+td.num{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:400;width:1%;white-space:nowrap}
+.was{color:var(--cut)} .now{color:var(--keep);font-weight:600}
+.tally{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 8px}
+.ty{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:18px 20px;
+  box-shadow:var(--shadow);border-top:3px solid}
+.ty.k{border-top-color:var(--keep)} .ty.c{border-top-color:var(--cut)} .ty.d{border-top-color:var(--decide)}
+.ty .n{font-size:38px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.ty.k .n{color:var(--keep)} .ty.c .n{color:var(--cut)} .ty.d .n{color:var(--decide)}
+.ty .l{font-size:13.5px;font-weight:600;margin-top:8px} .ty .s{font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.fn{display:flex;gap:14px;background:var(--panel);border:1px solid var(--rule);border-radius:11px;
+  padding:15px 18px;margin-bottom:10px;box-shadow:var(--shadow)}
+.fn .stripe{width:4px;border-radius:2px;flex:0 0 auto;align-self:stretch}
+.fn.k .stripe{background:var(--keep)} .fn.c .stripe{background:var(--cut)} .fn.d .stripe{background:var(--decide)}
+.fn .code{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink-3);margin-bottom:4px}
+.fn h3{font-size:15.5px;margin-bottom:4px}
+.fn p{font-size:13.5px;color:var(--ink-2);margin:0}
+.warnbox{background:var(--cut-bg);border:1px solid var(--cut);border-radius:11px;padding:15px 20px;
+  font-size:14px;margin-top:18px}
+.warnbox b{color:var(--cut)}
+.okbox{background:var(--keep-bg);border:1px solid var(--keep);border-radius:11px;padding:15px 20px;
+  font-size:14px;margin-top:18px}
+.okbox b{color:var(--keep)}
+.pill{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:3px 11px;white-space:nowrap}
+.pill.k{color:var(--keep);background:var(--keep-bg);box-shadow:inset 0 0 0 1px var(--keep)}
+.pill.c{color:var(--cut);background:var(--cut-bg);box-shadow:inset 0 0 0 1px var(--cut)}
+.pill.d{color:var(--decide);background:var(--decide-bg);box-shadow:inset 0 0 0 1px var(--decide)}
+.pill.n{color:var(--info);background:var(--info-bg);box-shadow:inset 0 0 0 1px var(--info)}
+.foot{margin:60px 0 0;background:var(--panel);border-top:1px solid var(--rule)}
+.foot .wrap{padding:32px 28px 46px}
+.fine{font-size:12.5px;color:var(--ink-3)}
+@media (max-width:640px){ .wrap{padding:0 18px} }
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="eyebrow">ธนาคารออมสิน · ระบบงานสลากธนโชค</div>
+    <h1>ฟังก์ชันที่ต้องคงไว้และตัดออก</h1>
+    <p class="lede">สลากธนโชคปิดการขายแล้ว เหลือเพียงรอให้ลูกค้ามาถอน — ทบทวนว่าระบบยังต้องทำอะไรบ้าง และตัดอะไรออกได้</p>
+    <div class="meta">
+      <span>โหมดปิดการขาย (Run-off)</span>
+      <span>คงไว้ 8 · ตัดออก 7 · รอตัดสินใจ 6</span>
+      <span>ฉบับร่างเพื่อหารือ</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="shift">
+    <h3>สิ่งที่เปลี่ยนไปจากแผนเดิม</h3>
+    <p class="dim">แผนก่อนหน้าตั้งอยู่บนสมมติฐานว่าธนโชคยังเปิดให้บริการเต็มรูปแบบ
+    เมื่อระบบเข้าสู่โหมดปิดการขาย <b>เหตุผลเชิงลงทุนเปลี่ยนทั้งหมด</b></p>
+    <div class="tscroll" style="box-shadow:none">
+      <table>
+        <tr><th>ประเด็น</th><th>แผนเดิม</th><th>แผนใหม่</th></tr>
+        <tr><td>เป้าหมายระบบ</td><td class="was">ให้บริการต่อเนื่องระยะยาว</td><td class="now">จ่ายคืนผู้ถือให้ครบ แล้วปิดระบบ</td></tr>
+        <tr><td>ยกระดับ/พัฒนาใหม่</td><td class="was">เสนอให้ประเมิน</td><td class="now">ตัดออก — ไม่คุ้มที่จะรื้อระบบที่กำลังจะปิด</td></tr>
+        <tr><td>ความพร้อมใช้งาน (HA)</td><td class="was">ต้องการสูง</td><td class="now">ลดระดับได้ — ธุรกรรมต่ำมาก</td></tr>
+        <tr><td>เวลากู้คืน (RTO)</td><td class="was">ต้องสั้น</td><td class="now">ยืดหยุ่นได้</td></tr>
+        <tr><td>ความปลอดภัย</td><td class="was">ต้องแก้</td><td class="now">ยังต้องแก้เหมือนเดิม — ข้อมูลลูกค้าและเงินยังอยู่</td></tr>
+        <tr><td>ร่องรอยตรวจสอบ</td><td class="was">ต้องมี</td><td class="now">สำคัญขึ้นกว่าเดิม — เป็นหลักฐานการจ่ายคืน</td></tr>
+        <tr><td>สิ่งที่ต้องเพิ่ม</td><td class="was">—</td><td class="now">แผนปิดระบบ + การจัดการยอดที่ไม่มีผู้มาถอน</td></tr>
+      </table>
+    </div>
+    <div class="okbox"><b>ผลเชิงงบประมาณ:</b> งานที่ควรทำลดลงมาก — เหลือเฉพาะความปลอดภัย
+    การจ่ายคืนที่ถูกต้อง ร่องรอยตรวจสอบ และแผนปิดระบบ ส่วนงานยกระดับสถาปัตยกรรมและ CI/CD ควรพับเก็บ</div>
+  </div>
+
+  <section style="border-top:0">
+    <div class="sec-label">สรุปการทบทวน</div>
+    <h2>21 ฟังก์ชัน แบ่งเป็น 3 กลุ่ม</h2>
+    <div class="tally">
+      <div class="ty k"><div class="n">8</div><div class="l">คงไว้</div><div class="s">จำเป็นต่อการจ่ายคืน</div></div>
+      <div class="ty c"><div class="n">7</div><div class="l">ตัดออก</div><div class="s">ไม่มีการขายแล้ว</div></div>
+      <div class="ty d"><div class="n">6</div><div class="l">รอตัดสินใจ</div><div class="s">ขึ้นกับนโยบาย</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label"><span class="pill k">กลุ่ม A</span> &nbsp;คงไว้</div>
+    <h2>8 ฟังก์ชันที่ระบบยังต้องทำได้</h2>
+    <p class="dim narrow" style="margin-bottom:20px">นี่คือขอบเขตขั้นต่ำจนกว่าจะปิดระบบจริง</p>
+    <div class="fn k"><div class="stripe"></div><div><div class="code">A1</div><h3>ค้นหาผู้ถือสลาก</h3><p>ค้นด้วยเลขที่สลาก เลขบัตร หรือชื่อ — จุดเริ่มต้นของทุกเคสเมื่อลูกค้าเดินเข้าสาขา</p></div></div>
+    <div class="fn k"><div class="stripe"></div><div><div class="code">A2</div><h3>แสดงยอดคงเหลือและสิทธิ์ที่พึงได้รับ</h3><p>ต้องรู้ว่าจ่ายคืนเท่าไร — เงินต้นบวกสิทธิ์ค้างจ่าย</p></div></div>
+    <div class="fn k"><div class="stripe"></div><div><div class="code">A3</div><h3>บันทึกการถอน/จ่ายคืน</h3><p>ธุรกรรมประเภทเดียวที่ยังเกิดขึ้นจริงในระบบ</p></div></div>
+    <div class="fn k"><div class="stripe"></div><div><div class="code">A4</div><h3>ตรวจเงินรางวัลค้างจ่าย</h3><p>ผู้ถือยังมีสิทธิ์รับรางวัลงวดเก่าที่ออกไปแล้วแต่ยังไม่ได้ขึ้นเงิน</p></div></div>
+    <div class="fn k"><div class="stripe"></div><div><div class="code">A5</div><h3>ประวัติธุรกรรมรายผู้ถือสลาก</h3><p>หลักฐานการจ่ายคืน ใช้ตอบข้อโต้แย้งและการตรวจสอบ</p></div></div>
+    <div class="fn k"><div class="stripe"></div><div><div class="code">A6</div><h3>รายงานยอดคงค้างทั้งระบบ</h3><p>ฝ่ายบัญชีต้องรู้ภาระผูกพันที่เหลือ และใช้ติดตามความคืบหน้าการปิด</p></div></div>
+    <div class="fn k"><div class="stripe"></div><div><div class="code">A7</div><h3>งานปิด/ย้ายสาขา</h3><p>ยังจำเป็น — สาขาทยอยปิด ต้องย้ายข้อมูลผู้ถือไปสาขาปลายทาง</p></div></div>
+    <div class="fn k"><div class="stripe"></div><div><div class="code">A8</div><h3>จัดการผู้ใช้และสิทธิ์เข้าถึง</h3><p>ควบคุมว่าใครจ่ายเงินได้ ใครดูข้อมูลได้</p></div></div>
+  </section>
+
+  <section>
+    <div class="sec-label"><span class="pill c">กลุ่ม B</span> &nbsp;ตัดออก</div>
+    <h2>7 ฟังก์ชันที่ไม่มีความหมายแล้ว</h2>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ฟังก์ชัน</th><th>เหตุผล</th><th>วิธีจัดการ</th></tr>
+        <tr><td class="num">B1</td><td>ขาย/ซื้อสลากใหม่</td><td>ไม่เปิดขายแล้ว</td><td>ปิดเมนู + ปิดสิทธิ์</td></tr>
+        <tr><td class="num">B2</td><td>ฝากสลากเพิ่ม / ต่ออายุ</td><td>ไม่มีการเพิ่มยอดอีก</td><td>ปิดเมนู</td></tr>
+        <tr><td class="num">B3</td><td>จัดสรรและออกเลขสลาก</td><td>ไม่มีสลากใหม่ให้ออกเลข</td><td>ปิดงาน + หยุด job</td></tr>
+        <tr><td class="num">B4</td><td>ประมวลผลออกรางวัลงวดใหม่</td><td>ไม่มีงวดใหม่แล้ว</td><td>ปิดงาน แต่เก็บผลงวดเก่าไว้เพื่อ A4</td></tr>
+        <tr><td class="num">B5</td><td>รายงานยอดขาย / เป้า / อันดับสาขา</td><td>ไม่มีการขายให้วัด</td><td>ปิดรายงาน</td></tr>
+        <tr><td class="num">B6</td><td>ตัวเลขการขายบนหน้าภาพรวม</td><td>ไม่มีความหมายแล้ว</td><td>เปลี่ยนเป็นตัวเลขการจ่ายคืน</td></tr>
+        <tr><td class="num">B7</td><td>งานพิมพ์/จัดส่งสลาก</td><td>ไม่มีสลากใหม่</td><td>ปิดงาน</td></tr>
+      </table>
+    </div>
+    <div class="warnbox"><b>คำเตือนสำคัญ:</b> &ldquo;ตัดออก&rdquo; หมายถึง <b>ปิดการใช้งานและปิดสิทธิ์</b> เท่านั้น —
+    <b>ห้ามลบข้อมูลเดิม</b> ข้อมูลย้อนหลังทั้งหมดยังต้องเก็บไว้ตามระยะเวลาที่กำหนด
+    เพื่อการตรวจสอบและการจ่ายคืน</div>
+  </section>
+
+  <section>
+    <div class="sec-label"><span class="pill d">กลุ่ม C</span> &nbsp;รอตัดสินใจ</div>
+    <h2>6 ประเด็นที่ต้องให้เจ้าของระบบชี้ขาด</h2>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ประเด็น</th><th>ทางเลือก</th><th>ผลต่อขอบเขตงาน</th></tr>
+        <tr><td class="num">C1</td><td>โอนสลาก / กรณีทายาท</td><td>คงไว้เฉพาะกรณีมรดก หรือใช้กระบวนการเอกสารแทน</td><td>ถ้าคงไว้ ต้องคงหน้าจอโอนและกฎการตรวจสอบ</td></tr>
+        <tr><td class="num">C2</td><td>การส่งข้อมูลออก (SFTP Feed)</td><td>ปลายทางยังต้องการไหม · ลดความถี่เป็นรายเดือนได้ไหม</td><td><b>ถ้าเลิกส่ง ตัดงาน batch + การเฝ้าระวังทิ้งได้ทั้งชุด</b></td></tr>
+        <tr><td class="num">C3</td><td>การคิดดอกเบี้ย/ผลตอบแทน</td><td>เดินต่อจนถึงวันถอน หรือหยุด ณ วันที่กำหนด</td><td>กระทบสูตรคำนวณยอดจ่ายคืน</td></tr>
+        <tr><td class="num">C4</td><td>การติดต่อผู้ถือที่ยังไม่มาถอน</td><td>มีแคมเปญตามตัวไหม ต้องมีรายชื่อ/ที่อยู่ไหม</td><td>ถ้ามี ต้องเพิ่มรายงานติดตาม (งานเล็ก)</td></tr>
+        <tr><td class="num">C5</td><td>เงินที่ไม่มีผู้มาถอนตามกำหนด</td><td>จัดการตามระเบียบอย่างไร</td><td>ต้องมีขั้นตอนและรายงานรองรับ</td></tr>
+        <tr><td class="num">C6</td><td>กำหนดวันปิดระบบ</td><td>มีกำหนดชัด หรือรอจนผู้ถือหมด</td><td><b>เป็นตัวกำหนดว่าจะลงทุนกับระบบแค่ไหน</b></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">ผลต่อหน้าจอ</div>
+    <h2>หน้าจอที่เสนอไว้ต้องปรับอย่างไร</h2>
+    <div class="tscroll">
+      <table>
+        <tr><th>หน้าจอ</th><th>สถานะ</th><th>สิ่งที่ต้องปรับ</th></tr>
+        <tr><td>1 · ภาพรวมระบบ</td><td><span class="pill d">ปรับใหญ่</span></td>
+          <td>เปลี่ยนตัวเลขจาก &ldquo;การขาย&rdquo; เป็น &ldquo;ความคืบหน้าการจ่ายคืน&rdquo; — ยอดคงค้างรอจ่ายคืน · จ่ายคืนวันนี้ · เงินรางวัลค้างจ่าย · จ่ายคืนแล้วกี่ % ของยอดตั้งต้น</td></tr>
+        <tr><td>2 · ค้นหาผู้ถือสลาก</td><td><span class="pill k">คงไว้</span></td>
+          <td>หน้าจอที่สำคัญที่สุดในโหมดนี้ — เปลี่ยนปุ่มหลักเป็น &ldquo;บันทึกการจ่ายคืน&rdquo; และเพิ่มยอดที่ต้องจ่ายคืน ณ วันนี้ให้เด่นชัด</td></tr>
+        <tr><td>3 · การส่งข้อมูลออก</td><td><span class="pill c">อาจตัดทั้งหน้า</span></td>
+          <td>ขึ้นกับ C2 — ถ้าปลายทางเลิกต้องการข้อมูล ตัดทิ้งพร้อมงาน batch และการเฝ้าระวัง (ประหยัดงานได้มากที่สุด)</td></tr>
+        <tr><td>4 · รายงานความคืบหน้าการจ่ายคืน</td><td><span class="pill n">เพิ่มใหม่</span></td>
+          <td>เหลือผู้ถือกี่ราย ยอดเท่าไร แยกตามสาขา/ช่วงเวลา — ใช้รายงานผู้บริหารและตัดสินใจว่าจะปิดระบบเมื่อใด</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">ผลต่อแผนงาน</div>
+    <h2>แผน 4 เฟสเดิม เหลืออะไรบ้าง</h2>
+    <div class="tscroll">
+      <table>
+        <tr><th>เฟส</th><th>สถานะใหม่</th><th>เหตุผล</th></tr>
+        <tr><td>Phase 1 — ปิดความเสี่ยงเร่งด่วน</td><td><span class="pill k">คงไว้ทั้งหมด</span></td>
+          <td>ยังเร่งด่วนเท่าเดิม — ข้อมูลลูกค้าและเงินยังอยู่ ความเสี่ยงไม่ได้ลดเพราะปิดการขาย</td></tr>
+        <tr><td>Phase 2 — ทำให้ดูแลได้จริง</td><td><span class="pill d">คงไว้ แต่ลดขนาด</span></td>
+          <td>สำรองข้อมูลและร่องรอยตรวจสอบยังจำเป็น · การเฝ้าระวังลดเหลือเท่าที่จำเป็น · ถ้าเลิก Feed ตัดส่วนนั้นทิ้ง</td></tr>
+        <tr><td>Phase 3 — คุมการเปลี่ยนแปลง</td><td><span class="pill d">ลดเหลือเท่าที่จำเป็น</span></td>
+          <td>ระบบแทบไม่มีการแก้ไขแล้ว เหลือเพียงคุมสิทธิ์การแก้ไขและเก็บเอกสารปฏิบัติการ</td></tr>
+        <tr><td>Phase 4 — ยกระดับ/พัฒนาใหม่</td><td><span class="pill c">ตัดออก</span></td>
+          <td>ไม่คุ้มที่จะรื้อระบบที่กำลังจะปิด — เป็นการประหยัดที่ใหญ่ที่สุดจากเงื่อนไขใหม่</td></tr>
+        <tr><td>Phase 5 — แผนปิดระบบ</td><td><span class="pill n">เพิ่มใหม่</span></td>
+          <td>กำหนดวันปิด · จัดการยอดที่ไม่มีผู้มาถอน · เก็บข้อมูลถาวร · ปลดระวางเครื่อง</td></tr>
+      </table>
+    </div>
+    <div class="okbox" style="background:var(--info-bg);border-color:var(--info)">
+      <b style="color:var(--info)">Phase 5 (ใหม่) — แผนปิดระบบ:</b>
+      กำหนดวันสิ้นสุดการรับคำขอถอนและแจ้งผู้ถือล่วงหน้า ·
+      กำหนดวิธีจัดการยอดที่ไม่มีผู้มาถอนตามระเบียบ ·
+      วางแผนเก็บข้อมูลถาวรให้ค้นย้อนหลังได้ ·
+      กำหนดว่าหลังปิดระบบถ้ามีผู้มาติดต่อภายหลังจะให้บริการอย่างไร ·
+      ปลดระวางเครื่องและเพิกถอนสิทธิ์ทั้งหมด
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">สิ่งที่ต้องได้คำตอบ</div>
+    <h2>8 คำถามก่อนสรุปขอบเขต</h2>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>คำถาม</th><th>ทำไมสำคัญ</th></tr>
+        <tr><td class="num">1</td><td>เหลือผู้ถือสลากกี่ราย ยอดคงค้างเท่าไร</td><td>กำหนดว่าคุ้มลงทุนแค่ไหน และต้องรันระบบอีกนานเท่าใด</td></tr>
+        <tr><td class="num">2</td><td>มีกำหนดวันปิดระบบหรือยัง</td><td>ถ้ามีกำหนดชัด งานทั้งหมดวางแผนได้แม่นขึ้นมาก</td></tr>
+        <tr><td class="num">3</td><td>อัตราการมาถอนต่อเดือนเป็นเท่าใด</td><td>ใช้ประมาณว่าอีกกี่ปีจึงจะหมด</td></tr>
+        <tr><td class="num">4</td><td>ปลายทางของ Feed ยังต้องการข้อมูลหรือไม่</td><td>ตัดได้ทั้งชุดถ้าไม่ต้องการ — ประหยัดงานมากที่สุด</td></tr>
+        <tr><td class="num">5</td><td>ยังคิดดอกเบี้ย/ผลตอบแทนอยู่หรือไม่</td><td>กระทบสูตรคำนวณยอดจ่ายคืน</td></tr>
+        <tr><td class="num">6</td><td>เงินที่ไม่มีผู้มาถอนจัดการตามระเบียบใด</td><td>ต้องมีขั้นตอนและรายงานรองรับ</td></tr>
+        <tr><td class="num">7</td><td>กรณีทายาท/มรดก รองรับในระบบหรือใช้เอกสาร</td><td>กระทบว่าจะคงหน้าจอโอนไว้หรือไม่</td></tr>
+        <tr><td class="num">8</td><td>ต้องเก็บข้อมูลย้อนหลังกี่ปีหลังปิดระบบ</td><td>กำหนดวิธีเก็บข้อมูลถาวร</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">ข้อเสนอแนะ</div>
+    <h2>สรุป 6 ข้อ</h2>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ข้อเสนอแนะ</th></tr>
+        <tr><td class="num">1</td><td><b>ลดขอบเขตให้เหลือ 8 ฟังก์ชันในกลุ่ม A</b> — คือสิ่งที่ระบบต้องทำได้จริงในโหมดนี้</td></tr>
+        <tr><td class="num">2</td><td><b>ปิดการใช้งานกลุ่ม B ทันที</b> — ลดพื้นที่เสี่ยง ลดความสับสนของผู้ใช้ ลดงานดูแล โดยห้ามลบข้อมูล</td></tr>
+        <tr><td class="num">3</td><td><b>ยกเลิก Phase 4</b> — เป็นการประหยัดที่ใหญ่ที่สุดจากเงื่อนไขใหม่นี้</td></tr>
+        <tr><td class="num">4</td><td><b>ยังต้องทำ Phase 1 เต็มรูปแบบ</b> — ปิดการขายไม่ได้ทำให้ข้อมูลลูกค้าปลอดภัยขึ้น และผู้ตรวจสอบยังตรวจระบบที่ยังมีข้อมูลอยู่</td></tr>
+        <tr><td class="num">5</td><td><b>เพิ่ม Phase 5 แผนปิดระบบ</b> — ควรเริ่มคุยตั้งแต่ตอนนี้ เพราะเป็นตัวกำหนดทุกอย่างที่เหลือ</td></tr>
+        <tr><td class="num">6</td><td><b>ถามเรื่อง Feed (C2) ให้ได้คำตอบเร็วที่สุด</b> — จุดเดียวที่ตัดแล้วประหยัดงานได้มากที่สุดทันที</td></tr>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="fine">ฉบับร่างเพื่อใช้หารือกับเจ้าของระบบ · ปรับตามเงื่อนไขใหม่ที่สลากธนโชคปิดการขายแล้ว เหลือเพียงการจ่ายคืน ·
+    จำนวนฟังก์ชันและข้อสรุปทุกข้อรอการยืนยันจากผู้เกี่ยวข้อง · เอกสารนี้ไม่มีรหัสผ่านหรือความลับของระบบโดยเจตนา</p>
+  </div>
+</footer>
