@@ -433,7 +433,12 @@ td.num{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:400
       <li><b>กระทบยอด (reconciliation) ทุกบัญชีทุกบาท</b> เทียบระบบเก่า–ใหม่</li>
       <li>ยกประวัติธุรกรรมเดิมไปด้วย และทดสอบว่าค้นย้อนหลังได้จริง</li>
       <li>ย้ายงาน Feed ไปสคริปต์ฉบับ Linux + ทดสอบตามชุด TC เดิม (ถ้ายังต้องส่ง)</li>
-      <li>นำโค้ดและสคริปต์ย้ายข้อมูลเข้าระบบควบคุมเวอร์ชัน + จัดทำคู่มือปฏิบัติการ</li></ul>
+      <li>นำโค้ดและสคริปต์ย้ายข้อมูลเข้าระบบควบคุมเวอร์ชัน + จัดทำคู่มือปฏิบัติการ</li>
+      <li><b>ยื่นเอกสารขอใช้ CI/CD กับทีม QA ตั้งแต่ต้นเฟส</b> (4 ฉบับ ตามแบบ LK)</li>
+      <li><b>จัดทำ Base Image นำส่งธนาคาร</b> — Jenkins ธนาคารไม่ต่ออินเทอร์เน็ต</li>
+      <li>ตั้ง repo ใน GitLab ธนาคาร + branch main/dev + กำหนดผู้อนุมัติ MR ฝั่งธนาคาร</li>
+      <li>ทำ vite build ใน pipeline แล้วเสิร์ฟผ่าน nginx — เลิกใช้ Vite dev server</li>
+      <li>ฝัง Tag version ลง image + ทำหน้าจอแสดง version ตามกติกาธนาคาร</li></ul>
     </div></div>
 
     <div class="phase p5"><div><div class="tag">Phase 4</div><div class="when">หลัง Phase 3</div></div><div>
@@ -441,6 +446,7 @@ td.num{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:400
       <ul><li><b>รันคู่ขนาน (parallel run)</b> อย่างน้อย 1 รอบเต็ม เทียบผลระบบเก่า–ใหม่</li>
       <li>ให้ผู้ใช้จริงทดสอบการจ่ายคืนบนระบบใหม่ (UAT)</li>
       <li>กำหนดเกณฑ์ผ่าน/ไม่ผ่าน และ <b>แผนย้อนกลับหากยอดไม่ตรง</b></li>
+      <li>ปรับ Deploy Checklist ของ LK เป็นฉบับธนโชค + <b>เพิ่มข้อตรวจยอดเงินลูกค้าหลัง deploy</b></li>
       <li>เลือกช่วง cutover ที่มีผู้มาถอนน้อย + แจ้งสาขาล่วงหน้า</li>
       <li>cutover แล้วเฝ้าระวังใกล้ชิดช่วงแรก · ปลดระวางเครื่อง Windows เดิมเมื่อระบบใหม่นิ่ง</li></ul>
     </div></div>
@@ -461,6 +467,101 @@ td.num{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:400
 
   <section>
     <div class="sec-label">ส่วนที่ 8</div>
+    <h2>CI/CD — ใช้มาตรฐานเดียวกับ Linkage Center</h2>
+    <p class="dim narrow">โครงการ <b>Linkage Center 2</b> ผ่านกระบวนการ CI/CD ของธนาคารมาแล้วจริง
+    ใช้เป็นแม่แบบได้ทั้งหมด — ธนโชคไม่ต้องออกแบบกระบวนการใหม่</p>
+
+    <h3>เครื่องมือของธนาคาร</h3>
+    <div class="tscroll">
+      <table>
+        <tr><th>รายการ</th><th>ระบบที่ใช้</th></tr>
+        <tr><td>Source control</td><td>GitLab ของธนาคาร — เข้าด้วยบัญชี AD</td></tr>
+        <tr><td>CI/CD</td><td>Jenkins ของธนาคาร — เข้าด้วยบัญชี AD</td></tr>
+        <tr><td>Image registry</td><td>Nexus</td></tr>
+        <tr><td>เจ้าของกระบวนการ</td><td>ทีม QA ของธนาคาร</td></tr>
+      </table>
+    </div>
+
+    <h3>เอกสารที่ต้องยื่นขอใช้ CI/CD (4 ฉบับ ตามที่ LK2 ทำ)</h3>
+    <ol class="narrow">
+      <li><b>แบบฟอร์มขอใช้งานระบบ CICD</b> — กรอกแล้วส่งทีม QA</li>
+      <li><b>Jenkinsfile ของแต่ละ env</b> — ธนาคารส่งโครงมาให้ ทีมพัฒนาเติมคำสั่ง build/deploy แล้วส่งกลับ</li>
+      <li><b>Firewall Policy (MCS-Template CI-CD)</b> — ส่งทีม Firewall</li>
+      <li><b>คู่มือการใช้งาน GitLab</b> — สำหรับนำ source code เข้า GitLab ธนาคาร</li>
+    </ol>
+
+    <h3>โครงสร้าง Branch (ธนาคารบังคับ)</h3>
+    <div class="tscroll">
+      <table>
+        <tr><th>Branch</th><th>หน้าที่</th><th>เงื่อนไข</th></tr>
+        <tr><td><b>main</b></td><td>ติด Tag version และใช้ deploy ตั้งแต่ SIT ขึ้นไป</td>
+            <td>ห้ามติด tag ที่ branch อื่น · <b>Merge Request จาก dev ต้องอนุมัติโดยพนักงานธนาคาร</b></td></tr>
+        <tr><td><b>dev</b></td><td>ทดสอบ build/compile image ก่อน merge เข้า main</td><td>ทีมพัฒนาใช้เป็น branch หลัก</td></tr>
+        <tr><td><b>feature/xxxxx</b></td><td>แก้ปัญหา / พัฒนาฟีเจอร์</td><td>ไม่บังคับ</td></tr>
+      </table>
+    </div>
+    <p class="dim">รูปแบบ Tag version ของธนาคาร: <b>vx.x.xx</b></p>
+
+    <h3>Pipeline 4 ตัว และผู้รับผิดชอบ</h3>
+    <div class="tscroll">
+      <table>
+        <tr><th>Pipeline</th><th>ผู้ใช้</th><th>กติกา</th></tr>
+        <tr><td><span class="pill n">SIT</span></td><td>ทีมพัฒนา</td>
+            <td>deploy ได้เฉพาะ commit ที่มี Tag version · หลัง deploy <b>หน้าจอต้องแสดง Tag version</b></td></tr>
+        <tr><td><span class="pill n">UAT</span></td><td>ทีมพัฒนา</td>
+            <td><b>ใช้ image เดียวกับ SIT เสมอ</b> · เลือกได้ว่าจะส่ง Security Team scan หรือไม่</td></tr>
+        <tr><td><span class="pill d">SEC</span></td><td>Security Team</td><td>อนุมัติผลการ scan source code</td></tr>
+        <tr><td><span class="pill k">PROD</span></td><td>ทีม Operation</td>
+            <td>deploy ได้เฉพาะ version ที่<b>ผ่าน Pipeline SEC แล้วเท่านั้น</b></td></tr>
+      </table>
+    </div>
+    <div class="okbox"><b>ข่าวดี:</b> หลัก “build ครั้งเดียว แล้วเลื่อนระดับ image เดิม” ธนาคารบังคับอยู่แล้ว
+    (UAT ใช้ image เดียวกับ SIT) — ตรงกับแนวทางที่ควรทำพอดี ไม่ต้องโน้มน้าวใคร</div>
+
+    <div class="warnbox"><b>ข้อจำกัดสำคัญที่สุด — Jenkins ของธนาคารไม่ต่ออินเทอร์เน็ต</b><br>
+    หากต้องใช้ library ที่ดึงผ่านอินเทอร์เน็ต ต้องจัดทำเป็น <b>Base Image นำส่งธนาคารก่อน</b>
+    ธนโชคต้องเตรียมภาพที่มีของครบ: runtime ของ API · Node.js สำหรับ build หน้าเว็บ ·
+    เครื่องมือ migration ฐานข้อมูลและ PostgreSQL client —
+    <b>ต้องเริ่มตั้งแต่ต้น Phase 3 ไม่ใช่รอถึงตอนจะ deploy</b></div>
+
+    <h3>สิ่งที่ธนโชคต้องเปลี่ยน</h3>
+    <div class="tscroll">
+      <table>
+        <tr><th>หัวข้อ</th><th>เดิม (Windows/GlassFish)</th><th>ใหม่ (ตามมาตรฐาน LK)</th></tr>
+        <tr><td>ผลลัพธ์ build</td><td class="was">ไฟล์ .war วางด้วยมือ</td><td class="now">Docker image + Tag vx.x.xx</td></tr>
+        <tr><td>ที่เก็บ artifact</td><td class="was">แชร์ไฟล์ / ทำมือ</td><td class="now">Nexus registry</td></tr>
+        <tr><td>วิธี deploy</td><td class="was">copy war + restart GlassFish</td><td class="now">Jenkins Pipeline แยกตาม env</td></tr>
+        <tr><td>แก้ schema / Stored Procedure</td><td class="was">รัน T-SQL ด้วยมือ</td><td class="now">migration script ใน Git รันเป็นขั้นตอนแยกจาก deploy</td></tr>
+        <tr><td>อนุมัติขึ้น production</td><td class="was">ไม่มีขั้นตอนในระบบ</td><td class="now">PAR + ผ่าน Pipeline SEC</td></tr>
+        <tr><td>ตรวจว่าขึ้น version ไหน</td><td class="was">ตรวจไม่ได้</td><td class="now">หน้าจอแสดง Tag version</td></tr>
+        <tr><td>หน้าเว็บ</td><td class="was">รวมอยู่ใน war</td><td class="now">vite build ใน pipeline → เสิร์ฟผ่าน nginx</td></tr>
+      </table>
+    </div>
+
+    <h3>Deploy Checklist — ยืมของ LK มาปรับใช้ได้เลย</h3>
+    <p class="narrow">LK2 มี Deploy Checklist ครบ 3 ชุด (ก่อน deploy / หลัง deploy / rollback)
+    นำมาปรับเป็นฉบับธนโชคได้ทันที จุดที่ต้องแก้:</p>
+    <ul class="narrow">
+      <li><b>สำรองฐานข้อมูล</b> — LK ใช้ MySQL (mysqldump) ธนโชคใช้ PostgreSQL → เปลี่ยนเป็น pg_dump</li>
+      <li><b>วิธี rollback</b> — เปลี่ยน IMAGE_TAG ใน .env แล้ว restart · <b>ห้ามใช้ --force-recreate</b>
+          (LK ระบุไว้ชัด เพราะข้อมูลใน volume จะหาย)</li>
+      <li><b>ตัดสินใจ rollback ภายใน 15 นาที</b> — ใช้ได้เหมือนกัน</li>
+    </ul>
+    <div class="warnbox"><b>ข้อที่ต้องเพิ่มเฉพาะธนโชค:</b> ตรวจยอดคงเหลือของลูกค้าหลัง deploy ทุกครั้ง —
+    LK ไม่มีข้อนี้เพราะไม่ได้ถือเงินลูกค้า แต่ธนโชคถือ <b>ห้ามข้าม</b></div>
+
+    <h3>บทเรียนจาก LK ที่ควรเผื่อเวลา</h3>
+    <ul class="narrow">
+      <li>กระบวนการขอใช้ CI/CD เป็นงานเอกสารหลายฉบับ + ขอเปิด firewall + ประสานหลายทีม
+          (QA, Firewall, Security, Operation) — <b>ใช้เวลาระดับสัปดาห์ถึงเดือน ไม่ใช่วัน</b></li>
+      <li>Security Team เป็นคอขวดที่อยู่นอกการควบคุมของทีม — เผื่อเวลารอผลการ scan</li>
+      <li>ระบบอยู่ในโหมดจ่ายคืนและกำลังจะปิด <b>ไม่ต้องสร้าง pipeline เกินจำเป็น</b>
+          ทำตามมาตรฐาน 4 pipeline ของธนาคารก็เพียงพอ</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-label">ส่วนที่ 9</div>
     <h2>หน้าจอที่เสนอ</h2>
     <p class="dim narrow">ตัวอย่างหน้าจอ 3 หน้าปรับให้ตรงขอบเขตที่เหลือ — ใช้เป็นสเปกตั้งต้นของระบบใหม่ได้ด้วย</p>
     <div class="tscroll">
@@ -474,7 +575,7 @@ td.num{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:400
   </section>
 
   <section>
-    <div class="sec-label">ส่วนที่ 9</div>
+    <div class="sec-label">ส่วนที่ 10</div>
     <h2>สิ่งที่ต้องให้เจ้าของระบบตัดสินใจ</h2>
     <div class="tscroll">
       <table>
@@ -499,7 +600,7 @@ td.num{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:400
   </section>
 
   <section>
-    <div class="sec-label">ส่วนที่ 10</div>
+    <div class="sec-label">ส่วนที่ 11</div>
     <h2>ข้อเสนอแนะสรุป</h2>
     <div class="tscroll">
       <table>
