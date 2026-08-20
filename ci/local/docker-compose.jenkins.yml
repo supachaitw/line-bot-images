@@ -1,0 +1,35 @@
+# =============================================================================
+#  Jenkins สำหรับซ้อมบนเครื่อง local (WSL2 + Docker)
+#
+#  เริ่มใช้งาน:
+#    docker compose -f ci/local/docker-compose.jenkins.yml up -d --build
+#    docker compose -f ci/local/docker-compose.jenkins.yml logs -f jenkins
+#    (รหัสผ่านครั้งแรกอยู่ใน log หรือที่ /var/jenkins_home/secrets/initialAdminPassword)
+#
+#  เปิดที่ http://localhost:8080
+#
+#  คำเตือน: mount docker.sock เข้า container = ให้สิทธิ์ระดับ root บนเครื่อง host
+#  ใช้ได้เฉพาะเครื่องตัวเองเพื่อการซ้อม ห้ามใช้รูปแบบนี้บนเซิร์ฟเวอร์ธนาคาร
+# =============================================================================
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    image: tanachok-jenkins-local
+    container_name: tanachok-jenkins
+    restart: unless-stopped
+    ports:
+      - "8080:8080"      # หน้าเว็บ Jenkins
+      - "50000:50000"    # agent port
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=true -Dhudson.model.DownloadService.noSignatureCheck=true"
+    extra_hosts:
+      # ให้ Jenkins เรียก GitLab ที่รันอยู่บน host ได้ (เช่น http://host.docker.internal:8929)
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  jenkins_home:

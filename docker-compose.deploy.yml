@@ -1,0 +1,8 @@
+# ใช้กับ deploy-local.sh — ซ้อมสายงาน GitLab -> Jenkins -> รันเว็บ บนเครื่อง local
+services:
+  tanachok-web:
+    image: ${IMAGE_REPO:-tanachok-web}:${IMAGE_TAG:?ต้องระบุ IMAGE_TAG — ห้ามใช้ latest}
+    container_name: tanachok-web-local
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8802}:80"
