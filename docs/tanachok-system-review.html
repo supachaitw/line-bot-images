@@ -185,6 +185,25 @@ td.num{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:400
     ตรรกะธุรกิจจำนวนมากอยู่ใน Stored Procedure ทำให้เปลี่ยนแปลงและทดสอบยาก ·
     งาน SFTP Feed ทำมาตรฐานได้ดี ใช้เป็นต้นแบบกับงานอื่นได้</p>
 
+    <h3 style="margin-top:28px">ทำไมถึงสับสนกันได้ง่าย — ต้องแยกให้ขาด</h3>
+    <p class="dim narrow">มีของ <b>สองชุด</b> ที่ชื่อ <code>tanachok</code> เหมือนกัน แต่คนละที่และคนละเรื่อง</p>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ระบบ Production จริง</th><th>ชุด <code>tanachok-*</code> บนเครื่อง dev</th></tr>
+        <tr><td>อยู่ที่ไหน</td><td class="now">เซิร์ฟเวอร์ของธนาคาร (VM DEV / VM PROD)</td><td class="was">เครื่องพัฒนาส่วนตัว (WSL2 + Docker บน Windows)</td></tr>
+        <tr><td>ระบบปฏิบัติการ</td><td class="now">Windows Server 2019</td><td class="was">Linux (Ubuntu บน WSL2)</td></tr>
+        <tr><td>ฐานข้อมูล</td><td class="now">MS SQL Server 2019</td><td class="was">PostgreSQL</td></tr>
+        <tr><td>แอป</td><td class="now">Java 1.6 + GlassFish</td><td class="was">tanachok-web (Vite) · tanachok-api · tanachok-pdf</td></tr>
+        <tr><td>สถานะ</td><td class="now">ใช้งานจริง (รอผู้ถือมาถอน)</td><td class="was">DOWN ทุกตัว — ตั้ง config ไว้แต่ไม่ได้รัน</td></tr>
+        <tr><td>หลักฐาน</td><td class="now">หน้า TANACHOK ใน Notion (VM DEV/VM PROD)</td><td class="was">ไดอะแกรม GSB Local Dev — Server Topology</td></tr>
+      </table>
+    </div>
+    <div class="warnbox"><b>ที่ต้องระวัง:</b> ชุดบนเครื่อง dev ใช้ <b>PostgreSQL</b> ขณะที่ของจริงใช้ <b>MS SQL Server</b> —
+    แปลว่ามันไม่ใช่สำเนาของระบบเดิม แต่น่าจะเป็น <b>งานเขียนใหม่/ต้นแบบ</b> ที่ยังไม่ได้ขึ้นใช้งาน</div>
+    <div class="infobox"><b>ข้อจำกัดของข้อมูลชุดนี้:</b> ข้อสรุปข้างต้นอ้างอิงเอกสารใน Notion ที่แก้ล่าสุดราวต้นเดือน ส.ค. 2569
+    หากมีมติย้ายแพลตฟอร์มหลังจากนั้นแล้วยังไม่ได้บันทึกไว้ เอกสารฉบับนี้จะยังไม่สะท้อน —
+    <b>ควรยืนยันกับผู้ดูแลระบบก่อนนำไปใช้อ้างอิงในที่ประชุม</b></div>
+
     <h3 style="margin-top:28px">ข้อแก้ไขจากแผนฉบับแรก</h3>
     <div class="tscroll">
       <table>
