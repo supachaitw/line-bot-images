@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """เด็คคุยกับ 'เจ้าของระบบ' (System Owner) — ระบบงานสลากธนโชคในโหมดปิดการขาย
 
-อ้างอิง: docs/tanachok-runoff-function-review.md + docs/tanachok-production-readiness.md
+อ้างอิง: docs/tanachok-system-review.md (ฉบับรวม)
 รัน: python3 scripts/gen-tanachok-prod-slides.py
 """
 import sys, os

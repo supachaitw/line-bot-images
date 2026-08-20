@@ -1,0 +1,470 @@
+<title>TANACHOK — รีวิวระบบและแผนงาน</title>
+<style>
+:root{
+  --brand:#EC008C; --brand-deep:#B3006A; --brand-wash:#FDF2F8;
+  --ink:#1C2029; --ink-2:#4A5260; --ink-3:#78808F;
+  --ground:#FBF9FB; --panel:#FFFFFF; --rule:#E6E0E6; --rule-soft:#F1ECF1;
+  --keep:#2E7D46; --keep-bg:#E4F2E9; --decide:#B98612; --decide-bg:#FBF1D8;
+  --cut:#B13A3F; --cut-bg:#FAE6E7; --info:#234D80; --info-bg:#E3ECF7;
+  --shadow:0 1px 2px rgba(28,32,41,.05), 0 8px 28px -14px rgba(28,32,41,.16);
+  --thai:"Noto Sans Thai","IBM Plex Sans Thai","Leelawadee UI",Tahoma,"Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --brand:#FF3DA6; --brand-deep:#FF7BC4; --brand-wash:#2A1220;
+  --ink:#ECEAEE; --ink-2:#B3AEB8; --ink-3:#857F8C;
+  --ground:#16141A; --panel:#1E1B22; --rule:#332E38; --rule-soft:#272229;
+  --keep:#6FCB92; --keep-bg:#17301F; --decide:#E4B44A; --decide-bg:#332913;
+  --cut:#F0868B; --cut-bg:#331A1C; --info:#8FB6E8; --info-bg:#16243A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -14px rgba(0,0,0,.7);
+}}
+:root[data-theme="dark"]{
+  --brand:#FF3DA6; --brand-deep:#FF7BC4; --brand-wash:#2A1220;
+  --ink:#ECEAEE; --ink-2:#B3AEB8; --ink-3:#857F8C;
+  --ground:#16141A; --panel:#1E1B22; --rule:#332E38; --rule-soft:#272229;
+  --keep:#6FCB92; --keep-bg:#17301F; --decide:#E4B44A; --decide-bg:#332913;
+  --cut:#F0868B; --cut-bg:#331A1C; --info:#8FB6E8; --info-bg:#16243A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--thai);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.narrow{max-width:72ch}
+.mast{background:var(--panel);border-bottom:1px solid var(--rule)}
+.mast .wrap{padding:44px 28px 34px}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--brand-deep);margin-bottom:16px}
+.eyebrow::before{content:"";width:22px;height:3px;background:var(--brand);border-radius:2px}
+h1{font-size:clamp(28px,4.2vw,44px);line-height:1.15;margin:0 0 12px;font-weight:700;
+  letter-spacing:-.015em;text-wrap:balance}
+.lede{font-size:clamp(15px,1.6vw,18px);color:var(--ink-2);margin:0;max-width:64ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:24px}
+.meta span{font-size:12.5px;color:var(--ink-2);background:var(--ground);
+  border:1px solid var(--rule);border-radius:999px;padding:5px 12px}
+h2{font-size:clamp(20px,2.5vw,27px);font-weight:700;letter-spacing:-.01em;margin:0 0 6px;text-wrap:balance}
+h3{font-size:16px;font-weight:700;margin:0 0 6px}
+section{margin:52px 0 0;padding-top:34px;border-top:1px solid var(--rule)}
+.sec-label{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:12px}
+p{margin:0 0 14px} .dim{color:var(--ink-2);font-size:15px}
+code{font-family:var(--mono);font-size:.88em;background:var(--brand-wash);
+  color:var(--brand-deep);padding:1px 6px;border-radius:5px}
+/* exec summary */
+.exec{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--brand);
+  border-radius:12px;padding:26px 30px;box-shadow:var(--shadow);margin-top:34px}
+.exec h3{color:var(--brand-deep);font-size:14px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.exec .status{font-size:18px;line-height:1.6;margin-bottom:20px}
+.exec .status b{color:var(--brand-deep)}
+.finds{display:grid;gap:12px;counter-reset:f}
+.find{display:flex;gap:14px;align-items:flex-start}
+.find .n{counter-increment:f;flex:0 0 auto;width:24px;height:24px;border-radius:50%;
+  background:var(--brand-wash);color:var(--brand-deep);font-family:var(--mono);font-size:11px;
+  font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:3px}
+.find .n::before{content:counter(f)}
+.find p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.find p b{color:var(--ink)}
+.acts{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:22px}
+.act{border-radius:10px;padding:14px 16px;font-size:13.5px;border:1px solid}
+.act.now{background:var(--cut-bg);border-color:var(--cut)} .act.now b{color:var(--cut)}
+.act.save{background:var(--keep-bg);border-color:var(--keep)} .act.save b{color:var(--keep)}
+.act.ask{background:var(--decide-bg);border-color:var(--decide)} .act.ask b{color:var(--decide)}
+.act b{display:block;margin-bottom:4px}
+/* tables */
+.tscroll{overflow-x:auto;border:1px solid var(--rule);border-radius:12px;background:var(--panel);
+  box-shadow:var(--shadow);margin-top:18px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+th{text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3);padding:13px 16px;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink);font-weight:600}
+td.num{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:400;width:1%;white-space:nowrap}
+.was{color:var(--cut)} .now{color:var(--keep);font-weight:600}
+.up{color:var(--cut);font-weight:600} .down{color:var(--ink-3)} .same{color:var(--decide);font-weight:600}
+.pill{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:3px 11px;white-space:nowrap}
+.pill.k{color:var(--keep);background:var(--keep-bg);box-shadow:inset 0 0 0 1px var(--keep)}
+.pill.c{color:var(--cut);background:var(--cut-bg);box-shadow:inset 0 0 0 1px var(--cut)}
+.pill.d{color:var(--decide);background:var(--decide-bg);box-shadow:inset 0 0 0 1px var(--decide)}
+.pill.n{color:var(--info);background:var(--info-bg);box-shadow:inset 0 0 0 1px var(--info)}
+.tally{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 8px}
+.ty{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:18px 20px;
+  box-shadow:var(--shadow);border-top:3px solid}
+.ty.k{border-top-color:var(--keep)} .ty.c{border-top-color:var(--cut)} .ty.d{border-top-color:var(--decide)}
+.ty .n{font-size:38px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.ty.k .n{color:var(--keep)} .ty.c .n{color:var(--cut)} .ty.d .n{color:var(--decide)}
+.ty .l{font-size:13.5px;font-weight:600;margin-top:8px} .ty .s{font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.warnbox{background:var(--cut-bg);border:1px solid var(--cut);border-radius:11px;padding:15px 20px;
+  font-size:14px;margin-top:18px} .warnbox b{color:var(--cut)}
+.okbox{background:var(--keep-bg);border:1px solid var(--keep);border-radius:11px;padding:15px 20px;
+  font-size:14px;margin-top:18px} .okbox b{color:var(--keep)}
+.infobox{background:var(--info-bg);border:1px solid var(--info);border-radius:11px;padding:15px 20px;
+  font-size:14px;margin-top:18px} .infobox b{color:var(--info)}
+/* risks */
+.risk{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;
+  margin-bottom:14px;display:flex;gap:16px;box-shadow:var(--shadow)}
+.risk .stripe{width:4px;border-radius:2px;flex:0 0 auto;align-self:stretch}
+.risk.r1 .stripe{background:var(--cut)} .risk.r2 .stripe{background:var(--decide)}
+.risk .rid{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink-3);margin-bottom:5px}
+.risk h3{margin-bottom:8px}
+.risk p{font-size:14px;color:var(--ink-2);margin:0 0 8px}
+.risk .fix{font-size:13.5px;background:var(--ground);border-radius:8px;padding:10px 14px;margin-top:10px;color:var(--ink-2)}
+.risk .fix b{color:var(--ink)}
+/* phases */
+.phase{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--rule-soft)}
+.phase:last-child{border-bottom:0}
+.phase .tag{font-size:13px;font-weight:700;color:#fff;background:var(--brand);border-radius:8px;
+  padding:6px 12px;text-align:center;align-self:start}
+.phase.p2 .tag{background:var(--info)} .phase.p3 .tag{background:var(--decide)}
+.phase.p4 .tag{background:var(--ink-3);text-decoration:line-through}
+.phase.p5 .tag{background:var(--keep)}
+.phase .when{font-size:11.5px;color:var(--ink-3);text-align:center;margin-top:6px}
+.phase ul{margin:8px 0 0;padding-left:20px;font-size:14px;color:var(--ink-2)}
+.phase li{margin-bottom:5px}
+.phase.p4 h3{color:var(--ink-3)}
+.foot{margin:60px 0 0;background:var(--panel);border-top:1px solid var(--rule)}
+.foot .wrap{padding:32px 28px 46px}
+.fine{font-size:12.5px;color:var(--ink-3)}
+@media (max-width:640px){ .wrap{padding:0 18px} .phase{grid-template-columns:1fr;gap:10px}
+  .phase .tag{justify-self:start;padding:6px 16px} .phase .when{text-align:left} }
+</style>
+<header class="mast">
+  <div class="wrap">
+    <div class="eyebrow">ธนาคารออมสิน · ระบบงานสลากธนโชค</div>
+    <h1>รีวิวระบบและแผนงาน</h1>
+    <p class="lede">ฉบับรวม — สถานะระบบ ขอบเขตที่เหลือหลังปิดการขาย ความเสี่ยง แผนงาน และสิ่งที่ต้องให้เจ้าของระบบตัดสินใจ</p>
+    <div class="meta">
+      <span>โหมดจ่ายคืน (Run-off)</span>
+      <span>ประเมิน 16 ด้าน</span>
+      <span>ทบทวน 21 ฟังก์ชัน</span>
+      <span>แผน 5 เฟส</span>
+      <span>ฉบับร่างเพื่อหารือ</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="exec">
+    <h3>บทสรุปผู้บริหาร</h3>
+    <p class="status">สลากธนโชค <b>ปิดการขายแล้ว</b> เหลือเพียงรอผู้ถือสลากมาถอน ระบบจึงอยู่ใน
+    <b>โหมดจ่ายคืน (Run-off)</b> — เป้าหมายเปลี่ยนจาก &ldquo;ให้บริการต่อเนื่อง&rdquo; เป็น
+    <b>&ldquo;จ่ายคืนให้ครบ แล้วปิดระบบ&rdquo;</b></p>
+    <div class="finds">
+      <div class="find"><span class="n"></span><p><b>แผนเดิมเขียนผิดระบบ</b> — ฉบับก่อนหน้าอ้างอิง stack นักพัฒนาในเครื่อง (Docker) ระบบจริงคือ Windows Server 2019 สองเครื่อง + Java 1.6 + GlassFish + MS SQL Server 2019</p></div>
+      <div class="find"><span class="n"></span><p><b>ยังไม่ควรถือว่าพร้อม Production เต็มรูปแบบ</b> — ประเมิน 16 ด้าน ได้ พร้อม 3 · บางส่วน 7 · ยังไม่มี 6 โครงสร้างพื้นฐานย้ายเครื่องใหม่เรียบร้อยแล้ว แต่ยังขาดด้านความปลอดภัย ความต่อเนื่อง และการเฝ้าระวัง</p></div>
+      <div class="find"><span class="n"></span><p><b>ขอบเขตงานลดลงมาก</b> — จาก 21 ฟังก์ชัน เหลือที่ต้องดูแลจริง 8 รายการ ตัดออกได้ 7 และรอเจ้าของระบบตัดสินใจ 6</p></div>
+      <div class="find"><span class="n"></span><p><b>ความเสี่ยงด้านความปลอดภัยไม่ได้ลดลงเลย</b> — ปิดการขายไม่ได้ทำให้ข้อมูลลูกค้าและเงินที่ยังอยู่ในระบบปลอดภัยขึ้น และผู้ตรวจสอบยังตรวจระบบที่ยังมีข้อมูลอยู่</p></div>
+    </div>
+    <div class="acts">
+      <div class="act now"><b>ทำทันที</b>เปลี่ยนรหัสผ่านทุกบัญชีและลบรหัสผ่านออกจากเอกสาร — เริ่มได้เลยโดยไม่ต้องรอคำตอบข้ออื่น</div>
+      <div class="act save"><b>ประหยัดได้</b>ยกเลิก Phase 4 (ยกระดับรันไทม์/พัฒนาใหม่) ทั้งเฟส — ไม่คุ้มที่จะรื้อระบบที่กำลังจะปิด</div>
+      <div class="act ask"><b>ต้องได้คำตอบ</b>ปลายทาง Feed ยังต้องการข้อมูลไหม · มีกำหนดวันปิดระบบหรือยัง · เหลือผู้ถือกี่ราย</div>
+    </div>
+  </div>
+
+  <section style="border-top:0">
+    <div class="sec-label">ส่วนที่ 1</div>
+    <h2>ระบบคืออะไร</h2>
+    <p class="dim narrow"><b>ธนโชค</b> คือระบบงานสลากออมสิน รองรับข้อมูลผู้ถือสลาก ทะเบียนสลาก
+    รายการธุรกรรม การออกและจ่ายรางวัล งานบริหารสาขา (ปิดสาขาและย้ายข้อมูลไปสาขาปลายทาง)
+    และการส่งข้อมูลออกผ่าน SFTP ไปยังระบบปลายทาง</p>
+    <p class="dim narrow">เป็นระบบที่เกี่ยวกับ <b>เงินและสิทธิ์ของลูกค้าโดยตรง</b> —
+    ความถูกต้องของข้อมูลและร่องรอยการตรวจสอบจึงสำคัญกว่าความเร็ว และในโหมดจ่ายคืน
+    ความสำคัญของร่องรอยการตรวจสอบยิ่งสูงขึ้น เพราะเป็นหลักฐานว่าจ่ายคืนใครไปแล้วบ้าง</p>
+
+    <h3 style="margin-top:28px">สถาปัตยกรรมปัจจุบัน</h3>
+    <div class="tscroll">
+      <table>
+        <tr><th>ชั้น</th><th>รายละเอียด</th></tr>
+        <tr><td>เครื่องให้บริการหน้าจอ</td><td>Windows Server 2019 · Java 1.6 · GlassFish (Java EE 6)</td></tr>
+        <tr><td>เครื่องฐานข้อมูล</td><td>Windows Server 2019 · MS SQL Server 2019 · ตรรกะหลักอยู่ใน Stored Procedure</td></tr>
+        <tr><td>การส่งข้อมูลออก</td><td>งาน batch ส่งผ่าน SFTP ด้วยการยืนยันตัวตนแบบกุญแจ พร้อมสคริปต์ติดตั้งที่ทำซ้ำได้ + ชุดทดสอบ TC-01…TC-09</td></tr>
+      </table>
+    </div>
+    <p class="dim" style="margin-top:16px"><b>ข้อสังเกต:</b> เป็น 2-tier แบบเครื่องละตัว ไม่มี cluster/failover ·
+    ตรรกะธุรกิจจำนวนมากอยู่ใน Stored Procedure ทำให้เปลี่ยนแปลงและทดสอบยาก ·
+    งาน SFTP Feed ทำมาตรฐานได้ดี ใช้เป็นต้นแบบกับงานอื่นได้</p>
+
+    <h3 style="margin-top:28px">ข้อแก้ไขจากแผนฉบับแรก</h3>
+    <div class="tscroll">
+      <table>
+        <tr><th>หัวข้อ</th><th>ฉบับแรก (คลาดเคลื่อน)</th><th>ข้อเท็จจริง</th></tr>
+        <tr><td>แพลตฟอร์ม</td><td class="was">Linux + Docker</td><td class="now">Windows Server 2019 (2 เครื่อง)</td></tr>
+        <tr><td>ภาษา/รันไทม์</td><td class="was">ไม่ระบุ</td><td class="now">Java 1.6</td></tr>
+        <tr><td>Application Server</td><td class="was">nginx + Node</td><td class="now">GlassFish (Java EE 6)</td></tr>
+        <tr><td>ฐานข้อมูล</td><td class="was">PostgreSQL</td><td class="now">MS SQL Server 2019</td></tr>
+        <tr><td>เหตุผลที่ต้องย้ายเครื่อง</td><td class="was">ยังไม่ระบุ</td><td class="now">OS และฐานข้อมูลเดิมหมดระยะสนับสนุน</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">ส่วนที่ 2</div>
+    <h2>ขอบเขตที่เหลือหลังปิดการขาย</h2>
+    <p class="dim narrow">ทบทวนฟังก์ชันทั้งหมด 21 รายการ แบ่งตามว่ายังจำเป็นต่อการจ่ายคืนหรือไม่</p>
+    <div class="tally">
+      <div class="ty k"><div class="n">8</div><div class="l">คงไว้</div><div class="s">จำเป็นต่อการจ่ายคืน</div></div>
+      <div class="ty c"><div class="n">7</div><div class="l">ตัดออก</div><div class="s">ไม่มีการขายแล้ว</div></div>
+      <div class="ty d"><div class="n">6</div><div class="l">รอตัดสินใจ</div><div class="s">ขึ้นกับนโยบาย</div></div>
+    </div>
+
+    <h3 style="margin-top:30px"><span class="pill k">คงไว้</span> &nbsp;8 ฟังก์ชันที่ระบบยังต้องทำได้</h3>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ฟังก์ชัน</th><th>ทำไมต้องคงไว้</th></tr>
+        <tr><td class="num">A1</td><td>ค้นหาผู้ถือสลาก</td><td>จุดเริ่มต้นของทุกเคสเมื่อลูกค้าเดินเข้าสาขา</td></tr>
+        <tr><td class="num">A2</td><td>แสดงยอดคงเหลือและสิทธิ์ที่พึงได้รับ</td><td>ต้องรู้ว่าจ่ายคืนเท่าไร (เงินต้น + สิทธิ์ค้างจ่าย)</td></tr>
+        <tr><td class="num">A3</td><td>บันทึกการถอน/จ่ายคืน</td><td>ธุรกรรมประเภทเดียวที่ยังเกิดขึ้นจริง</td></tr>
+        <tr><td class="num">A4</td><td>ตรวจเงินรางวัลค้างจ่าย</td><td>ผู้ถือยังมีสิทธิ์รับรางวัลงวดเก่าที่ยังไม่ได้ขึ้นเงิน</td></tr>
+        <tr><td class="num">A5</td><td>ประวัติธุรกรรมรายผู้ถือสลาก</td><td>หลักฐานการจ่ายคืน ใช้ตอบข้อโต้แย้งและการตรวจสอบ</td></tr>
+        <tr><td class="num">A6</td><td>รายงานยอดคงค้างทั้งระบบ</td><td>ฝ่ายบัญชีต้องรู้ภาระผูกพันที่เหลือ และใช้ติดตามความคืบหน้า</td></tr>
+        <tr><td class="num">A7</td><td>งานปิด/ย้ายสาขา</td><td>สาขาทยอยปิด ต้องย้ายข้อมูลผู้ถือไปสาขาปลายทาง</td></tr>
+        <tr><td class="num">A8</td><td>จัดการผู้ใช้และสิทธิ์เข้าถึง</td><td>ควบคุมว่าใครจ่ายเงินได้ ใครดูข้อมูลได้</td></tr>
+      </table>
+    </div>
+
+    <h3 style="margin-top:30px"><span class="pill c">ตัดออก</span> &nbsp;7 ฟังก์ชันที่ไม่มีความหมายแล้ว</h3>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ฟังก์ชัน</th><th>เหตุผล</th><th>วิธีจัดการ</th></tr>
+        <tr><td class="num">B1</td><td>ขาย/ซื้อสลากใหม่</td><td>ไม่เปิดขายแล้ว</td><td>ปิดเมนู + ปิดสิทธิ์</td></tr>
+        <tr><td class="num">B2</td><td>ฝากสลากเพิ่ม / ต่ออายุ</td><td>ไม่มีการเพิ่มยอดอีก</td><td>ปิดเมนู</td></tr>
+        <tr><td class="num">B3</td><td>จัดสรรและออกเลขสลาก</td><td>ไม่มีสลากใหม่ให้ออกเลข</td><td>ปิดงาน + หยุด job</td></tr>
+        <tr><td class="num">B4</td><td>ประมวลผลออกรางวัลงวดใหม่</td><td>ไม่มีงวดใหม่แล้ว</td><td>ปิดงาน แต่เก็บผลงวดเก่าไว้เพื่อ A4</td></tr>
+        <tr><td class="num">B5</td><td>รายงานยอดขาย / เป้า / อันดับสาขา</td><td>ไม่มีการขายให้วัด</td><td>ปิดรายงาน</td></tr>
+        <tr><td class="num">B6</td><td>ตัวเลขการขายบนหน้าภาพรวม</td><td>ไม่มีความหมายแล้ว</td><td>เปลี่ยนเป็นตัวเลขการจ่ายคืน</td></tr>
+        <tr><td class="num">B7</td><td>งานพิมพ์/จัดส่งสลาก</td><td>ไม่มีสลากใหม่</td><td>ปิดงาน</td></tr>
+      </table>
+    </div>
+    <div class="warnbox"><b>&ldquo;ตัดออก&rdquo; = ปิดการใช้งานและปิดสิทธิ์เท่านั้น — ห้ามลบข้อมูลเดิม</b>
+    ข้อมูลย้อนหลังทั้งหมดยังต้องเก็บตามระยะเวลาที่กำหนด เพื่อการตรวจสอบและการจ่ายคืน</div>
+
+    <h3 style="margin-top:30px"><span class="pill d">รอตัดสินใจ</span> &nbsp;6 ประเด็น</h3>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ประเด็น</th><th>ทางเลือก</th><th>ผลต่อขอบเขตงาน</th></tr>
+        <tr><td class="num">C1</td><td>โอนสลาก / กรณีทายาท</td><td>คงไว้เฉพาะมรดก หรือใช้กระบวนการเอกสารแทน</td><td>ถ้าคงไว้ ต้องคงหน้าจอโอนและกฎการตรวจสอบ</td></tr>
+        <tr><td class="num">C2</td><td>การส่งข้อมูลออก (SFTP Feed)</td><td>ปลายทางยังต้องการไหม · ลดความถี่ได้ไหม</td><td><b>ถ้าเลิกส่ง ตัดงาน batch + การเฝ้าระวังทิ้งได้ทั้งชุด</b></td></tr>
+        <tr><td class="num">C3</td><td>การคิดดอกเบี้ย/ผลตอบแทน</td><td>เดินต่อจนวันถอน หรือหยุด ณ วันที่กำหนด</td><td>กระทบสูตรคำนวณยอดจ่ายคืน (A2)</td></tr>
+        <tr><td class="num">C4</td><td>ติดตามผู้ถือที่ยังไม่มาถอน</td><td>มีแคมเปญตามตัวไหม</td><td>ถ้ามี ต้องเพิ่มรายงานติดตาม (งานเล็ก)</td></tr>
+        <tr><td class="num">C5</td><td>เงินที่ไม่มีผู้มาถอนตามกำหนด</td><td>จัดการตามระเบียบใด</td><td>ต้องมีขั้นตอนและรายงานรองรับ</td></tr>
+        <tr><td class="num">C6</td><td>กำหนดวันปิดระบบ</td><td>มีกำหนดชัด หรือรอจนผู้ถือหมด</td><td><b>เป็นตัวกำหนดว่าจะลงทุนกับระบบแค่ไหน</b></td></tr>
+      </table>
+    </div>
+  </section>
+  <section>
+    <div class="sec-label">ส่วนที่ 3</div>
+    <h2>ประเมินความพร้อม 16 ด้าน</h2>
+    <p class="dim narrow">คอลัมน์สุดท้ายคือความเร่งด่วน <b>หลังปิดการขาย</b> — บางด้านที่เคยสำคัญมากลดระดับลง
+    ขณะที่ร่องรอยการตรวจสอบและเอกสารกลับสำคัญขึ้น</p>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ด้าน</th><th>ระดับ</th><th>สาระสำคัญ</th><th>ความเร่งด่วนในโหมดจ่ายคืน</th></tr>
+        <tr><td class="num">1</td><td>เซิร์ฟเวอร์ &amp; OS</td><td><span class="pill k">พร้อม</span></td><td>ย้ายขึ้น Windows Server 2019 แล้วทั้งสองเครื่อง</td><td class="down">—</td></tr>
+        <tr><td class="num">2</td><td>ฐานข้อมูล</td><td><span class="pill k">พร้อม</span></td><td>MS SQL Server 2019 ติดตั้งแล้ว + ทดสอบกู้คืนสำเร็จ</td><td class="down">—</td></tr>
+        <tr><td class="num">3</td><td>Runtime (Java)</td><td><span class="pill c">ยังไม่มี</span></td><td>หมดการสนับสนุนตั้งแต่ปี 2556 ไม่มี security patch</td><td class="down">ลดลง — ใช้มาตรการชดเชยแทนการยกระดับ</td></tr>
+        <tr><td class="num">4</td><td>Application Server</td><td><span class="pill c">ยังไม่มี</span></td><td>หมดการสนับสนุน ไม่มีผู้ผลิตดูแล</td><td class="down">ลดลง — เช่นเดียวกับข้อ 3</td></tr>
+        <tr><td class="num">5</td><td>การจัดการรหัสผ่าน</td><td><span class="pill c">ยังไม่มี</span></td><td>ใช้รหัสผ่านเริ่มต้นชุดเดียวกันทุกเครื่อง + เก็บในเอกสาร</td><td class="up">สูงสุด — ไม่เปลี่ยน</td></tr>
+        <tr><td class="num">6</td><td>สิทธิ์การเข้าถึง</td><td><span class="pill d">บางส่วน</span></td><td>ยังใช้บัญชีร่วมกัน ไม่มีบัญชีรายบุคคล</td><td class="up">สูง — ไม่เปลี่ยน</td></tr>
+        <tr><td class="num">7</td><td>การสำรองข้อมูล</td><td><span class="pill d">บางส่วน</span></td><td>ทดสอบครั้งเดียวตอนย้าย ยังไม่มีตารางสำรองประจำ</td><td class="up">สูง — ไม่เปลี่ยน</td></tr>
+        <tr><td class="num">8</td><td>DR / ความต่อเนื่อง</td><td><span class="pill c">ยังไม่มี</span></td><td>ไม่มีเครื่องสำรอง ไม่มี RTO/RPO ที่ตกลงไว้</td><td class="down">ลดลง — ธุรกรรมต่ำ ยอมให้ RTO ยาวขึ้นได้</td></tr>
+        <tr><td class="num">9</td><td>การเฝ้าระวังและแจ้งเตือน</td><td><span class="pill c">ยังไม่มี</span></td><td>ระบบล่มจะรู้เมื่อผู้ใช้แจ้ง</td><td class="down">ลดลง — เหลือเท่าที่จำเป็น</td></tr>
+        <tr><td class="num">10</td><td>ร่องรอยการตรวจสอบ</td><td><span class="pill d">บางส่วน</span></td><td>ยังไม่ชัดว่าเก็บอะไร นานเท่าใด</td><td class="up">สูงขึ้น — เป็นหลักฐานการจ่ายคืน</td></tr>
+        <tr><td class="num">11</td><td>การนำระบบขึ้นใช้งาน</td><td><span class="pill d">บางส่วน</span></td><td>มีคู่มือแต่ทำมือ ย้อนกลับยาก</td><td class="down">ลดลงมาก — แทบไม่มี deploy แล้ว</td></tr>
+        <tr><td class="num">12</td><td>การคุมเวอร์ชันฐานข้อมูล</td><td><span class="pill c">ยังไม่มี</span></td><td>Stored Procedure แก้ที่เครื่อง ไม่มีเวอร์ชัน</td><td class="down">ลดลง — เหลือเพียงคุมสิทธิ์การแก้ไข</td></tr>
+        <tr><td class="num">13</td><td>งานส่งข้อมูลออก (Feed)</td><td><span class="pill k">พร้อม</span></td><td>script ติดตั้งอัตโนมัติ + ชุดทดสอบครบ</td><td class="same">ขึ้นกับ C2 — อาจตัดทิ้งทั้งชุด</td></tr>
+        <tr><td class="num">14</td><td>ตารางงานอัตโนมัติ</td><td><span class="pill d">บางส่วน</span></td><td>ต้องสร้างงานตามเวลาเอง ไม่มีการเฝ้าระวังผล</td><td class="same">ขึ้นกับ C2</td></tr>
+        <tr><td class="num">15</td><td>เอกสารระบบ</td><td><span class="pill d">บางส่วน</span></td><td>มีคู่มือเฉพาะงาน ยังไม่รวมศูนย์</td><td class="up">สูงขึ้น — ป้องกันความรู้ผูกกับตัวบุคคล</td></tr>
+        <tr><td class="num">16</td><td>งานย้ายระบบที่ค้าง</td><td><span class="pill d">บางส่วน</span></td><td>ยังมีงานค้างบางรายการ</td><td class="down">คงเดิม</td></tr>
+      </table>
+    </div>
+    <div class="infobox"><b>สรุป:</b> พร้อม 3 · บางส่วน 7 · ยังไม่มี 6 → ยังไม่ควรถือว่าพร้อม Production เต็มรูปแบบ
+    แต่ในโหมดจ่ายคืน <b>สิ่งที่ต้องเร่งเหลือเพียงกลุ่มความปลอดภัยและร่องรอยการตรวจสอบ</b>
+    ส่วนงานสถาปัตยกรรม CI/CD และ HA ลดความสำคัญลงอย่างมีนัยสำคัญ</div>
+  </section>
+
+  <section>
+    <div class="sec-label">ส่วนที่ 4</div>
+    <h2>ความเสี่ยง</h2>
+
+    <div class="risk r1"><div class="stripe"></div><div>
+      <div class="rid">R1 · สูงมาก</div>
+      <h3>รหัสผ่านเริ่มต้นถูกใช้ซ้ำทุกเครื่องและเก็บไว้ในเอกสาร</h3>
+      <p>บัญชีผู้ดูแลของทั้ง Web Server และ DB Server รวมถึงหน้าจอผู้ดูแลของตัวให้บริการเว็บ
+      ใช้รหัสผ่านเริ่มต้นชุดเดียวกัน และถูกบันทึกไว้ในเอกสารที่เปิดอ่านได้</p>
+      <p><b>ผลกระทบ:</b> ผู้ที่เข้าถึงเอกสารได้ = เข้าถึงฐานข้อมูลลูกค้าและรายการจ่ายเงินได้ทันที
+      เป็นข้อบกพร่องร้ายแรงในสายตาผู้ตรวจสอบ</p>
+      <div class="fix"><b>ต้องทำ:</b> เปลี่ยนรหัสผ่านทุกบัญชีทันที · แยกบัญชีรายบุคคล · เลิกใช้บัญชีร่วม ·
+      ย้ายความลับไปเก็บในตู้เก็บรหัสผ่านที่ควบคุมสิทธิ์ · ลบรหัสผ่านออกจากเอกสารทั้งหมด</div>
+    </div></div>
+
+    <div class="risk r1"><div class="stripe"></div><div>
+      <div class="rid">R2 · สูงมาก</div>
+      <h3>รันไทม์และตัวให้บริการเว็บหมดการสนับสนุน</h3>
+      <p>Java 1.6 สิ้นสุดการสนับสนุนตั้งแต่ปี 2556 · GlassFish รุ่น Java EE 6 ไม่มีผู้ผลิตดูแลแล้ว</p>
+      <p><b>ผลกระทบ:</b> ช่องโหว่ที่พบใหม่จะไม่มีแพตช์แก้ และไม่ผ่านการสแกนตามมาตรฐานธนาคาร</p>
+      <div class="fix"><b>ต้องทำ (ปรับตามโหมดจ่ายคืน):</b> <b>ไม่ยกระดับรันไทม์</b> เพราะไม่คุ้มกับอายุที่เหลือของระบบ
+      ให้ใช้ <b>มาตรการชดเชย</b> แทน — จำกัดการเข้าถึงเครือข่ายอย่างเข้มงวด ให้เข้าถึงได้เฉพาะเครื่องและผู้ใช้ที่จำเป็น
+      และบันทึกเป็นข้อยกเว้นที่ได้รับอนุมัติพร้อมกำหนดวันสิ้นสุด</div>
+    </div></div>
+
+    <div class="risk r1"><div class="stripe"></div><div>
+      <div class="rid">R3 · สูงมาก</div>
+      <h3>ไม่มีเครื่องสำรองและยังไม่ได้ตกลงเวลากู้คืน</h3>
+      <p>มีเครื่องละหนึ่งตัว หากเสียหายระบบจะหยุดจนกว่าจะกู้คืนเสร็จ</p>
+      <p><b>ผลกระทบ:</b> ในโหมดจ่ายคืนผลกระทบต่ำลง (ลูกค้ามาถอนไม่ใช่งานเร่งด่วนรายนาที)
+      แต่ยังต้องมีเวลากู้คืนที่ตกลงกันไว้ ไม่ใช่ปล่อยไม่กำหนด</p>
+      <div class="fix"><b>ต้องทำ:</b> ตกลง RTO/RPO ที่ยอมรับได้ในบริบทนี้ แล้วออกแบบการสำรองให้ได้ตามนั้น
+      (อาจไม่ต้องมีเครื่องสำรองพร้อมใช้ แต่ต้องมีขั้นตอนกู้คืนที่ซ้อมแล้ว)</div>
+    </div></div>
+
+    <div class="risk r2"><div class="stripe"></div><div>
+      <div class="rid">R4–R6 · สูง</div>
+      <h3>การสำรองข้อมูล · ร่องรอยตรวจสอบ · ความรู้ผูกกับตัวบุคคล</h3>
+      <p><b>R4</b> การสำรองข้อมูลยังไม่เป็นระบบ — ทดสอบกู้คืนครั้งเดียวตอนย้ายเครื่อง ยังไม่มีตารางสำรองประจำ
+      และไม่มีการตรวจว่าไฟล์สำรองใช้ได้จริง</p>
+      <p><b>R5</b> ร่องรอยการตรวจสอบยังไม่ชัดเจน — ในโหมดจ่ายคืนนี่คือหลักฐานว่าจ่ายเงินให้ใครไปแล้ว
+      ต้องกำหนดว่าเก็บอะไร ระบุตัวผู้ทำรายการได้ และเก็บนานเท่าใด</p>
+      <p><b>R6</b> ความรู้ผูกกับตัวบุคคล — เอกสารกระจายตามงาน ไม่มีคู่มือปฏิบัติการรวมศูนย์
+      ช่วงปิดระบบมักมีการโยกย้ายคน ทำให้เสี่ยงกว่าปกติ</p>
+    </div></div>
+
+    <div class="risk r2"><div class="stripe"></div><div>
+      <div class="rid">R7–R10 · ปานกลาง</div>
+      <h3>อีก 4 เรื่องที่ลดระดับลงในโหมดจ่ายคืน</h3>
+      <p class="dim">การเฝ้าระวังยังไม่มี (ควรมีพื้นฐาน: บริการ ดิสก์ ฐานข้อมูล) ·
+      งาน Feed ต้องสร้างงานตามเวลาเองและไม่รู้ผลรัน (ขึ้นกับ C2) ·
+      ตรรกะอยู่ใน Stored Procedure โดยไม่มีการคุมเวอร์ชัน (เหลือเพียงคุมสิทธิ์การแก้ไข) ·
+      งานย้ายระบบยังค้างบางรายการ (ควรปิดให้จบเพื่อไม่ให้เป็นภาระค้าง)</p>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="sec-label">ส่วนที่ 5</div>
+    <h2>จากปัจจุบัน สู่เป้าหมาย</h2>
+    <div class="tscroll">
+      <table>
+        <tr><th>ด้าน</th><th>ปัจจุบัน</th><th>เป้าหมาย</th></tr>
+        <tr><td>ขอบเขตระบบ</td><td class="was">21 ฟังก์ชัน รวมงานขายที่ไม่ใช้แล้ว</td><td class="now">เหลือ 8 ฟังก์ชันที่จำเป็นต่อการจ่ายคืน</td></tr>
+        <tr><td>ความปลอดภัยบัญชี</td><td class="was">รหัสผ่านชุดเดียวกัน เก็บในเอกสาร</td><td class="now">บัญชีรายบุคคล + เก็บรหัสในระบบที่ควบคุมสิทธิ์</td></tr>
+        <tr><td>รันไทม์ที่หมดการสนับสนุน</td><td class="was">ไม่มีมาตรการรองรับ</td><td class="now">จำกัดการเข้าถึงเป็นมาตรการชดเชย + บันทึกเป็นข้อยกเว้นที่อนุมัติแล้ว</td></tr>
+        <tr><td>ความต่อเนื่อง</td><td class="was">เครื่องเดียว ไม่มีข้อตกลงเวลากู้คืน</td><td class="now">มีขั้นตอนกู้คืนที่ซ้อมแล้ว ตาม RTO/RPO ที่ตกลง</td></tr>
+        <tr><td>การสำรองข้อมูล</td><td class="was">ทดสอบครั้งเดียวตอนย้ายเครื่อง</td><td class="now">สำรองตามตาราง + ซ้อมกู้คืนประจำ มีบันทึกผล</td></tr>
+        <tr><td>ร่องรอยการตรวจสอบ</td><td class="was">ไม่ชัดเจน</td><td class="now">เก็บครบ ระบุตัวผู้ทำรายการได้ ตรวจย้อนหลังได้</td></tr>
+        <tr><td>การส่งข้อมูลออก</td><td class="was">ตั้งเวลาทำมือ ไม่รู้ผลรัน</td><td class="now">ตั้งเวลาอัตโนมัติ + แจ้งเตือน หรือยกเลิกทั้งชุดตาม C2</td></tr>
+        <tr><td>เอกสาร</td><td class="was">กระจายตามงาน</td><td class="now">คู่มือปฏิบัติการรวมศูนย์</td></tr>
+        <tr><td>ปลายทางของระบบ</td><td class="was">ไม่มีแผนปิด</td><td class="now">มีวันปิดระบบ วิธีจัดการยอดค้าง และแผนเก็บข้อมูลถาวร</td></tr>
+      </table>
+    </div>
+  </section>
+  <section>
+    <div class="sec-label">ส่วนที่ 6</div>
+    <h2>แผนงาน 5 เฟส</h2>
+    <p class="dim narrow" style="margin-bottom:8px">ระยะเวลาเป็นประมาณการเพื่อใช้หารือ ต้องยืนยันกับเจ้าของระบบและหน่วยงานที่เกี่ยวข้อง</p>
+
+    <div class="phase p1"><div><div class="tag">Phase 1</div><div class="when">สัปดาห์ 1–2</div></div><div>
+      <h3>ปิดความเสี่ยงเร่งด่วน <span class="pill k" style="margin-left:6px">คงไว้เต็มรูปแบบ</span></h3>
+      <ul><li>เปลี่ยนรหัสผ่านทุกบัญชีบน Web/DB Server และหน้าจอผู้ดูแล</li>
+      <li>เลิกใช้บัญชีร่วม — ออกบัญชีรายบุคคลตามบทบาท</li>
+      <li>ลบรหัสผ่านออกจากเอกสารทุกฉบับ ย้ายไปตู้เก็บรหัสที่ควบคุมสิทธิ์</li>
+      <li>จำกัดการเข้าถึงเครือข่ายให้เหลือเท่าที่จำเป็น (มาตรการชดเชยของ R2)</li>
+      <li>ทบทวนว่าใครมีสิทธิ์เข้าถึงระบบอยู่บ้างในปัจจุบัน</li>
+      <li><b>ปิดเมนูและปิดสิทธิ์ฟังก์ชันกลุ่ม B ทั้ง 7 รายการ</b> (ห้ามลบข้อมูล)</li></ul>
+    </div></div>
+
+    <div class="phase p2"><div><div class="tag">Phase 2</div><div class="when">สัปดาห์ 3–6</div></div><div>
+      <h3>ทำให้ดูแลได้จริง <span class="pill d" style="margin-left:6px">ลดขนาด</span></h3>
+      <ul><li>ตั้งตารางสำรองข้อมูล + ตรวจสอบไฟล์สำรองอัตโนมัติ</li>
+      <li>ซ้อมกู้คืนจริง 1 ครั้ง จับเวลาเทียบกับ RTO ที่ตกลง</li>
+      <li>กำหนดนโยบายการเก็บร่องรอยการตรวจสอบ (สำคัญขึ้นในโหมดนี้)</li>
+      <li>ติดตั้งการเฝ้าระวังพื้นฐาน (บริการ ดิสก์ ฐานข้อมูล) — ลดขอบเขตจากแผนเดิม</li>
+      <li>ปิดงานย้ายระบบที่ยังค้าง</li>
+      <li><b>งาน Feed: ตั้งงานตามเวลา + เฝ้าระวัง หรือยกเลิกทั้งชุด</b> — รอคำตอบ C2</li></ul>
+    </div></div>
+
+    <div class="phase p3"><div><div class="tag">Phase 3</div><div class="when">สัปดาห์ 7–12</div></div><div>
+      <h3>คุมการเปลี่ยนแปลง <span class="pill d" style="margin-left:6px">เหลือเท่าที่จำเป็น</span></h3>
+      <ul><li>คุมสิทธิ์การแก้ไขระบบและฐานข้อมูล</li>
+      <li>นำ Stored Procedure ที่ยังใช้งานเข้าระบบควบคุมเวอร์ชัน</li>
+      <li>จัดทำคู่มือปฏิบัติการรวมศูนย์ + กำหนดผู้อนุมัติการเปลี่ยนแปลง</li></ul>
+    </div></div>
+
+    <div class="phase p4"><div><div class="tag">Phase 4</div><div class="when">ยกเลิก</div></div><div>
+      <h3>ยกระดับรันไทม์ / พัฒนาใหม่ <span class="pill c" style="margin-left:6px">ยกเลิกทั้งเฟส</span></h3>
+      <p class="dim" style="margin:8px 0 0">ไม่คุ้มที่จะรื้อระบบที่กำลังจะปิด — <b>เป็นการประหยัดที่ใหญ่ที่สุดจากเงื่อนไขใหม่นี้</b>
+      ความเสี่ยงจากรันไทม์เก่าให้จัดการด้วยมาตรการชดเชยใน Phase 1 แทน</p>
+    </div></div>
+
+    <div class="phase p5"><div><div class="tag">Phase 5</div><div class="when">รอกำหนดวัน</div></div><div>
+      <h3>แผนปิดระบบ <span class="pill n" style="margin-left:6px">เพิ่มใหม่</span></h3>
+      <ul><li>กำหนดวันสิ้นสุดการรับคำขอถอน และแจ้งผู้ถือสลากล่วงหน้า</li>
+      <li>กำหนดวิธีจัดการยอดที่ไม่มีผู้มาถอนตามระเบียบ</li>
+      <li>วางแผนเก็บข้อมูลถาวร (archive) ให้ค้นย้อนหลังได้หลังปิดระบบ</li>
+      <li>กำหนดวิธีให้บริการหากมีผู้มาติดต่อหลังปิดระบบ</li>
+      <li>ปลดระวางเครื่องและเพิกถอนสิทธิ์เข้าถึงทั้งหมด</li></ul>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="sec-label">ส่วนที่ 7</div>
+    <h2>หน้าจอที่เสนอ</h2>
+    <p class="dim narrow">ตัวอย่างหน้าจอ 3 หน้าปรับให้ตรงขอบเขตที่เหลือ — ดูฉบับเต็มได้ในหน้าตัวอย่างหน้าจอแยกต่างหาก</p>
+    <div class="tscroll">
+      <table>
+        <tr><th>หน้าจอ</th><th>สาระสำคัญ</th></tr>
+        <tr><td>1 · ภาพรวมการจ่ายคืน</td><td>ยอดคงค้างรอจ่ายคืน · จ่ายคืนวันนี้ · เงินรางวัลค้างจ่าย · ความคืบหน้าการปิด + อัตราการมาถอนรายเดือน</td></tr>
+        <tr><td>2 · ค้นหาผู้ถือสลาก และจ่ายคืน</td><td>หน้าจอสำคัญที่สุด — ค้นหา ตรวจยอดที่ต้องจ่าย (แยกเงินต้น/รางวัลค้างจ่าย/ผลตอบแทน) แล้วบันทึกการจ่ายคืนจบในหน้าเดียว</td></tr>
+        <tr><td>3 · รายงานความคืบหน้าการจ่ายคืน</td><td>ยอดคงค้างแยกตามสาขา + ประมาณการว่าอีกกี่ปีจะปิดระบบได้</td></tr>
+      </table>
+    </div>
+    <div class="okbox"><b>หลักการออกแบบที่ใช้:</b> เมนูที่ปิดแล้ว (ขายสลาก ฝากเพิ่ม ตรวจรางวัลงวดใหม่)
+    ยังแสดงแบบจางขีดฆ่า เพื่อให้ผู้ใช้เข้าใจว่า <b>ปิดโดยตั้งใจ ไม่ใช่ระบบเสีย</b>
+    และรายการธุรกรรมเก่าคงไว้พร้อมทำเครื่องหมาย &ldquo;รายการเดิม&rdquo; — ข้อมูลไม่ถูกลบ
+    แต่ผู้ใช้รู้ว่าทำรายการแบบนั้นใหม่ไม่ได้แล้ว</div>
+  </section>
+
+  <section>
+    <div class="sec-label">ส่วนที่ 8</div>
+    <h2>สิ่งที่ต้องให้เจ้าของระบบตัดสินใจ</h2>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ประเด็น</th><th>ทำไมสำคัญ</th><th>บล็อกงานอะไร</th></tr>
+        <tr><td class="num">1</td><td>ปลายทางของ Feed ยังต้องการข้อมูลหรือไม่</td><td>ตัดได้ทั้งชุดถ้าไม่ต้องการ</td><td><b>Phase 2</b> (ประหยัดมากที่สุด)</td></tr>
+        <tr><td class="num">2</td><td>มีกำหนดวันปิดระบบหรือยัง</td><td>กำหนดว่าจะลงทุนกับระบบแค่ไหน</td><td><b>Phase 5</b> ทั้งเฟส</td></tr>
+        <tr><td class="num">3</td><td>เหลือผู้ถือกี่ราย ยอดคงค้างเท่าไร</td><td>ประเมินว่าต้องรันระบบอีกนานเท่าใด</td><td>การวางแผนทั้งหมด</td></tr>
+        <tr><td class="num">4</td><td>ยอดจ่ายคืนคิดอย่างไร (ยังคิดผลตอบแทนต่อไหม)</td><td>กระทบสูตรคำนวณและหน้าจอ</td><td>A2 · หน้าจอ 2</td></tr>
+        <tr><td class="num">5</td><td>เงินที่ไม่มีผู้มาถอนจัดการตามระเบียบใด</td><td>ต้องมีขั้นตอนและรายงานรองรับ</td><td>Phase 5</td></tr>
+        <tr><td class="num">6</td><td>ยอมให้ระบบหยุดได้นานเท่าใด (RTO)</td><td>ออกแบบขั้นตอนกู้คืน</td><td>Phase 2</td></tr>
+        <tr><td class="num">7</td><td>ยอมให้ข้อมูลหายได้ถึงจุดใด (RPO)</td><td>กำหนดความถี่การสำรองข้อมูล</td><td>Phase 2</td></tr>
+        <tr><td class="num">8</td><td>ต้องเก็บข้อมูลย้อนหลังกี่ปีหลังปิดระบบ</td><td>กำหนดวิธีเก็บข้อมูลถาวร</td><td>Phase 5</td></tr>
+        <tr><td class="num">9</td><td>กรณีทายาท/มรดก รองรับในระบบหรือใช้เอกสาร</td><td>กระทบว่าจะคงหน้าจอโอนไว้หรือไม่</td><td>ขอบเขต A</td></tr>
+        <tr><td class="num">10</td><td>ต้องมีแคมเปญติดตามผู้ถือหรือไม่</td><td>ถ้ามี ต้องเพิ่มรายงานติดตาม</td><td>ขอบเขต A</td></tr>
+        <tr><td class="num">11</td><td>ใครดูแลระบบและอนุมัติการเปลี่ยนแปลง</td><td>ตั้งขั้นตอน change management</td><td>Phase 3</td></tr>
+        <tr><td class="num">12</td><td>มีข้อกำหนดจากผู้กำกับ/ผู้ตรวจสอบเพิ่มหรือไม่</td><td>ปรับแผนให้สอดคล้อง</td><td>ทั้งหมด</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">ส่วนที่ 9</div>
+    <h2>ข้อเสนอแนะสรุป</h2>
+    <div class="tscroll">
+      <table>
+        <tr><th></th><th>ข้อเสนอแนะ</th></tr>
+        <tr><td class="num">1</td><td><b>เริ่ม Phase 1 ทันที</b> — ไม่ต้องรอคำตอบข้ออื่น เป็นงานที่ใช้เวลาน้อย ต้นทุนต่ำ แต่ลดความเสี่ยงได้มากที่สุด และเป็นสิ่งที่ผู้ตรวจสอบมองหาเป็นอันดับแรก</td></tr>
+        <tr><td class="num">2</td><td><b>ลดขอบเขตให้เหลือ 8 ฟังก์ชัน และปิดกลุ่ม B ทันที</b> — ลดพื้นที่เสี่ยง ลดความสับสนของผู้ใช้ และลดงานดูแล โดยห้ามลบข้อมูล</td></tr>
+        <tr><td class="num">3</td><td><b>ยกเลิก Phase 4</b> — การประหยัดที่ใหญ่ที่สุด และเปลี่ยนวิธีจัดการความเสี่ยงรันไทม์จาก &ldquo;ยกระดับ&rdquo; เป็น &ldquo;จำกัดการเข้าถึง + บันทึกเป็นข้อยกเว้นที่อนุมัติแล้ว&rdquo;</td></tr>
+        <tr><td class="num">4</td><td><b>เร่งถามเรื่อง Feed</b> — จุดเดียวที่ตัดแล้วประหยัดงานได้มากที่สุดทันที</td></tr>
+        <tr><td class="num">5</td><td><b>เริ่มคุยเรื่องวันปิดระบบตั้งแต่ตอนนี้</b> — เป็นตัวกำหนดทุกอย่างที่เหลือ และเป็นงานที่ต้องใช้เวลาประสานหลายฝ่าย</td></tr>
+        <tr><td class="num">6</td><td><b>ต่อยอดของดีที่มีอยู่</b> — งาน SFTP Feed ทำมาตรฐานได้ดี (สคริปต์ทำซ้ำได้ + ชุดทดสอบครบ) ใช้เป็นต้นแบบกับงานอื่น เช่น การสำรองข้อมูลและการกู้คืน</td></tr>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="fine">ฉบับร่างเพื่อใช้หารือกับเจ้าของระบบ · ตัวเลขระยะเวลาและข้อสรุปทุกข้อรอการยืนยันจากผู้เกี่ยวข้อง ·
+    เอกสารนี้ไม่มีรหัสผ่าน ชื่อเครื่อง หรือ IP ของระบบโดยเจตนา</p>
+  </div>
+</footer>
